@@ -72,34 +72,25 @@ class UrlQuery
     /**
      * Send a GET request
      *
-     * @param  bool   $associativeArray When true, the returned data will be associative arrays; otherwise, it'll be an
-     *                                  StdClass object.
-     *
-     * @see    PulseClient::enableAssociativeArrays
-     *
      * @since  0.1.0
      *
-     * @return mixed  An associative array matching the returned JSON result or an StdClass object
+     * @return mixed  An associative array matching the returned JSON result
      */
-    public function sendGet ($associativeArray)
+    public function sendGet ()
     {
-        return $this->handleQuery($associativeArray);
+        return $this->handleQuery();
     }
 
     /**
      * Send a POST request
      *
      * @param  array  $postArray        The data that will be sent to DaPulse
-     * @param  bool   $associativeArray When true, the returned data will be associative arrays; otherwise, it'll be an
-     *                                  StdClass object.
-     *
-     * @see    PulseClient::enableAssociativeArrays
      *
      * @since  0.1.0
      *
-     * @return mixed  An associative array matching the returned JSON result or an StdClass object
+     * @return mixed  An associative array matching the returned JSON result
      */
-    public function sendPost ($postArray, $associativeArray)
+    public function sendPost ($postArray)
     {
         $this->setPostFields($postArray);
 
@@ -108,48 +99,39 @@ class UrlQuery
             CURLOPT_CUSTOMREQUEST => "POST"
         ));
 
-        return $this->handleQuery($associativeArray);
+        return $this->handleQuery();
     }
 
     /**
      * Send a PUT request
      *
      * @param  array  $postArray        The data that will be sent to DaPulse
-     * @param  bool   $associativeArray When true, the returned data will be associative arrays; otherwise, it'll be an
-     *                                  StdClass object.
-     *
-     * @see    PulseClient::enableAssociativeArrays
      *
      * @since  0.1.0
      *
-     * @return mixed  An associative array matching the returned JSON result or an StdClass object
+     * @return mixed  An associative array matching the returned JSON result
      */
-    public function sendPut ($postArray, $associativeArray)
+    public function sendPut ($postArray)
     {
         $this->setPostFields($postArray);
 
         curl_setopt($this->cURL, CURLOPT_CUSTOMREQUEST, "PUT");
 
-        return $this->handleQuery($associativeArray);
+        return $this->handleQuery();
     }
 
     /**
      * Send a DELETE request
      *
-     * @param  bool   $associativeArray When true, the returned data will be associative arrays; otherwise, it'll be an
-     *                                  StdClass object.
-     *
-     * @see    PulseClient::enableAssociativeArrays
-     *
      * @since  0.1.0
      *
-     * @return mixed  An associative array matching the returned JSON result or an StdClass object
+     * @return mixed  An associative array matching the returned JSON result
      */
-    public function sendDelete ($associativeArray)
+    public function sendDelete ()
     {
         curl_setopt($this->cURL, CURLOPT_CUSTOMREQUEST, "DELETE");
 
-        return $this->handleQuery($associativeArray);
+        return $this->handleQuery();
     }
 
     /**
@@ -170,9 +152,6 @@ class UrlQuery
      * Handle the execution of the cURL request. This function will also save the returned HTTP headers and handle them
      * appropriately.
      *
-     * @param  bool  $associativeArray When true, the returned data will be associative arrays; otherwise, it'll be an
-     *                                 StdClass object.
-     *
      * @since  0.1.0
      *
      * @throws \allejo\DaPulse\Exceptions\CurlException If cURL is misconfigured or encounters an error
@@ -180,7 +159,7 @@ class UrlQuery
      *
      * @return mixed
      */
-    private function handleQuery ($associativeArray)
+    private function handleQuery ()
     {
         $result = $this->executeCurl();
         $httpCode = curl_getinfo($this->cURL, CURLINFO_HTTP_CODE);
@@ -190,7 +169,7 @@ class UrlQuery
             throw new HttpException($httpCode, $result);
         }
 
-        return json_decode($result, $associativeArray);
+        return json_decode($result, true);
     }
 
     /**
