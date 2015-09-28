@@ -26,7 +26,7 @@ class PulseUser extends ApiUser
 
         foreach ($users as $user)
         {
-            $pulseUsers[] = new ApiUser($user);
+            $pulseUsers[] = new static($user);
         }
 
         return $pulseUsers;
