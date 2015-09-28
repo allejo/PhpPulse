@@ -42,11 +42,17 @@ abstract class ApiObject
 
     protected static function returnArrayOfItems ($url, $className, $params = array())
     {
-        $class = self::OBJ_NAMESPACE . $className;
         $posts = self::sendGet($url, $params);
+
+        return self::convertToArrayOfItems($className, $posts);
+    }
+
+    protected static function convertToArrayOfItems ($className, $objects)
+    {
+        $class = self::OBJ_NAMESPACE . $className;
         $array = array();
 
-        foreach ($posts as $post)
+        foreach ($objects as $post)
         {
             $array[] = new $class($post);
         }
