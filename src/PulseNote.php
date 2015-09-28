@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class contains DaPulse Update class
+ * This class contains DaPulse Note class
  *
  * @copyright 2015 Vladimir Jimenez
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
@@ -16,56 +16,42 @@ use allejo\DaPulse\Core\JsonObject;
  *
  * @since 0.1.0
  */
-class PulseUpdate extends JsonObject
+class PulseNote extends JsonObject
 {
     /**
-     * User who wrote the update.
-     *
-     * @var object
-     */
-    protected $user;
-
-    /**
-     * The resource's URL.
+     * The collaboration box type (rich_text, file_list, faq_list).
      *
      * @var string
      */
-    protected $url;
+    protected $type;
 
     /**
-     * The update's id.
+     * The note's id.
      *
      * @var string
      */
     protected $id;
 
     /**
-     * The update's body.
+     * The note's title.
      *
      * @var string
      */
-    protected $body;
+    protected $title;
 
     /**
-     * The update's kind.
+     * The note's project_id.
      *
      * @var string
      */
-    protected $kind;
+    protected $project_id;
 
     /**
-     * The update's has_assets.
+     * Describes who can edit this note. Can be either 'everyone' or 'owners'.
      *
      * @var string
      */
-    protected $has_assets;
-
-    /**
-     * The update's assets.
-     *
-     * @var string
-     */
-    protected $assets;
+    protected $permissions;
 
     /**
      * Creation time.
@@ -82,14 +68,9 @@ class PulseUpdate extends JsonObject
     protected $updated_at;
 
 
-    public function getUser ()
+    public function getType ()
     {
-        return $this->user;
-    }
-
-    public function getUrl ()
-    {
-        return $this->url;
+        return $this->type;
     }
 
     public function getId ()
@@ -97,24 +78,19 @@ class PulseUpdate extends JsonObject
         return $this->id;
     }
 
-    public function getBody ()
+    public function getTitle ()
     {
-        return $this->body;
+        return $this->title;
     }
 
-    public function getKind ()
+    public function getProjectId ()
     {
-        return $this->kind;
+        return $this->project_id;
     }
 
-    public function getHasAssets ()
+    public function getPermissions ()
     {
-        return $this->has_assets;
-    }
-
-    public function getAssets ()
-    {
-        return $this->assets;
+        return $this->permissions;
     }
 
     public function getCreatedAt ()

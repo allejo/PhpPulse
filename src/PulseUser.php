@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class contains DaPulse user class
+ * This class contains DaPulse User class
  *
  * @copyright 2015 Vladimir Jimenez
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT

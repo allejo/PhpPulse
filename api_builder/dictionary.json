@@ -2,9 +2,49 @@
   {
     "apiObject": "API::V1::User",
     "classDesc": "",
-    "fileDesc": "This class contains DaPulse user class",
+    "fileDesc": "This class contains DaPulse User class",
     "since": "0.1.0",
-    "file": "users.json",
+    "file": "boards.json",
     "name": "User"
+  },
+  {
+    "apiObject": "API::V1::Update",
+    "classDesc": "",
+    "fileDesc": "This class contains DaPulse Update class",
+    "since": "0.1.0",
+    "file": "pulses.json",
+    "name": "Update"
+  },
+  {
+    "apiObject": "API::V1::Board",
+    "classDesc": "",
+    "fileDesc": "This class contains DaPulse Board class",
+    "since": "0.1.0",
+    "file": "boards.json",
+    "name": "Board"
+  },
+  {
+    "apiObject": "API::V1::Note",
+    "classDesc": "",
+    "fileDesc": "This class contains DaPulse Note class",
+    "since": "0.1.0",
+    "file": "pulses.json",
+    "name": "Note"
+  },
+  {
+    "apiObject": "API::V1::Pulse",
+    "classDesc": "",
+    "fileDesc": "This class contains DaPulse Pulse class",
+    "since": "0.1.0",
+    "file": "pulses.json",
+    "name": "Pulse"
+  },
+  {
+    "apiObject": "API::V1::SlimPulse",
+    "classDesc": "",
+    "fileDesc": "This class contains DaPulse SlimPulse class",
+    "since": "0.1.0",
+    "file": "pulses.json",
+    "name": "SlimPulse"
   }
 ]

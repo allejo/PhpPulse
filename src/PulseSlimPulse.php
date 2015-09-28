@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class contains DaPulse Update class
+ * This class contains DaPulse SlimPulse class
  *
  * @copyright 2015 Vladimir Jimenez
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
@@ -16,15 +16,8 @@ use allejo\DaPulse\Core\JsonObject;
  *
  * @since 0.1.0
  */
-class PulseUpdate extends JsonObject
+class PulseSlimPulse extends JsonObject
 {
-    /**
-     * User who wrote the update.
-     *
-     * @var object
-     */
-    protected $user;
-
     /**
      * The resource's URL.
      *
@@ -33,39 +26,25 @@ class PulseUpdate extends JsonObject
     protected $url;
 
     /**
-     * The update's id.
+     * The pulse's unique identifier.
      *
-     * @var string
+     * @var int
      */
     protected $id;
 
     /**
-     * The update's body.
+     * The pulse's name.
      *
      * @var string
      */
-    protected $body;
+    protected $name;
 
     /**
-     * The update's kind.
+     * The board's subscribers.
      *
-     * @var string
+     * @var array of subscribers.
      */
-    protected $kind;
-
-    /**
-     * The update's has_assets.
-     *
-     * @var string
-     */
-    protected $has_assets;
-
-    /**
-     * The update's assets.
-     *
-     * @var string
-     */
-    protected $assets;
+    protected $subscribers;
 
     /**
      * Creation time.
@@ -82,11 +61,6 @@ class PulseUpdate extends JsonObject
     protected $updated_at;
 
 
-    public function getUser ()
-    {
-        return $this->user;
-    }
-
     public function getUrl ()
     {
         return $this->url;
@@ -97,24 +71,14 @@ class PulseUpdate extends JsonObject
         return $this->id;
     }
 
-    public function getBody ()
+    public function getName ()
     {
-        return $this->body;
+        return $this->name;
     }
 
-    public function getKind ()
+    public function getSubscribers ()
     {
-        return $this->kind;
-    }
-
-    public function getHasAssets ()
-    {
-        return $this->has_assets;
-    }
-
-    public function getAssets ()
-    {
-        return $this->assets;
+        return $this->subscribers;
     }
 
     public function getCreatedAt ()

@@ -15,7 +15,10 @@ function writeFile ($fileName, $content)
 {
     $targetFile = getRelativeFile("..", "src", $fileName . ".php");
 
-    unlink($targetFile);
+    if (file_exists($targetFile))
+    {
+        unlink($targetFile);
+    }
 
     $file = fopen($targetFile, "w");
 
