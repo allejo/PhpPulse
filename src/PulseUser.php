@@ -2,12 +2,13 @@
 
 namespace allejo\DaPulse;
 
-use allejo\DaPulse\Objects\ApiUpdate;
 use allejo\DaPulse\Objects\ApiUser;
 
 class PulseUser extends ApiUser
 {
     const API_PREFIX = "users";
+
+    private $urlSyntax = "%s/%s/%s.json";
 
     public function __construct ($idOrArray)
     {
@@ -19,31 +20,31 @@ class PulseUser extends ApiUser
         parent::__construct($idOrArray);
     }
 
+    public function getNewsFeed ($params = array())
+    {
+        $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "newsfeed");
+
+        return parent::returnArrayOfItems($url, "PulseUpdate", $params);
+    }
+
     public function getPosts ($params = array())
     {
-        $url = sprintf("%s/%s/posts.json", parent::apiEndpoint(), $this->id);
-        $posts = $this->sendGet($url, $params);
-        $updates = array();
+        $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "posts");
 
-        foreach ($posts as $post)
-        {
-            $updates[] = new ApiUpdate($post);
-        }
+        return parent::returnArrayOfItems($url, "PulseUpdate", $params);
+    }
 
-        return $updates;
+    public function getUnreadFeed ($params = array())
+    {
+        $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "unread_feed");
+
+        return parent::returnArrayOfItems($url, "PulseUpdate", $params);
     }
 
     public static function getUsers($params = array())
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
-        $users = self::sendGet($url, $params);
-        $pulseUsers = array();
 
-        foreach ($users as $user)
-        {
-            $pulseUsers[] = new static($user);
-        }
-
-        return $pulseUsers;
+        return parent::returnArrayOfItems($url, "PulseUser", $params);
     }
 }
