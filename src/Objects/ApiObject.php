@@ -24,6 +24,11 @@ abstract class ApiObject
         $this->assignResults();
     }
 
+    public function getJson ()
+    {
+        return $this->jsonResponse;
+    }
+
     private function assignResults ()
     {
         foreach($this->jsonResponse as $key => $val)
