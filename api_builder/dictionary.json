@@ -1,0 +1,10 @@
+[
+  {
+    "apiObject": "API::V1::User",
+    "classDesc": "",
+    "fileDesc": "This class contains DaPulse user class",
+    "since": "0.1.0",
+    "file": "users.json",
+    "name": "User"
+  }
+]

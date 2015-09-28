@@ -1,0 +1,37 @@
+<?php
+
+/**
+ * {{ api["fileDesc"] }}
+ *
+ * @copyright 2015 Vladimir Jimenez
+ * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
+ */
+
+namespace allejo\DaPulse;
+
+use allejo\DaPulse\Core\JsonObject;
+
+/**
+ * {{ api["classDesc"] }}
+ *
+ * @since {{ api["since"] }}
+ */
+class Pulse{{ api["name"] }} extends JsonObject
+{
+    {% for name, variable in variables %}
+        /**
+         * {{ variable.description | raw }}
+         *
+         * @var {% spaceless %}{% include "partials/docVar.twig" with { 'apiType': variable.type } %}{% endspaceless %}
+         */
+         protected ${{ name }};
+
+    {% endfor %}
+
+    {% for name, variable in variables %}
+        public function get{{ name | title | replace({"_": ""}) }} ()
+        {
+            return $this->{{ name }};
+        }
+    {% endfor %}
+}
