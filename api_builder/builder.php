@@ -13,7 +13,7 @@ function getRelativeFile()
 
 function writeFile ($fileName, $content)
 {
-    $targetFile = getRelativeFile("..", "src", $fileName . ".php");
+    $targetFile = getRelativeFile("..", "src", "Objects", $fileName . ".php");
 
     if (file_exists($targetFile))
     {
@@ -41,6 +41,6 @@ foreach ($apiDictionary as $api)
         "variables" => $apiDocs
     ));
 
-    writeFile("Pulse" . $api["name"], $generatedClass);
+    writeFile("Api" . $api["name"], $generatedClass);
 }
 

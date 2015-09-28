@@ -27,11 +27,6 @@ use allejo\DaPulse\Exceptions\HttpException;
 class UrlQuery
 {
     /**
-     * The default protocol the DaPulse API expects
-     */
-    const DEFAULT_PROTOCOL = "https";
-
-    /**
      * The API endpoint that will be used in all requests
      *
      * @var string
