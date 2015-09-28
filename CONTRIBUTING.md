@@ -14,7 +14,7 @@ If you want to make contributions to the project, [forking the project](https://
 
 ### How is the code organized?
 
-The actual library is housed in the `src/` folder. All of the public classes are in the **allejo\Socrata** namespace and are located in the root of `src/`. Other utilities that are mainly intended for internal usage are housed in subfolders inside of `src/` such as exceptions, converters, and utilities.
+The actual library is housed in the `src/` folder. All of the public classes are in the **allejo\DaPulse** namespace and are located in the root of `src/`. Other utilities that are mainly intended for internal usage are housed in subfolders inside of `src/` such as exceptions, converters, and utilities.
 
 #### Unit Tests & PHPDoc
 
