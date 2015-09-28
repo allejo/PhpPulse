@@ -2,6 +2,7 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Objects\ApiUpdate;
 use allejo\DaPulse\Objects\ApiUser;
 
 class PulseUser extends ApiUser
@@ -16,6 +17,20 @@ class PulseUser extends ApiUser
         }
 
         parent::__construct($idOrArray);
+    }
+
+    public function getPosts ($params = array())
+    {
+        $url = sprintf("%s/%s/posts.json", parent::apiEndpoint(), $this->id);
+        $posts = $this->sendGet($url, $params);
+        $updates = array();
+
+        foreach ($posts as $post)
+        {
+            $updates[] = new ApiUpdate($post);
+        }
+
+        return $updates;
     }
 
     public static function getUsers($params = array())
