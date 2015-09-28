@@ -7,16 +7,14 @@
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
  */
 
-namespace allejo\DaPulse;
-
-use allejo\DaPulse\Core\JsonObject;
+namespace allejo\DaPulse\Objects;
 
 /**
  * {{ api["classDesc"] }}
  *
  * @since {{ api["since"] }}
  */
-class Pulse{{ api["name"] }} extends JsonObject
+class Api{{ api["name"] }} extends ApiObject
 {
     {% for name, variable in variables %}
         /**
