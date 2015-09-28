@@ -7,16 +7,14 @@
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
  */
 
-namespace allejo\DaPulse;
-
-use allejo\DaPulse\Core\JsonObject;
+namespace allejo\DaPulse\Objects;
 
 /**
  *
  *
  * @since 0.1.0
  */
-class PulseBoard extends JsonObject
+class ApiBoard extends ApiObject
 {
     /**
      * The resource's URL.

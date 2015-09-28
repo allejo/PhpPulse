@@ -7,16 +7,14 @@
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
  */
 
-namespace allejo\DaPulse;
-
-use allejo\DaPulse\Core\JsonObject;
+namespace allejo\DaPulse\Objects;
 
 /**
  *
  *
  * @since 0.1.0
  */
-class PulseNote extends JsonObject
+class ApiNote extends ApiObject
 {
     /**
      * The collaboration box type (rich_text, file_list, faq_list).
