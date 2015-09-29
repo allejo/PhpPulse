@@ -19,6 +19,11 @@ abstract class ApiObject
 
     public function __construct ($idOrArray)
     {
+        if (!is_array($idOrArray))
+        {
+            $this->urlEndPoint = sprintf("%s/%d.json", self::apiEndpoint(), $idOrArray);
+        }
+
         $this->jsonResponse = (is_array($idOrArray)) ? $idOrArray : $this::sendGet($this->urlEndPoint);
 
         $this->assignResults();

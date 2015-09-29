@@ -10,16 +10,6 @@ class PulseUser extends ApiUser
 
     private $urlSyntax = "%s/%s/%s.json";
 
-    public function __construct ($idOrArray)
-    {
-        if (!is_array($idOrArray))
-        {
-            $this->urlEndPoint = sprintf("%s/%d.json", parent::apiEndpoint(), $idOrArray);
-        }
-
-        parent::__construct($idOrArray);
-    }
-
     public function getNewsFeed ($params = array())
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "newsfeed");
