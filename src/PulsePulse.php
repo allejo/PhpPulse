@@ -12,6 +12,6 @@ class PulsePulse extends ApiPulse
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
 
-        return parent::returnArrayOfItems($url, "PulsePulse", $params);
+        return parent::fetchJsonArrayToObjectArray($url, "PulsePulse", $params);
     }
 }

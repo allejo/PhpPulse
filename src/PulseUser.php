@@ -14,27 +14,27 @@ class PulseUser extends ApiUser
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "newsfeed");
 
-        return parent::returnArrayOfItems($url, "PulseUpdate", $params);
+        return parent::fetchJsonArrayToObjectArray($url, "PulseUpdate", $params);
     }
 
     public function getPosts ($params = array())
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "posts");
 
-        return parent::returnArrayOfItems($url, "PulseUpdate", $params);
+        return parent::fetchJsonArrayToObjectArray($url, "PulseUpdate", $params);
     }
 
     public function getUnreadFeed ($params = array())
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "unread_feed");
 
-        return parent::returnArrayOfItems($url, "PulseUpdate", $params);
+        return parent::fetchJsonArrayToObjectArray($url, "PulseUpdate", $params);
     }
 
     public static function getUsers($params = array())
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
 
-        return parent::returnArrayOfItems($url, "PulseUser", $params);
+        return parent::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
     }
 }

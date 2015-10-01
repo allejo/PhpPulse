@@ -47,7 +47,7 @@ class PulseUpdate extends ApiUpdate
     {
         if (is_null($this->watcherObjects))
         {
-            $this->watcherObjects = parent::convertToArrayOfItems("PulseUser", $this->jsonResponse["watched"]);
+            $this->watcherObjects = parent::jsonArrayToObjectArray("PulseUser", $this->jsonResponse["watched"]);
         }
 
         return $this->watcherObjects;
