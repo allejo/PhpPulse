@@ -45,6 +45,19 @@ abstract class ApiObject
         }
     }
 
+    protected static function lazyArray (&$array, $objectType)
+    {
+        if (self::lazyArrayConversionNeeded($objectType, $array))
+        {
+            $array = self::convertToArrayOfItems($objectType, $array);
+        }
+    }
+
+    protected static function lazyArrayConversionNeeded ($objectType, $array)
+    {
+        return (is_array($array[0]) && !($array instanceof $objectType));
+    }
+
     protected static function returnArrayOfItems ($url, $className, $params = array())
     {
         $posts = self::sendGet($url, $params);

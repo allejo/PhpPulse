@@ -8,6 +8,7 @@
  */
 
 namespace allejo\DaPulse\Objects;
+use allejo\DaPulse\PulseUser;
 
 /**
  * A "partial" class that contains the Pulse API elements and their appropriate get methods
@@ -102,6 +103,8 @@ class ApiPulse extends ApiObject
      */
     public function getSubscribers()
     {
+        self::lazyArray($this->subscribers, "PulseUser");
+
         return $this->subscribers;
     }
 
