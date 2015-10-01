@@ -1,0 +1,43 @@
+{
+  "name": "Note",
+  "since": "0.1.0",
+  "file_desc": "This file contains the definition of all of the Note elements returned by the API",
+  "class_desc": "A \"partial\" class that contains the Note API elements and their appropriate get methods",
+  "properties": [
+    {
+      "name": "type",
+      "type": "string",
+      "description": "The collaboration box type (rich_text, file_list, faq_list)."
+    },
+    {
+      "name": "id",
+      "type": "string",
+      "description": "The note's id."
+    },
+    {
+      "name": "title",
+      "type": "string",
+      "description": "The note's title."
+    },
+    {
+      "name": "project_id",
+      "type": "string",
+      "description": "The note's project_id."
+    },
+    {
+      "name": "permissions",
+      "type": "string",
+      "description": "Describes who can edit this note. Can be either 'everyone' or 'owners'."
+    },
+    {
+      "name": "created_at",
+      "type": "\\DateTime",
+      "description": "Creation time."
+    },
+    {
+      "name": "updated_at",
+      "type": "\\DateTime",
+      "description": "Last update time."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class contains DaPulse Pulse class
+ * This file contains the definition of all of the Pulse elements returned by the API
  *
  * @copyright 2015 Vladimir Jimenez
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
@@ -10,7 +10,7 @@
 namespace allejo\DaPulse\Objects;
 
 /**
- *
+ * A "partial" class that contains the Pulse API elements and their appropriate get methods
  *
  * @since 0.1.0
  */
@@ -22,35 +22,42 @@ class ApiPulse extends ApiObject
      * @var string
      */
     protected $url;
-
     /**
      * The pulse's unique identifier.
      *
      * @var int
      */
     protected $id;
-
     /**
      * The pulse's name.
      *
      * @var string
      */
     protected $name;
-
     /**
      * The board's subscribers.
      *
-     * @var array of subscribers.
+     * @var PulseUser[]
      */
     protected $subscribers;
-
+    /**
+     * The amount of updates a pulse has.
+     *
+     * @var int
+     */
+    protected $updates_count;
+    /**
+     * The ID of the parent board.
+     *
+     * @var int
+     */
+    protected $board_id;
     /**
      * Creation time.
      *
      * @var \DateTime
      */
     protected $created_at;
-
     /**
      * Last update time.
      *
@@ -58,33 +65,82 @@ class ApiPulse extends ApiObject
      */
     protected $updated_at;
 
-
-    public function getUrl ()
+    /**
+     * The resource's URL.
+     *
+     * @return string
+     */
+    public function getUrl()
     {
         return $this->url;
     }
 
-    public function getId ()
+    /**
+     * The pulse's unique identifier.
+     *
+     * @return int
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getName ()
+    /**
+     * The pulse's name.
+     *
+     * @return string
+     */
+    public function getName()
     {
         return $this->name;
     }
 
-    public function getSubscribers ()
+    /**
+     * The board's subscribers.
+     *
+     * @return PulseUser[]
+     */
+    public function getSubscribers()
     {
         return $this->subscribers;
     }
 
-    public function getCreatedAt ()
+    /**
+     * The amount of updates a pulse has.
+     *
+     * @return int
+     */
+    public function getUpdatesCount()
+    {
+        return $this->updates_count;
+    }
+
+    /**
+     * The ID of the parent board.
+     *
+     * @return int
+     */
+    public function getBoardId()
+    {
+        return $this->board_id;
+    }
+
+    /**
+     * Creation time.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
     {
         return $this->created_at;
     }
 
-    public function getUpdatedAt ()
+    /**
+     * Last update time.
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
     {
         return $this->updated_at;
     }

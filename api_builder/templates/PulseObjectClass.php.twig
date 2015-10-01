@@ -1,7 +1,7 @@
 <?php
 
 /**
- * {{ api["fileDesc"] }}
+ * {{ json["file_desc"] | raw }}
  *
  * @copyright 2015 Vladimir Jimenez
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
@@ -10,26 +10,28 @@
 namespace allejo\DaPulse\Objects;
 
 /**
- * {{ api["classDesc"] }}
+ * {{ json["class_desc"] | raw }}
  *
- * @since {{ api["since"] }}
+ * @since {{ json["since"] }}
  */
-class Api{{ api["name"] }} extends ApiObject
+class Api{{ json["name"] }} extends ApiObject
 {
-    {% for name, variable in variables %}
+    {% for property in json["properties"] %}
         /**
-         * {{ variable.description | raw }}
+         * {{ property.description | raw }}
          *
-         * @var {% spaceless %}{% include "partials/docVar.twig" with { 'apiType': variable.type } %}{% endspaceless %}
+         * @var {{ property.type }}
          */
-         protected ${{ name }};
+         protected ${{ property.name }};
 
-    {% endfor %}
-
-    {% for name, variable in variables %}
-        public function get{{ name | title | replace({"_": ""}) }} ()
+        /**
+         * {{ property.description | raw }}
+         *
+         * @return {{ property.type }}
+         */
+        public function get{{ property.name | title | replace({"_": ""}) }} ()
         {
-            return $this->{{ name }};
+            return $this->{{ property.name }};
         }
     {% endfor %}
 }

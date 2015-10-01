@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class contains DaPulse Board class
+ * This file contains the definition of all of the Board elements returned by the API
  *
  * @copyright 2015 Vladimir Jimenez
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
@@ -10,7 +10,7 @@
 namespace allejo\DaPulse\Objects;
 
 /**
- *
+ * A "partial" class that contains the Board API elements and their appropriate get methods
  *
  * @since 0.1.0
  */
@@ -22,56 +22,48 @@ class ApiBoard extends ApiObject
      * @var string
      */
     protected $url;
-
     /**
      * The board's unique identifier.
      *
      * @var int
      */
     protected $id;
-
     /**
      * The board's name.
      *
      * @var string
      */
     protected $name;
-
     /**
      * The board's description.
      *
      * @var string
      */
     protected $description;
-
     /**
      * The board's visible columns.
      *
      * @var array
      */
     protected $columns;
-
     /**
      * The board's visible groups.
      *
      * @var array
      */
     protected $groups;
-
     /**
      * Creation time.
      *
      * @var \DateTime
      */
     protected $created_at;
-
     /**
      * Last update time.
      *
      * @var \DateTime
      */
     protected $updated_at;
-
     /**
      * The board's pulses.
      *
@@ -79,48 +71,92 @@ class ApiBoard extends ApiObject
      */
     protected $pulses;
 
-
-    public function getUrl ()
+    /**
+     * The resource's URL.
+     *
+     * @return string
+     */
+    public function getUrl()
     {
         return $this->url;
     }
 
-    public function getId ()
+    /**
+     * The board's unique identifier.
+     *
+     * @return int
+     */
+    public function getId()
     {
         return $this->id;
     }
 
-    public function getName ()
+    /**
+     * The board's name.
+     *
+     * @return string
+     */
+    public function getName()
     {
         return $this->name;
     }
 
-    public function getDescription ()
+    /**
+     * The board's description.
+     *
+     * @return string
+     */
+    public function getDescription()
     {
         return $this->description;
     }
 
-    public function getColumns ()
+    /**
+     * The board's visible columns.
+     *
+     * @return array
+     */
+    public function getColumns()
     {
         return $this->columns;
     }
 
-    public function getGroups ()
+    /**
+     * The board's visible groups.
+     *
+     * @return array
+     */
+    public function getGroups()
     {
         return $this->groups;
     }
 
-    public function getCreatedAt ()
+    /**
+     * Creation time.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
     {
         return $this->created_at;
     }
 
-    public function getUpdatedAt ()
+    /**
+     * Last update time.
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
     {
         return $this->updated_at;
     }
 
-    public function getPulses ()
+    /**
+     * The board's pulses.
+     *
+     * @return array of board items.
+     */
+    public function getPulses()
     {
         return $this->pulses;
     }

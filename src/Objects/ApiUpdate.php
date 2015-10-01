@@ -1,7 +1,7 @@
 <?php
 
 /**
- * This class contains DaPulse Update class
+ * This file contains the definition of all of the Update elements returned by the API
  *
  * @copyright 2015 Vladimir Jimenez
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
@@ -10,118 +10,154 @@
 namespace allejo\DaPulse\Objects;
 
 /**
- *
+ * A "partial" class that contains the Update API elements and their appropriate get methods
  *
  * @since 0.1.0
  */
 class ApiUpdate extends ApiObject
 {
-    /**
-     * User who wrote the update.
-     *
-     * @var object
-     */
-    protected $user;
+            /**
+         * User who wrote the update.
+         *
+         * @var PulseUser
+         */
+         protected $user;
+            /**
+         * The resource's URL.
+         *
+         * @var string
+         */
+         protected $url;
+            /**
+         * The update's id.
+         *
+         * @var string
+         */
+         protected $id;
+            /**
+         * The update's body.
+         *
+         * @var string
+         */
+         protected $body;
+            /**
+         * The update's kind.
+         *
+         * @var string
+         */
+         protected $kind;
+            /**
+         * The update's has_assets.
+         *
+         * @var string
+         */
+         protected $has_assets;
+            /**
+         * The update's assets.
+         *
+         * @var string
+         */
+         protected $assets;
+            /**
+         * Creation time.
+         *
+         * @var \DateTime
+         */
+         protected $created_at;
+            /**
+         * Last update time.
+         *
+         * @var \DateTime
+         */
+         protected $updated_at;
 
-    /**
-     * The resource's URL.
-     *
-     * @var string
-     */
-    protected $url;
+        /**
+         * User who wrote the update.
+         *
+         * @return PulseUser
+         */
+        public function getUser ()
+        {
+            return $this->user;
+        }
 
-    /**
-     * The update's id.
-     *
-     * @var string
-     */
-    protected $id;
+        /**
+         * The resource's URL.
+         *
+         * @return string
+         */
+        public function getUrl ()
+        {
+            return $this->url;
+        }
 
-    /**
-     * The update's body.
-     *
-     * @var string
-     */
-    protected $body;
+        /**
+         * The update's id.
+         *
+         * @return string
+         */
+        public function getId ()
+        {
+            return $this->id;
+        }
 
-    /**
-     * The update's kind.
-     *
-     * @var string
-     */
-    protected $kind;
+        /**
+         * The update's body.
+         *
+         * @return string
+         */
+        public function getBody ()
+        {
+            return $this->body;
+        }
 
-    /**
-     * The update's has_assets.
-     *
-     * @var string
-     */
-    protected $has_assets;
+        /**
+         * The update's kind.
+         *
+         * @return string
+         */
+        public function getKind ()
+        {
+            return $this->kind;
+        }
 
-    /**
-     * The update's assets.
-     *
-     * @var string
-     */
-    protected $assets;
+        /**
+         * The update's has_assets.
+         *
+         * @return string
+         */
+        public function getHasAssets ()
+        {
+            return $this->has_assets;
+        }
 
-    /**
-     * Creation time.
-     *
-     * @var \DateTime
-     */
-    protected $created_at;
+        /**
+         * The update's assets.
+         *
+         * @return string
+         */
+        public function getAssets ()
+        {
+            return $this->assets;
+        }
 
-    /**
-     * Last update time.
-     *
-     * @var \DateTime
-     */
-    protected $updated_at;
+        /**
+         * Creation time.
+         *
+         * @return \DateTime
+         */
+        public function getCreatedAt ()
+        {
+            return $this->created_at;
+        }
 
-
-    public function getUser ()
-    {
-        return $this->user;
+        /**
+         * Last update time.
+         *
+         * @return \DateTime
+         */
+        public function getUpdatedAt ()
+        {
+            return $this->updated_at;
+        }
     }
-
-    public function getUrl ()
-    {
-        return $this->url;
-    }
-
-    public function getId ()
-    {
-        return $this->id;
-    }
-
-    public function getBody ()
-    {
-        return $this->body;
-    }
-
-    public function getKind ()
-    {
-        return $this->kind;
-    }
-
-    public function getHasAssets ()
-    {
-        return $this->has_assets;
-    }
-
-    public function getAssets ()
-    {
-        return $this->assets;
-    }
-
-    public function getCreatedAt ()
-    {
-        return $this->created_at;
-    }
-
-    public function getUpdatedAt ()
-    {
-        return $this->updated_at;
-    }
-}

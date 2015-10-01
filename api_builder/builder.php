@@ -29,18 +29,16 @@ function writeFile ($fileName, $content)
 $loader = new Twig_Loader_Filesystem(getRelativeFile("templates"));
 $twig   = new Twig_Environment($loader);
 
-$apiDictionary = json_decode(file_get_contents(getRelativeFile("dictionary.json")), true);
+$apiDefLocation = getRelativeFile("api", "*.json");
+$apiDefinitions = glob($apiDefLocation);
 
-foreach ($apiDictionary as $api)
+foreach ($apiDefinitions as $apiDef)
 {
-    $jsonApiFile = json_decode(file_get_contents(getRelativeFile("data", $api['file'])), true);
-    $apiDocs     = $jsonApiFile["models"][$api["apiObject"]]["properties"];
+    $jsonData = json_decode(file_get_contents($apiDef), true);
 
     $generatedClass = $twig->render("PulseObjectClass.php.twig", array(
-        "api" => $api,
-        "variables" => $apiDocs
+        "json" => $jsonData
     ));
 
-    writeFile("Api" . $api["name"], $generatedClass);
+    writeFile("Api" . $jsonData["name"], $generatedClass);
 }
-
