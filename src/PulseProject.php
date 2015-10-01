@@ -4,7 +4,7 @@ namespace allejo\DaPulse;
 
 use allejo\DaPulse\Objects\ApiPulse;
 
-class PulsePulse extends ApiPulse
+class PulseProject extends ApiPulse
 {
     const API_PREFIX = "pulses";
 
