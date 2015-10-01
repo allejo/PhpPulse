@@ -64,6 +64,37 @@ abstract class ApiObject
     }
 
     /**
+     * Convert the specified item into the specified object if needed
+     *
+     * @param array  $target     The item to check
+     * @param string $objectType The class name of the Objects the items should be
+     *
+     * @since 0.1.0
+     */
+    protected static function lazyLoad (&$target, $objectType)
+    {
+        if (self::lazyLoadConversionNeeded($target, $objectType))
+        {
+            $target = new $objectType($target);
+        }
+    }
+
+    /**
+     * Check if an individual item needs to be lazily converted into an object
+     *
+     * @param  array  $target     The item to check
+     * @param  string $objectType The class name of the Objects the items should be
+     *
+     * @since  0.1.0
+     *
+     * @return bool
+     */
+    protected static function lazyLoadConversionNeeded ($target, $objectType)
+    {
+        return (is_array($target) && !($target instanceof $objectType));
+    }
+
+    /**
      * Convert the specified array into an array of object types if needed
      *
      * @param  string $objectType The class name of the Objects the items should be
@@ -91,7 +122,9 @@ abstract class ApiObject
      */
     protected static function lazyArrayConversionNeeded ($objectType, $array)
     {
-        return (is_array($array[0]) && !($array instanceof $objectType));
+        $firstItem = $array[0];
+
+        return self::lazyLoadConversionNeeded($firstItem, $objectType);
     }
 
     /**
