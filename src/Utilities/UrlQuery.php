@@ -159,7 +159,7 @@ class UrlQuery
         $result = $this->executeCurl();
         $httpCode = curl_getinfo($this->cURL, CURLINFO_HTTP_CODE);
 
-        if ($httpCode !== 200)
+        if ($httpCode !== 200 || $httpCode !== 201)
         {
             throw new HttpException($httpCode, $result);
         }
