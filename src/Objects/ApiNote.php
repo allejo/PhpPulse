@@ -47,6 +47,12 @@ class ApiNote extends ApiObject
      */
     protected $permissions;
     /**
+     * The note's body
+     *
+     * @var string
+     */
+    protected $content;
+    /**
      * Creation time.
      *
      * @var \DateTime
@@ -107,6 +113,16 @@ class ApiNote extends ApiObject
     public function getPermissions()
     {
         return $this->permissions;
+    }
+
+    /**
+     * The note's body.
+     *
+     * @return string
+     */
+    public function getContent()
+    {
+        return $this->content;
     }
 
     /**

@@ -21,7 +21,7 @@ class PulseProject extends ApiPulse
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "notes");
 
-        return parent::fetchJsonArrayToObjectArray($url, $this->id, "PulseNote");
+        return parent::fetchJsonArrayToObjectArray($url, "PulseNote");
     }
 
     public static function getPulses($params = array())
