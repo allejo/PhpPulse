@@ -30,9 +30,11 @@ class HttpException extends \Exception
     {
         $json = json_decode($response, true);
 
-        if (is_null($json))
+        if (!is_null($json))
         {
-            $this->message = sprintf("HTTP %d: %s", $code, $json['error']);
+            $message = (isset($json["message"])) ? $json["message"] : $json["error"];
+
+            $this->message = sprintf("HTTP %d: %s", $code, $message);
         }
         else
         {
