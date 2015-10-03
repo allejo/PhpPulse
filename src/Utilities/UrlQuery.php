@@ -234,6 +234,11 @@ class UrlQuery
 
         foreach ($params as $key => $value)
         {
+            if (is_bool($value))
+            {
+                $value = StringUtilities::booleanLiteral($value);
+            }
+
             $parameters[] = rawurlencode($key) . "=" . rawurlencode($value);
         }
 

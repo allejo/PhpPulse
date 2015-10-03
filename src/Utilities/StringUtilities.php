@@ -28,4 +28,16 @@ class StringUtilities
     {
         return (!isset($string) || empty($string) || ctype_space($string));
     }
+
+    /**
+     * Get the literal representation of a boolean value
+     *
+     * @param  bool $value A boolean value
+     *
+     * @return string True if a boolean is true
+     */
+    public static function booleanLiteral ($value)
+    {
+        return ($value) ? "true" : "false";
+    }
 }
