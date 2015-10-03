@@ -192,6 +192,27 @@ abstract class ApiObject
     }
 
     /**
+     * Send a POST request to a specified URL
+     *
+     * @param  string $url
+     * @param  array  $params
+     *
+     * @since  0.1.0
+     *
+     * @return mixed
+     */
+    protected static function sendPost ($url, $params)
+    {
+        $getParams = array(
+            "api_key" => self::$apiKey
+        );
+
+        $urlQuery = new UrlQuery($url, $getParams);
+
+        return $urlQuery->sendPost($params);
+    }
+
+    /**
      * Get the base URL to use in all of the API calls
      *
      * @since  0.1.0
