@@ -20,6 +20,7 @@ abstract class ApiObject
 
     protected static $apiKey;
 
+    protected $arrayConstructionOnly = false;
     protected $urlEndPoint;
     protected $jsonResponse;
 
@@ -28,6 +29,11 @@ abstract class ApiObject
         if (!is_array($idOrArray))
         {
             $this->urlEndPoint = sprintf("%s/%d.json", self::apiEndpoint(), $idOrArray);
+        }
+
+        if ($this->arrayConstructionOnly && !is_array($idOrArray))
+        {
+            throw new \InvalidArgumentException("A " . get_called_class() . " cannot be fetched from an ID.");
         }
 
         $this->jsonResponse = (is_array($idOrArray)) ? $idOrArray : $this::sendGet($this->urlEndPoint);
@@ -52,7 +58,7 @@ abstract class ApiObject
      *
      * @since 0.1.0
      */
-    private function assignResults ()
+    protected function assignResults ()
     {
         foreach($this->jsonResponse as $key => $val)
         {
@@ -171,6 +177,22 @@ abstract class ApiObject
     }
 
     /**
+     * Store the value in an array if the value is not null. This function is a shortcut of setting values in an array
+     * only if they are not null, if not leave them unset; used ideally for PUT requests.
+     *
+     * @param array  $array The array that will store all of the POST parameters
+     * @param string $name  The name of the field
+     * @param string $value The value to be stored in a given field
+     */
+    protected static function setIfNotNull (&$array, $name, $value)
+    {
+        if (!is_null($value))
+        {
+            $array[$name] = $value;
+        }
+    }
+
+    /**
      * Send a GET request to fetch the data from the specified URL
      *
      * @param  string $url    The API endpoint to call
@@ -203,13 +225,71 @@ abstract class ApiObject
      */
     protected static function sendPost ($url, $params)
     {
+        return self::sendRequest("POST", $url, $params);
+    }
+
+    /**
+     * Send a PUT request to a specified URL
+     *
+     * @param  string $url
+     * @param  array  $params
+     *
+     * @since  0.1.0
+     *
+     * @return mixed
+     */
+    protected static function sendPut ($url, $params)
+    {
+        return self::sendRequest("PUT", $url, $params);
+    }
+
+    /**
+     * Send a DELETE request to a specified URL
+     *
+     * @param  string $url
+     *
+     * @since  0.1.0
+     *
+     * @return mixed
+     */
+    protected static function sendDelete ($url)
+    {
+        return self::sendRequest("DELETE", $url, null);
+    }
+
+    /**
+     * Send the appropriate URL request
+     *
+     * @param  string $type
+     * @param  string $url
+     * @param  array  $params
+     *
+     * @since  0.1.0
+     *
+     * @return mixed
+     */
+    private static function sendRequest ($type, $url, $params)
+    {
         $getParams = array(
             "api_key" => self::$apiKey
         );
 
         $urlQuery = new UrlQuery($url, $getParams);
 
-        return $urlQuery->sendPost($params);
+        switch ($type)
+        {
+            case "POST":
+                return $urlQuery->sendPost($params);
+
+            case "PUT":
+                return $urlQuery->sendPut($params);
+
+            case "DELETE":
+                return $urlQuery->sendDelete();
+
+            default:
+                throw new \InvalidArgumentException();
+        }
     }
 
     /**

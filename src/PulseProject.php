@@ -50,10 +50,7 @@ class PulseProject extends ApiPulse
             "create_update" => $create_update
         );
 
-        if (!is_null($user_id))
-        {
-            $postParams["user_id"] = $user_id;
-        }
+        self::setIfNotNull($postParams, "user_id", $user_id);
 
         if ($create_update && is_null($user_id))
         {
