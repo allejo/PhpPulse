@@ -8,8 +8,6 @@ class PulseNote extends ApiNote
 {
     const API_PREFIX = "pulses";
 
-    private $urlSyntax = "%s/%s/notes/%s.json";
-
     public function __construct($array)
     {
         $this->arrayConstructionOnly = true;
@@ -19,7 +17,7 @@ class PulseNote extends ApiNote
 
     public function editNote ($title = null, $content = null, $user_id = null, $create_update = null)
     {
-        $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->getProjectId(), $this->getId());
+        $url = $this->getNotesUrl();
         $postParams = array(
             "id" => $this->getProjectId(),
             "note_id" => $this->getId()
@@ -34,5 +32,15 @@ class PulseNote extends ApiNote
         $this->assignResults();
 
         return $this;
+    }
+
+    public function deleteNote ()
+    {
+        self::sendDelete($this->getNotesUrl());
+    }
+
+    private function getNotesUrl ()
+    {
+        return sprintf("%s/%s/notes/%s.json", self::apiEndpoint(), $this->getProjectId(), $this->getId());
     }
 }
