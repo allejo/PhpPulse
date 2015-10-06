@@ -2,6 +2,7 @@
 
 namespace allejo\DaPulse\Objects;
 
+use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Utilities\UrlQuery;
 
 /**
@@ -21,6 +22,7 @@ abstract class ApiObject
     protected static $apiKey;
 
     protected $arrayConstructionOnly = false;
+    protected $deletedObject = false;
     protected $urlEndPoint;
     protected $jsonResponse;
 
@@ -66,6 +68,19 @@ abstract class ApiObject
             {
                 $this->$key = $val;
             }
+        }
+    }
+
+    /**
+     * Check if the current object has been marked as deleted from DaPulse. If so, throw an exception.
+     *
+     * @throws InvalidObjectException
+     */
+    protected function checkInvalid ()
+    {
+        if ($this->deletedObject)
+        {
+            throw new InvalidObjectException("This object no longer exists on DaPulse", 2);
         }
     }
 
@@ -258,6 +273,18 @@ abstract class ApiObject
     }
 
     /**
+     * Get the base URL to use in all of the API calls
+     *
+     * @since  0.1.0
+     *
+     * @return string The base URL to call
+     */
+    protected static function apiEndpoint ()
+    {
+        return sprintf("%s://%s/%s/%s", self::API_PROTOCOL, self::API_ENDPOINT, self::API_VERSION, static::API_PREFIX);
+    }
+
+    /**
      * Send the appropriate URL request
      *
      * @param  string $type
@@ -290,18 +317,6 @@ abstract class ApiObject
             default:
                 throw new \InvalidArgumentException();
         }
-    }
-
-    /**
-     * Get the base URL to use in all of the API calls
-     *
-     * @since  0.1.0
-     *
-     * @return string The base URL to call
-     */
-    protected static function apiEndpoint ()
-    {
-        return sprintf("%s://%s/%s/%s", self::API_PROTOCOL, self::API_ENDPOINT, self::API_VERSION, static::API_PREFIX);
     }
 
     /**

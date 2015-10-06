@@ -2,6 +2,7 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\ApiNote;
 
 class PulseNote extends ApiNote
@@ -17,6 +18,8 @@ class PulseNote extends ApiNote
 
     public function editNote ($title = null, $content = null, $user_id = null, $create_update = null)
     {
+        $this->checkInvalid();
+
         $url = $this->getNotesUrl();
         $postParams = array(
             "id" => $this->getProjectId(),
@@ -36,7 +39,11 @@ class PulseNote extends ApiNote
 
     public function deleteNote ()
     {
+        $this->checkInvalid();
+
         self::sendDelete($this->getNotesUrl());
+
+        $this->deletedObject = true;
     }
 
     private function getNotesUrl ()
