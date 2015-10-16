@@ -8,6 +8,16 @@ class PulseBoard extends ApiBoard
 {
     const API_PREFIX = "boards";
 
+    public function deleteBoard ()
+    {
+        $this->checkInvalid();
+
+        $url = sprintf("%s/%s.json", parent::apiEndpoint(), $this->getId());
+        self::sendDelete($url);
+
+        $this->deletedObject = true;
+    }
+
     // ================================================================================================================
     //   Static functions
     // ================================================================================================================
