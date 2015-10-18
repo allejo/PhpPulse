@@ -11,19 +11,9 @@ class PulseBoard extends ApiBoard
 
     private $groupsFetched = false;
 
-    public function createGroup ($title)
-    {
-        $url = sprintf("%s/%s/groups.json", parent::apiEndpoint(), $this->getId());
-        $postParams = array(
-            "title" => $title
-        );
-
-        // The API doesn't return the board ID, so since we have access to it here: set it manually
-        $groupResult = self::sendPost($url, $postParams);
-        $groupResult["board_id"] = $this->id;
-
-        return (new PulseGroup($groupResult));
-    }
+    // ================================================================================================================
+    //   Group functions
+    // ================================================================================================================
 
     public function getGroups ($showArchived = false)
     {
@@ -39,6 +29,20 @@ class PulseBoard extends ApiBoard
         return $this->groups;
     }
 
+    public function createGroup ($title)
+    {
+        $url = sprintf("%s/%s/groups.json", parent::apiEndpoint(), $this->getId());
+        $postParams = array(
+            "title" => $title
+        );
+
+        // The API doesn't return the board ID, so since we have access to it here: set it manually
+        $groupResult = self::sendPost($url, $postParams);
+        $groupResult["board_id"] = $this->id;
+
+        return (new PulseGroup($groupResult));
+    }
+
     private function fetchGroups ($showArchived)
     {
         $url = sprintf("%s/%s/groups.json", parent::apiEndpoint(), $this->getId());
@@ -50,6 +54,10 @@ class PulseBoard extends ApiBoard
         ));
     }
 
+    // ================================================================================================================
+    //   Board functions
+    // ================================================================================================================
+
     public function deleteBoard ()
     {
         $this->checkInvalid();
@@ -59,10 +67,6 @@ class PulseBoard extends ApiBoard
 
         $this->deletedObject = true;
     }
-
-    // ================================================================================================================
-    //   Static functions
-    // ================================================================================================================
 
     public static function createBoard ($user_id, $name, $description = null)
     {
