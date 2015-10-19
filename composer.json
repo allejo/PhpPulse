@@ -9,7 +9,6 @@
   "require-dev": {
     "phpunit/phpunit": "~4.0",
     "phpdocumentor/phpdocumentor": "2.*",
-    "twig/twig": "~1.0",
     "satooshi/php-coveralls": "dev-master",
     "zendframework/zend-cache": "2.5.1",
     "zendframework/zend-eventmanager": "2.5.1",
