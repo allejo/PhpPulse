@@ -118,6 +118,8 @@ class ApiBoard extends ApiObject
      */
     public function getColumns()
     {
+        self::lazyArray($this->columns, "PulseColumn");
+
         return $this->columns;
     }
 

@@ -26,10 +26,10 @@ class PulseNote extends ApiNote
             "note_id" => $this->getId()
         );
 
-        self::setIfNotNull($postParams, "title", $title);
-        self::setIfNotNull($postParams, "content", $content);
-        self::setIfNotNull($postParams, "user_id", $user_id);
-        self::setIfNotNull($postParams, "create_update", $create_update);
+        self::setIfNotNullOrEmpty($postParams, "title", $title);
+        self::setIfNotNullOrEmpty($postParams, "content", $content);
+        self::setIfNotNullOrEmpty($postParams, "user_id", $user_id);
+        self::setIfNotNullOrEmpty($postParams, "create_update", $create_update);
 
         $this->jsonResponse = self::sendPut($url, $postParams);
         $this->assignResults();

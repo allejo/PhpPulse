@@ -222,11 +222,11 @@ class UrlQuery
      * )
      * ```
      *
-     * @param  array    $params An array containing parameter names as keys and parameter values as values in the array.
+     * @param  array  $params    An array containing parameter names as keys and parameter values as values in the array.
      *
      * @since  0.1.0
      *
-     * @return string           A URL encoded and combined array of GET parameters to be sent
+     * @return string         A URL encoded and combined array of GET or POST parameters to be sent
      */
     private static function formatParameters ($params)
     {
@@ -238,10 +238,64 @@ class UrlQuery
             {
                 $value = StringUtilities::booleanLiteral($value);
             }
+            else if (is_array($value))
+            {
+                $formattedArray = self::formatArray($key, $value);
+                $parameters[] = self::formatParameters($formattedArray);
+
+                continue;
+            }
 
             $parameters[] = rawurlencode($key) . "=" . rawurlencode($value);
         }
 
         return implode("&", $parameters);
+    }
+
+    /**
+     * Convert an indexed array into an array that can be feed to `formatParameters()` to be formatted to an acceptable
+     * structure to be sent via a GET or POST request.
+     *
+     * **Input**
+     *
+     * ```php
+     * array(
+     *     "first",
+     *     "second",
+     *     "third"
+     * )
+     * ```
+     *
+     * **Output**
+     *
+     * ```php
+     * array(
+     *     "prefix[0]" => "first",
+     *     "prefix[1]" => "second",
+     *     "prefix[2]" => "third",
+     * )
+     * ```
+     *
+     * @param  string   $prefix The name of the
+     * @param  string[] $array
+     *
+     * @see    formatParameters()
+     *
+     * @since  0.1.0
+     *
+     * @return array
+     */
+    private static function formatArray ($prefix, $array)
+    {
+        $parameters = array();
+        $arrayLength = count($array);
+
+        for ($i = 0; $i < $arrayLength; $i++)
+        {
+            $arrayKey = sprintf("%s[%d]", $prefix, $i);
+            $parameters[$arrayKey] = $array[$i];
+        }
+
+        return $parameters;
     }
 }

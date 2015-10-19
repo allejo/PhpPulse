@@ -15,9 +15,20 @@ class PulseBoard extends ApiBoard
     //   Columns functions
     // ================================================================================================================
 
-    public function getColumns ()
+    public function createColumn ($title, $type, $labels = array())
     {
+        $url = sprintf("%s/%d/columns.json", parent::apiEndpoint(), $this->getId());
+        $postParams = array(
+            "title" => $title,
+            "type"  => $type
+        );
 
+        self::setIfNotNullOrEmpty($postParams, "labels", $labels);
+
+        $this->jsonResponse = self::sendPost($url, $postParams);
+        $this->assignResults();
+
+        return $this;
     }
 
     // ================================================================================================================
@@ -85,7 +96,7 @@ class PulseBoard extends ApiBoard
             "name"    => $name
         );
 
-        self::setIfNotNull($postParams, "description", $description);
+        self::setIfNotNullOrEmpty($postParams, "description", $description);
 
         $boardResult = self::sendPost($url, $postParams);
 

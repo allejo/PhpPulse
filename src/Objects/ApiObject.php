@@ -199,9 +199,9 @@ abstract class ApiObject
      * @param string $name  The name of the field
      * @param string $value The value to be stored in a given field
      */
-    protected static function setIfNotNull (&$array, $name, $value)
+    protected static function setIfNotNullOrEmpty (&$array, $name, $value)
     {
-        if (!is_null($value))
+        if (!is_null($value) || !empty($value))
         {
             $array[$name] = $value;
         }
