@@ -118,6 +118,9 @@ class ApiBoard extends ApiObject
      */
     public function getColumns()
     {
+        self::lazyInject($this->columns, array(
+            "board_id" => $this->getId()
+        ));
         self::lazyArray($this->columns, "PulseColumn");
 
         return $this->columns;

@@ -56,7 +56,7 @@ abstract class ApiObject
     }
 
     /**
-     * Go through the JSON response and assign all supported instance variables
+     * Assign an associative array from a JSON response and map them to instance variables
      *
      * @since 0.1.0
      */
@@ -81,6 +81,35 @@ abstract class ApiObject
         if ($this->deletedObject)
         {
             throw new InvalidObjectException("This object no longer exists on DaPulse", 2);
+        }
+    }
+
+    /**
+     * Inject data into the array that will be mapped into individual instance variables. This function must be called
+     * **before** lazyArray() is called and maps the associative array to objects.
+     *
+     * @param array $target An array of associative arrays with data to be converted into objects
+     * @param array $array  An associative array containing data to be merged with the key being the name of the
+     *                      instance variable.
+     *
+     * @since 0.1.0
+     *
+     * @throw \InvalidArgumentException If either parameters are not arrays
+     */
+    protected function lazyInject (&$target, $array)
+    {
+        if (!is_array($target) || !is_array($array))
+        {
+            throw new \InvalidArgumentException("Both the target and array must be arrays");
+        }
+
+        // If the first element is an array, let's assume $target hasn't been lazily casted into objects
+        if (is_array($target[0]))
+        {
+            foreach ($target as &$element)
+            {
+                $element = array_merge($element, $array);
+            }
         }
     }
 
