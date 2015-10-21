@@ -261,44 +261,47 @@ abstract class ApiObject
      * Send a POST request to a specified URL
      *
      * @param  string $url
-     * @param  array  $params
+     * @param  array  $postParams
+     * @param  array  $getParams
      *
      * @since  0.1.0
      *
      * @return mixed
      */
-    protected static function sendPost ($url, $params)
+    protected static function sendPost ($url, $postParams, $getParams = array())
     {
-        return self::sendRequest("POST", $url, $params);
+        return self::sendRequest("POST", $url, $postParams, $getParams);
     }
 
     /**
      * Send a PUT request to a specified URL
      *
      * @param  string $url
-     * @param  array  $params
+     * @param  array  $postParams
+     * @param  array  $getParams
      *
      * @since  0.1.0
      *
      * @return mixed
      */
-    protected static function sendPut ($url, $params)
+    protected static function sendPut ($url, $postParams, $getParams = array())
     {
-        return self::sendRequest("PUT", $url, $params);
+        return self::sendRequest("PUT", $url, $postParams, $getParams);
     }
 
     /**
      * Send a DELETE request to a specified URL
      *
      * @param  string $url
+     * @param  array  $getParams
      *
      * @since  0.1.0
      *
      * @return mixed
      */
-    protected static function sendDelete ($url)
+    protected static function sendDelete ($url, $getParams = array())
     {
-        return self::sendRequest("DELETE", $url, null);
+        return self::sendRequest("DELETE", $url, null, $getParams);
     }
 
     /**
@@ -318,27 +321,26 @@ abstract class ApiObject
      *
      * @param  string $type
      * @param  string $url
-     * @param  array  $params
+     * @param  array  $postParams
+     * @param  array  $getParams
      *
      * @since  0.1.0
      *
      * @return mixed
      */
-    private static function sendRequest ($type, $url, $params)
+    private static function sendRequest ($type, $url, $postParams, $getParams)
     {
-        $getParams = array(
-            "api_key" => self::$apiKey
-        );
+        $getParams["api_key"] = self::$apiKey;
 
         $urlQuery = new UrlQuery($url, $getParams);
 
         switch ($type)
         {
             case "POST":
-                return $urlQuery->sendPost($params);
+                return $urlQuery->sendPost($postParams);
 
             case "PUT":
-                return $urlQuery->sendPut($params);
+                return $urlQuery->sendPut($postParams);
 
             case "DELETE":
                 return $urlQuery->sendDelete();
