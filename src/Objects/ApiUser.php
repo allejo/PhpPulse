@@ -14,7 +14,7 @@ namespace allejo\DaPulse\Objects;
  *
  * @since 0.1.0
  */
-class ApiUser extends ApiObject
+abstract class ApiUser extends ApiObject
 {
     /**
      * The resource's URL.

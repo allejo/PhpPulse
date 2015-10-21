@@ -14,7 +14,7 @@ namespace allejo\DaPulse\Objects;
  *
  * @since 0.1.0
  */
-class ApiNote extends ApiObject
+abstract class ApiNote extends ApiObject
 {
     /**
      * The collaboration box type (rich_text, file_list, faq_list).

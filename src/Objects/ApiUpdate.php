@@ -16,7 +16,7 @@ use allejo\DaPulse\PulseUser;
  *
  * @since 0.1.0
  */
-class ApiUpdate extends ApiObject
+abstract class ApiUpdate extends ApiObject
 {
     /**
      * User who wrote the update.

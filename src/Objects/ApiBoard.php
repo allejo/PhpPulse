@@ -14,7 +14,7 @@ namespace allejo\DaPulse\Objects;
  *
  * @since 0.1.0
  */
-class ApiBoard extends ApiObject
+abstract class ApiBoard extends ApiObject
 {
     /**
      * The resource's URL.

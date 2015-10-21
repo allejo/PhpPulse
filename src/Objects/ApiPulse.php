@@ -15,7 +15,7 @@ use allejo\DaPulse\PulseUser;
  *
  * @since 0.1.0
  */
-class ApiPulse extends ApiObject
+abstract class ApiPulse extends ApiObject
 {
     /**
      * The resource's URL.
