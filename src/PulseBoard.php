@@ -17,7 +17,7 @@ class PulseBoard extends ApiBoard
 
     public function createColumn ($title, $type, $labels = array())
     {
-        $url = sprintf("%s/%d/columns.json", parent::apiEndpoint(), $this->getId());
+        $url        = sprintf("%s/%d/columns.json", parent::apiEndpoint(), $this->getId());
         $postParams = array(
             "title" => $title,
             "type"  => $type
@@ -51,13 +51,11 @@ class PulseBoard extends ApiBoard
 
     public function createGroup ($title)
     {
-        $url = sprintf("%s/%s/groups.json", parent::apiEndpoint(), $this->getId());
-        $postParams = array(
-            "title" => $title
-        );
+        $url        = sprintf("%s/%s/groups.json", parent::apiEndpoint(), $this->getId());
+        $postParams = array("title" => $title);
 
         // The API doesn't return the board ID, so since we have access to it here: set it manually
-        $groupResult = self::sendPost($url, $postParams);
+        $groupResult             = self::sendPost($url, $postParams);
         $groupResult["board_id"] = $this->id;
 
         return (new PulseGroup($groupResult));
@@ -69,9 +67,7 @@ class PulseBoard extends ApiBoard
 
         $this->groupsFetched = true;
 
-        return self::sendGet($url, array(
-            "show_archived" => $showArchived
-        ));
+        return self::sendGet($url, array("show_archived" => $showArchived));
     }
 
     // ================================================================================================================
@@ -88,9 +84,9 @@ class PulseBoard extends ApiBoard
         $this->deletedObject = true;
     }
 
-    public static function createBoard ($user_id, $name, $description = null)
+    public static function createBoard ($user_id, $name, $description = NULL)
     {
-        $url = sprintf("%s.json", parent::apiEndpoint());
+        $url        = sprintf("%s.json", parent::apiEndpoint());
         $postParams = array(
             "user_id" => $user_id,
             "name"    => $name

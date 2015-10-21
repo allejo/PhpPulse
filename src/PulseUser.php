@@ -88,7 +88,7 @@ class PulseUser extends ApiUser
      *
      * @return PulseUser[] An array of PulseUsers for each of the users
      */
-    public static function getUsers($params = array())
+    public static function getUsers ($params = array())
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
 

@@ -14,7 +14,7 @@ class PulseProject extends ApiPulse
     //   Subscribers functions
     // ================================================================================================================
 
-    public function getSubscribers($params = array())
+    public function getSubscribers ($params = array())
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "subscribers");
 
@@ -39,9 +39,9 @@ class PulseProject extends ApiPulse
      *
      * @return PulseNote
      */
-    public function addNote($title, $content, $owners_only = false, $user_id = null, $create_update = false)
+    public function addNote ($title, $content, $owners_only = false, $user_id = NULL, $create_update = false)
     {
-        $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "notes");
+        $url        = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "notes");
         $postParams = array(
             "id"            => $this->id,
             "title"         => $title,
@@ -69,7 +69,7 @@ class PulseProject extends ApiPulse
      *
      * @return PulseNote[]
      */
-    public function getNotes()
+    public function getNotes ()
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "notes");
 
@@ -80,7 +80,7 @@ class PulseProject extends ApiPulse
     //   Updates functions
     // ================================================================================================================
 
-    public function getUpdates()
+    public function getUpdates ()
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "updates");
 
@@ -91,7 +91,7 @@ class PulseProject extends ApiPulse
     //   Static functions
     // ================================================================================================================
 
-    public static function getPulses($params = array())
+    public static function getPulses ($params = array())
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
 

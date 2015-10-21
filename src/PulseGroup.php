@@ -4,7 +4,6 @@ namespace allejo\DaPulse;
 
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\ApiObject;
-use Symfony\Component\Config\Definition\Exception\Exception;
 
 class PulseGroup extends ApiObject
 {

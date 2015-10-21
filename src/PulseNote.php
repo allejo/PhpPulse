@@ -2,27 +2,26 @@
 
 namespace allejo\DaPulse;
 
-use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\ApiNote;
 
 class PulseNote extends ApiNote
 {
     const API_PREFIX = "pulses";
 
-    public function __construct($array)
+    public function __construct ($array)
     {
         $this->arrayConstructionOnly = true;
 
         parent::__construct($array);
     }
 
-    public function editNote ($title = null, $content = null, $user_id = null, $create_update = null)
+    public function editNote ($title = NULL, $content = NULL, $user_id = NULL, $create_update = NULL)
     {
         $this->checkInvalid();
 
-        $url = $this->getNotesUrl();
+        $url        = $this->getNotesUrl();
         $postParams = array(
-            "id" => $this->getProjectId(),
+            "id"      => $this->getProjectId(),
             "note_id" => $this->getId()
         );
 
