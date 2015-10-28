@@ -42,6 +42,7 @@ class PulseBoard extends ApiBoard
             $fetchedGroups = $this->fetchGroups($showArchived);
 
             $this->groups = ArrayUtilities::array_merge_recursive_distinct($this->groups, $fetchedGroups);
+            $this->groupsFetched = true;
         }
 
         self::lazyArray($this->groups, "PulseGroup");

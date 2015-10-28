@@ -127,16 +127,6 @@ abstract class ApiBoard extends ApiObject
     }
 
     /**
-     * The board's visible groups.
-     *
-     * @return array
-     */
-    public function getGroups()
-    {
-        return $this->groups;
-    }
-
-    /**
      * Creation time.
      *
      * @return \DateTime
