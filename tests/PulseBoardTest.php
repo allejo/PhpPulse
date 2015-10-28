@@ -73,8 +73,8 @@ class PulseBoardTest extends PulseUnitTest
 
     public function testBoardGroupType()
     {
-        $group = $this->board->getGroups()[0];
+        $group = $this->board->getGroups();
 
-        $this->assertPulseObjectType("PulseGroup", $group);
+        $this->assertPulseObjectType("PulseGroup", $group[0]);
     }
 }
