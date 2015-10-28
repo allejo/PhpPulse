@@ -61,9 +61,9 @@ class PulseBoardTest extends PulseUnitTest
 
     public function testBoardColumnsType()
     {
-        $column = $this->board->getColumns()[0];
+        $column = $this->board->getColumns();
 
-        $this->assertPulseObjectType("PulseColumn", $column);
+        $this->assertPulseObjectType("PulseColumn", $column[0]);
     }
 
     public function testBoardGroupsNotNull()
