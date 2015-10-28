@@ -1,3 +1,3 @@
-# PhpPulse
+# PhpPulse [![Stable Release](https://img.shields.io/packagist/v/allejo/php-pulse.svg)](https://packagist.org/packages/allejo/php-pulse) [![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=master)](https://travis-ci.org/allejo/PhpPulse) [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master) [![Coverage Status](https://coveralls.io/repos/allejo/PhpPulse/badge.svg?branch=master&service=github)](https://coveralls.io/github/allejo/PhpPulse?branch=master)
 
 I need to write this after this library is done...
