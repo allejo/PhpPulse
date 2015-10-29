@@ -2,14 +2,163 @@
 
 namespace allejo\DaPulse;
 
-use allejo\DaPulse\Objects\ApiBoard;
+use allejo\DaPulse\Objects\ApiObject;
 use allejo\DaPulse\Utilities\ArrayUtilities;
 
-class PulseBoard extends ApiBoard
+class PulseBoard extends ApiObject
 {
     const API_PREFIX = "boards";
 
+    // ================================================================================================================
+    //   Instance Variables
+    // ================================================================================================================
+
+    /**
+     * The resource's URL.
+     *
+     * @var string
+     */
+    protected $url;
+
+    /**
+     * The board's unique identifier.
+     *
+     * @var int
+     */
+    protected $id;
+
+    /**
+     * The board's name.
+     *
+     * @var string
+     */
+    protected $name;
+
+    /**
+     * The board's description.
+     *
+     * @var string
+     */
+    protected $description;
+
+    /**
+     * The board's visible columns.
+     *
+     * @var array
+     */
+    protected $columns;
+
+    /**
+     * The board's visible groups.
+     *
+     * @var array
+     */
+    protected $groups;
+
+    /**
+     * Creation time.
+     *
+     * @var \DateTime
+     */
+    protected $created_at;
+
+    /**
+     * Last update time.
+     *
+     * @var \DateTime
+     */
+    protected $updated_at;
+
+    /**
+     * Whether or not groups have been fetched. Group data comes from both a unique API call and from the initial call
+     * of getting the board data, so this data is merged; this boolean is to avoid fetching this data twice.
+     *
+     * @var bool
+     */
     private $groupsFetched = false;
+
+    // ================================================================================================================
+    //   Getter functions
+    // ================================================================================================================
+
+    /**
+     * The resource's URL.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * The board's unique identifier.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * The board's name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * The board's description.
+     *
+     * @return string
+     */
+    public function getDescription()
+    {
+        return $this->description;
+    }
+
+    /**
+     * The board's visible columns.
+     *
+     * @return array
+     */
+    public function getColumns()
+    {
+        self::lazyInject($this->columns, array(
+            "board_id" => $this->getId()
+        ));
+        self::lazyArray($this->columns, "PulseColumn");
+
+        return $this->columns;
+    }
+
+    /**
+     * Creation time.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        self::lazyLoad($this->created_at, "DateTime");
+
+        return $this->created_at;
+    }
+
+    /**
+     * Last update time.
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        self::lazyLoad($this->updated_at, "DateTime");
+
+        return $this->updated_at;
+    }
 
     // ================================================================================================================
     //   Columns functions
