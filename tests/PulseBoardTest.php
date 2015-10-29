@@ -77,4 +77,14 @@ class PulseBoardTest extends PulseUnitTest
 
         $this->assertPulseObjectType("PulseGroup", $group[0]);
     }
+
+    public function testCreatedAt()
+    {
+        $this->assertInstanceOf("DateTime", $this->board->getCreatedAt());
+    }
+
+    public function testUpdatedAt()
+    {
+        $this->assertInstanceOf("DateTime", $this->board->getUpdatedAt());
+    }
 }

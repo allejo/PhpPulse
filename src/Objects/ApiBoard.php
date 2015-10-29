@@ -64,12 +64,6 @@ abstract class ApiBoard extends ApiObject
      * @var \DateTime
      */
     protected $updated_at;
-    /**
-     * The board's pulses.
-     *
-     * @var array of board items.
-     */
-    protected $pulses;
 
     /**
      * The resource's URL.
@@ -133,6 +127,8 @@ abstract class ApiBoard extends ApiObject
      */
     public function getCreatedAt()
     {
+        self::lazyLoad($this->created_at, "DateTime");
+
         return $this->created_at;
     }
 
@@ -143,16 +139,8 @@ abstract class ApiBoard extends ApiObject
      */
     public function getUpdatedAt()
     {
-        return $this->updated_at;
-    }
+        self::lazyLoad($this->updated_at, "DateTime");
 
-    /**
-     * The board's pulses.
-     *
-     * @return array of board items.
-     */
-    public function getPulses()
-    {
-        return $this->pulses;
+        return $this->updated_at;
     }
 }

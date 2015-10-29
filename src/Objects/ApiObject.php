@@ -96,7 +96,7 @@ abstract class ApiObject
      *
      * @throw \InvalidArgumentException If either parameters are not arrays
      */
-    protected function lazyInject (&$target, $array)
+    protected static function lazyInject (&$target, $array)
     {
         if (!is_array($target) || !is_array($array))
         {
@@ -116,7 +116,7 @@ abstract class ApiObject
     /**
      * Convert the specified item into the specified object if needed
      *
-     * @param array  $target     The item to check
+     * @param mixed  $target     The item to check
      * @param string $objectType The class name of the Objects the items should be
      *
      * @since 0.1.0
@@ -132,7 +132,7 @@ abstract class ApiObject
     /**
      * Check if an individual item needs to be lazily converted into an object
      *
-     * @param  array  $target     The item to check
+     * @param  mixed  $target     The item to check
      * @param  string $objectType The class name of the Objects the items should be
      *
      * @since  0.1.0
@@ -141,7 +141,7 @@ abstract class ApiObject
      */
     protected static function lazyLoadConversionNeeded ($target, $objectType)
     {
-        return (is_array($target) && !($target instanceof $objectType));
+        return !($target instanceof $objectType);
     }
 
     /**
