@@ -17,11 +17,35 @@ class PulseBoardModificationTest extends PulseUnitTest
 
     public function testBoardCreation()
     {
+        $boardCountBefore = count(PulseBoard::getBoards());
+
         $newBoard = PulseBoard::createBoard($this->userID, "Fuzzy Unicorn Board", "Unicorns are incredibly majestic");
+
+        $boardCountAfter = count(PulseBoard::getBoards());
 
         $this->assertNotNull($newBoard);
         $this->assertPulseObjectType("PulseBoard", $newBoard);
+        $this->assertEquals($boardCountBefore + 1, $boardCountAfter);
 
-        $newBoard->deleteBoard();
+        return array (
+            "board" => $newBoard,
+            "initial" => $boardCountBefore
+        );
+    }
+
+    /**
+     * @depends testBoardCreation
+     *
+     * @param   mixed $arrayOfValues
+     */
+    public function testBoardDeletion($arrayOfValues)
+    {
+        /* @var $board PulseBoard */
+        $board = $arrayOfValues["board"];
+        $board->deleteBoard();
+
+        $currentBoardCount = count(PulseBoard::getBoards());
+
+        $this->assertEquals($arrayOfValues["initial"], $currentBoardCount);
     }
 }
