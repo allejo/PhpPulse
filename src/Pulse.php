@@ -2,13 +2,140 @@
 
 namespace allejo\DaPulse;
 
-use allejo\DaPulse\Objects\ApiPulse;
+use allejo\DaPulse\Objects\ApiObject;
 
-class PulseProject extends ApiPulse
+class Pulse extends ApiObject
 {
     const API_PREFIX = "pulses";
 
+    // ================================================================================================================
+    //   Instance Variables
+    // ================================================================================================================
+
+    /**
+     * The resource's URL.
+     *
+     * @var string
+     */
+    protected $url;
+    /**
+     * The pulse's unique identifier.
+     *
+     * @var int
+     */
+    protected $id;
+    /**
+     * The pulse's name.
+     *
+     * @var string
+     */
+    protected $name;
+    /**
+     * The board's subscribers.
+     *
+     * @var PulseUser[]
+     */
+    protected $subscribers;
+    /**
+     * The amount of updates a pulse has.
+     *
+     * @var int
+     */
+    protected $updates_count;
+    /**
+     * The ID of the parent board.
+     *
+     * @var int
+     */
+    protected $board_id;
+    /**
+     * Creation time.
+     *
+     * @var \DateTime
+     */
+    protected $created_at;
+    /**
+     * Last update time.
+     *
+     * @var \DateTime
+     */
+    protected $updated_at;
+
     private $urlSyntax = "%s/%s/%s.json";
+
+    // ================================================================================================================
+    //   Getter functions
+    // ================================================================================================================
+
+    /**
+     * The resource's URL.
+     *
+     * @return string
+     */
+    public function getUrl()
+    {
+        return $this->url;
+    }
+
+    /**
+     * The pulse's unique identifier.
+     *
+     * @return int
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * The pulse's name.
+     *
+     * @return string
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * The amount of updates a pulse has.
+     *
+     * @return int
+     */
+    public function getUpdatesCount()
+    {
+        return $this->updates_count;
+    }
+
+    /**
+     * The ID of the parent board.
+     *
+     * @return int
+     */
+    public function getBoardId()
+    {
+        return $this->board_id;
+    }
+
+    /**
+     * Creation time.
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->created_at;
+    }
+
+    /**
+     * Last update time.
+     *
+     * @return \DateTime
+     */
+    public function getUpdatedAt()
+    {
+        return $this->updated_at;
+    }
 
     // ================================================================================================================
     //   Subscribers functions
@@ -95,6 +222,6 @@ class PulseProject extends ApiPulse
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
 
-        return parent::fetchJsonArrayToObjectArray($url, "PulseProject", $params);
+        return parent::fetchJsonArrayToObjectArray($url, "Pulse", $params);
     }
 }
