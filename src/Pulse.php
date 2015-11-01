@@ -3,6 +3,8 @@
 namespace allejo\DaPulse;
 
 use allejo\DaPulse\Objects\ApiObject;
+use allejo\DaPulse\Objects\PulseColumnValue;
+use allejo\DaPulse\Utilities\ArrayUtilities;
 
 class Pulse extends ApiObject
 {
@@ -18,48 +20,81 @@ class Pulse extends ApiObject
      * @var string
      */
     protected $url;
+
     /**
      * The pulse's unique identifier.
      *
      * @var int
      */
     protected $id;
+
     /**
      * The pulse's name.
      *
      * @var string
      */
     protected $name;
+
     /**
      * The board's subscribers.
      *
      * @var PulseUser[]
      */
     protected $subscribers;
+
     /**
      * The amount of updates a pulse has.
      *
      * @var int
      */
     protected $updates_count;
+
     /**
      * The ID of the parent board.
      *
      * @var int
      */
     protected $board_id;
+
     /**
      * Creation time.
      *
      * @var \DateTime
      */
     protected $created_at;
+
     /**
      * Last update time.
      *
      * @var \DateTime
      */
     protected $updated_at;
+
+    /**
+     * The ID of the group this pulse belongs to
+     *
+     * @var string
+     */
+    protected $group_id;
+
+    /**
+     * @var array
+     */
+    protected $column_structure;
+
+    /**
+     * An array containing all of the values a pulse has for each column
+     *
+     * @var mixed
+     */
+    protected $raw_column_values;
+
+    /**
+     * An array containing objects extended from PulseColumnValue storing all of the values for each column
+     *
+     * @var array
+     */
+    protected $column_values;
 
     private $urlSyntax = "%s/%s/%s.json";
 
@@ -135,6 +170,29 @@ class Pulse extends ApiObject
     public function getUpdatedAt()
     {
         return $this->updated_at;
+    }
+
+    // ================================================================================================================
+    //   Column data functions
+    // ================================================================================================================
+
+    public function getColumnValue($columnId)
+    {
+        if (!array_key_exists($columnId, $this->column_values))
+        {
+            $key = ArrayUtilities::array_search_column($this->raw_column_values, 'cid', $columnId);
+
+            $data = $this->raw_column_values[$key];
+            $type = $this->column_structure[$key]["type"];
+
+            $data['column_id'] = $data['cid'];
+            $data['board_id'] = $this->getBoardId();
+            $data['pulse_id'] = $this->getId();
+
+            $this->column_values[$columnId] = PulseColumnValue::createColumnType($type, $data);
+        }
+
+        return $this->column_values[$columnId];
     }
 
     // ================================================================================================================
