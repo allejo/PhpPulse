@@ -9,6 +9,8 @@
 
 namespace allejo\DaPulse\Utilities;
 
+use allejo\DaPulse\Exceptions\KeyNotFoundException;
+
 /**
  * This class contains static utilities used for manipulating arrays.
  *
@@ -19,6 +21,56 @@ namespace allejo\DaPulse\Utilities;
  */
 class ArrayUtilities
 {
+    /**
+     * Search a two-dimensional array based on a specific key located in one of the inner arrays.
+     *
+     * In the following example array, this function could search each 'first_name' key in each of the inner arrays.
+     *
+     * ```php
+     * $records = array(
+     *    array(
+     *      'id' => 2135,
+     *      'first_name' => 'John',
+     *      'last_name' => 'Doe',
+     *    ),
+     *    array(
+     *      'id' => 3245,
+     *      'first_name' => 'Sally',
+     *      'last_name' => 'Smith',
+     *    )
+     * );
+     * ```
+     *
+     * @param  array  $array  The target two-dimensional array we will be searching
+     * @param  string $column The name of the key that each inner array will have whose value will be checked
+     * @param  string $search The value that will be searched for
+     *
+     * @since  0.1.0
+     *
+     * @throws KeyNotFoundException
+     *
+     * @return int|mixed|string
+     */
+    public static function array_search_column($array, $column, $search)
+    {
+        if (function_exists('array_column'))
+        {
+            return array_search($search, array_column($array, $column));
+        }
+        else
+        {
+            foreach ($array as $key => $val)
+            {
+                if ($val[$column] === $search)
+                {
+                    return $key;
+                }
+            }
+        }
+
+        throw new KeyNotFoundException("No elements containing '$search' was found.");
+    }
+
     /**
      * array_merge_recursive does indeed merge arrays, but it converts values with duplicate
      * keys to arrays rather than overwriting the value in the first array with the duplicate
