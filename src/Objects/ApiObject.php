@@ -141,7 +141,9 @@ abstract class ApiObject
      */
     protected static function lazyLoadConversionNeeded ($target, $objectType)
     {
-        return !($target instanceof $objectType);
+        $objectDefinition = "\\allejo\\DaPulse\\" . $objectType;
+
+        return !($target instanceof $objectDefinition);
     }
 
     /**
