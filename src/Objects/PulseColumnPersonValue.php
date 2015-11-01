@@ -30,7 +30,7 @@ class PulseColumnPersonValue extends PulseColumnValue
             "user_id" => $userID
         );
 
-        self::sendPost($url, $postParams);
+        self::sendPut($url, $postParams);
 
         $this->column_value = new PulseUser($userID);
     }

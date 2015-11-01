@@ -28,7 +28,7 @@ class PulseColumnTextValue extends PulseColumnValue
             "text" => $text
         );
 
-        self::sendPost($url, $postParams);
+        self::sendPut($url, $postParams);
 
         $this->column_value = $text;
     }

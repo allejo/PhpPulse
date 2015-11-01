@@ -45,7 +45,7 @@ class PulseColumnColorValue extends PulseColumnValue
             "color_index" => $color
         );
 
-        self::sendPost($url, $postParams);
+        self::sendPut($url, $postParams);
 
         $this->column_value = $color;
     }

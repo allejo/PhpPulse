@@ -33,7 +33,7 @@ class PulseColumnDateValue extends PulseColumnValue
             "date_str" => date_format($dateTime, "Y-m-d")
         );
 
-        self::sendPost($url, $postParams);
+        self::sendPut($url, $postParams);
 
         $this->column_value = $dateTime;
     }
