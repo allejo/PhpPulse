@@ -70,6 +70,13 @@ class PulseBoard extends ApiObject
     protected $updated_at;
 
     /**
+     * Stores all of the pulses that belong under this board
+     *
+     * @var Pulse[]
+     */
+    protected $pulses;
+
+    /**
      * Whether or not groups have been fetched. Group data comes from both a unique API call and from the initial call
      * of getting the board data, so this data is merged; this boolean is to avoid fetching this data twice.
      *
@@ -218,6 +225,32 @@ class PulseBoard extends ApiObject
         $this->groupsFetched = true;
 
         return self::sendGet($url, array("show_archived" => $showArchived));
+    }
+
+    // ================================================================================================================
+    //   Pulse functions
+    // ================================================================================================================
+
+    public function getPulses ($forceFetch = false)
+    {
+        if (empty($this->pulses) || $forceFetch)
+        {
+            $url = sprintf("%s/%d/pulses.json", parent::apiEndpoint(), $this->getId());
+            $data = self::sendGet($url);
+            $this->pulses = array();
+
+            foreach ($data as $entry)
+            {
+                // We'll be "injecting" data found in other objects into our main Pulse object
+                $entry["pulse"]["group_id"] = $entry["board_meta"]["group_id"];
+                $entry["pulse"]["column_structure"] = $this->getColumns();
+                $entry["pulse"]["raw_column_values"] = $entry["column_values"];
+
+                $this->pulses[] = new Pulse($entry["pulse"]);
+            }
+        }
+
+        return $this->pulses;
     }
 
     // ================================================================================================================
