@@ -14,12 +14,12 @@ class PulseColumnDateValue extends PulseColumnValue
 {
     public function getValue ()
     {
-        if (empty($this->value))
+        if (!isset($this->column_value))
         {
-            $this->value = new DateTime($this->jsonResponse["value"]);
+            $this->column_value = new DateTime($this->jsonResponse["value"]);
         }
 
-        return $this->value;
+        return $this->column_value;
     }
 
     /**
@@ -35,6 +35,6 @@ class PulseColumnDateValue extends PulseColumnValue
 
         self::sendPost($url, $postParams);
 
-        $this->value = $dateTime;
+        $this->column_value = $dateTime;
     }
 }

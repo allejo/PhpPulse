@@ -12,12 +12,12 @@ class PulseColumnTextValue extends PulseColumnValue
 {
     public function getValue ()
     {
-        if (empty($this->value))
+        if (!isset($this->column_value))
         {
-            $this->value = $this->jsonResponse["value"];
+            $this->column_value = $this->jsonResponse["value"];
         }
 
-        return $this->value;
+        return $this->column_value;
     }
 
     public function updateValue ($text)
@@ -30,6 +30,6 @@ class PulseColumnTextValue extends PulseColumnValue
 
         self::sendPost($url, $postParams);
 
-        $this->value = $text;
+        $this->column_value = $text;
     }
 }

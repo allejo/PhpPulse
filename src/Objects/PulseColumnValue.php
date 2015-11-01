@@ -16,7 +16,7 @@ abstract class PulseColumnValue extends ApiObject
     protected $board_id;
     protected $column_id;
     protected $pulse_id;
-    protected $value;
+    protected $column_value;
 
     public function __construct($array)
     {

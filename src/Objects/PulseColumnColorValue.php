@@ -24,12 +24,12 @@ class PulseColumnColorValue extends PulseColumnValue
 
     public function getValue ()
     {
-        if (empty($this->value))
+        if (!isset($this->column_value))
         {
-            $this->value = $this->jsonResponse["value"]["index"];
+            $this->column_value = $this->jsonResponse["value"]["index"];
         }
 
-        return $this->value;
+        return $this->column_value;
     }
 
     public function updateValue ($color)
@@ -47,6 +47,6 @@ class PulseColumnColorValue extends PulseColumnValue
 
         self::sendPost($url, $postParams);
 
-        $this->value = $color;
+        $this->column_value = $color;
     }
 }

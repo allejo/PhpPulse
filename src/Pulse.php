@@ -178,12 +178,12 @@ class Pulse extends ApiObject
 
     public function getColumnValue($columnId)
     {
-        if (!array_key_exists($columnId, $this->column_values))
+        if (!isset($this->column_values) || !array_key_exists($columnId, $this->column_values))
         {
             $key = ArrayUtilities::array_search_column($this->raw_column_values, 'cid', $columnId);
 
             $data = $this->raw_column_values[$key];
-            $type = $this->column_structure[$key]["type"];
+            $type = $this->column_structure[$key]->getType();
 
             $data['column_id'] = $data['cid'];
             $data['board_id'] = $this->getBoardId();

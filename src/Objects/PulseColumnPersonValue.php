@@ -14,12 +14,12 @@ class PulseColumnPersonValue extends PulseColumnValue
 {
     public function getValue ()
     {
-        if (empty($this->value))
+        if (!isset($this->column_value))
         {
-            $this->value = new PulseUser($this->jsonResponse["value"]["id"]);
+            $this->column_value = new PulseUser($this->jsonResponse["value"]["id"]);
         }
 
-        return $this->value;
+        return $this->column_value;
     }
 
     public function updateValue ($userID)
@@ -32,6 +32,6 @@ class PulseColumnPersonValue extends PulseColumnValue
 
         self::sendPost($url, $postParams);
 
-        $this->value = new PulseUser($userID);
+        $this->column_value = new PulseUser($userID);
     }
 }
