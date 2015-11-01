@@ -241,16 +241,39 @@ class PulseBoard extends ApiObject
 
             foreach ($data as $entry)
             {
-                // We'll be "injecting" data found in other objects into our main Pulse object
-                $entry["pulse"]["group_id"] = $entry["board_meta"]["group_id"];
-                $entry["pulse"]["column_structure"] = $this->getColumns();
-                $entry["pulse"]["raw_column_values"] = $entry["column_values"];
+                $this->pulseInjection($entry);
 
                 $this->pulses[] = new Pulse($entry["pulse"]);
             }
         }
 
         return $this->pulses;
+    }
+
+    public function createPulse ($name, $owner, $group_id = null)
+    {
+        $url = sprintf("%s/%d/pulses.json", parent::apiEndpoint(), $this->getId());
+        $postParams = array(
+            "user_id" => $owner,
+            "pulse" => array(
+                "name" => $name
+            )
+        );
+
+        self::setIfNotNullOrEmpty($postParams, "group_id", $group_id);
+
+        $result = self::sendPost($url, $postParams);
+        $this->pulseInjection($result);
+
+        return (new Pulse($result["pulse"]));
+    }
+
+    private function pulseInjection (&$result)
+    {
+        // Inject some information so a Pulse object can survive on its own
+        $result["pulse"]["group_id"] = $result["board_meta"]["group_id"];
+        $result["pulse"]["column_structure"] = $this->getColumns();
+        $result["pulse"]["raw_column_values"] = $result["column_values"];
     }
 
     // ================================================================================================================
