@@ -288,12 +288,11 @@ class UrlQuery
     private static function formatArray ($prefix, $array)
     {
         $parameters = array();
-        $arrayLength = count($array);
 
-        for ($i = 0; $i < $arrayLength; $i++)
+        foreach ($array as $key => $value)
         {
-            $arrayKey = sprintf("%s[%d]", $prefix, $i);
-            $parameters[$arrayKey] = $array[$i];
+            $arrayKey = sprintf("%s[%s]", $prefix, $key);
+            $parameters[$arrayKey] = $value;
         }
 
         return $parameters;
