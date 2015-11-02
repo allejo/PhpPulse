@@ -1,12 +1,31 @@
 <?php
 
+/**
+ * This file contains the PulseBoard class
+ *
+ * @copyright 2015 Vladimir Jimenez
+ * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
+ */
+
 namespace allejo\DaPulse;
 
 use allejo\DaPulse\Objects\ApiObject;
 use allejo\DaPulse\Utilities\ArrayUtilities;
 
+/**
+ * This class contains all of the respective functionality for working a board on DaPulse
+ *
+ * @api
+ * @package allejo\DaPulse
+ * @since   0.1.0
+ */
 class PulseBoard extends ApiObject
 {
+    /**
+     * The suffix that is appended to the URL to access functionality for certain objects
+     *
+     * @internal
+     */
     const API_PREFIX = "boards";
 
     // ================================================================================================================
@@ -91,6 +110,8 @@ class PulseBoard extends ApiObject
     /**
      * The resource's URL.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getUrl()
@@ -101,6 +122,8 @@ class PulseBoard extends ApiObject
     /**
      * The board's unique identifier.
      *
+     * @api
+     * @since  0.1.0
      * @return int
      */
     public function getId()
@@ -111,6 +134,8 @@ class PulseBoard extends ApiObject
     /**
      * The board's name.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getName()
@@ -121,6 +146,8 @@ class PulseBoard extends ApiObject
     /**
      * The board's description.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getDescription()
@@ -131,7 +158,9 @@ class PulseBoard extends ApiObject
     /**
      * The board's visible columns.
      *
-     * @return array
+     * @api
+     * @since  0.1.0
+     * @return PulseColumn[]
      */
     public function getColumns()
     {
@@ -146,6 +175,8 @@ class PulseBoard extends ApiObject
     /**
      * Creation time.
      *
+     * @api
+     * @since  0.1.0
      * @return \DateTime
      */
     public function getCreatedAt()
@@ -158,6 +189,8 @@ class PulseBoard extends ApiObject
     /**
      * Last update time.
      *
+     * @api
+     * @since  0.1.0
      * @return \DateTime
      */
     public function getUpdatedAt()
@@ -171,8 +204,63 @@ class PulseBoard extends ApiObject
     //   Columns functions
     // ================================================================================================================
 
+    /**
+     * Create a new column for the current board.
+     *
+     * If you are creating a status column, use the constants available in the **PulseColumnColorValue** class to match the
+     * colors. Keep in mind this array cannot have a key higher than 11 nor can it be an associative array. Here's an
+     * example of how to match statuses with specific colors.
+     *
+     * ```php
+     * $labels = array(
+     *     PulseColumnColorValue::Orange  => "Working on it",
+     *     PulseColumnColorValue::L_Green => "Done",
+     *     PulseColumnColorValue::Red     => "Delayed"
+     * );
+     * ```
+     *
+     * @api
+     *
+     * @param string $title  The title of the column. This title will automatically be "slugified" and become the ID
+     *                       of the column.
+     * @param string $type   The type of value that this column will use. Either use the available constants in the
+     *                       PulseColumn class or use the following strings: "date", "person", "status", "text".
+     * @param array  $labels If the column type will be "status," then this array will be the values for each of the
+     *                       colors.
+     *
+     * @see PulseColumn::Date   PulseColumn::Date
+     * @see PulseColumn::Person PulseColumn::Person
+     * @see PulseColumn::Status PulseColumn::Status
+     * @see PulseColumn::Text   PulseColumn::Text
+     * @see PulseColumnColorValue::Orange  PulseColumnColorValue::Orange
+     * @see PulseColumnColorValue::L_Green PulseColumnColorValue::L_Green
+     * @see PulseColumnColorValue::Red     PulseColumnColorValue::Red
+     * @see PulseColumnColorValue::Blue    PulseColumnColorValue::Blue
+     * @see PulseColumnColorValue::Purple  PulseColumnColorValue::Purple
+     * @see PulseColumnColorValue::Grey    PulseColumnColorValue::Grey
+     * @see PulseColumnColorValue::Green   PulseColumnColorValue::Green
+     * @see PulseColumnColorValue::L_Blue  PulseColumnColorValue::L_Blue
+     * @see PulseColumnColorValue::Gold    PulseColumnColorValue::Gold
+     * @see PulseColumnColorValue::Yellow  PulseColumnColorValue::Yellow
+     * @see PulseColumnColorValue::Black   PulseColumnColorValue::Black
+     *
+     * @since 0.1.0
+     *
+     * @return $this This instance will be updated to have updated information to reflect the new column that was
+     *               created
+     */
     public function createColumn ($title, $type, $labels = array())
     {
+        if (max(array_keys($labels)) > 11)
+        {
+            throw new \InvalidArgumentException("The range of status can only be from 0-10.");
+        }
+
+        if ($type !== "status" && !empty($labels))
+        {
+            throw new \InvalidArgumentException("No status definitions are required for a non-status column.");
+        }
+
         $url        = sprintf("%s/%d/columns.json", parent::apiEndpoint(), $this->getId());
         $postParams = array(
             "title" => $title,
@@ -191,6 +279,19 @@ class PulseBoard extends ApiObject
     //   Group functions
     // ================================================================================================================
 
+    /**
+     * Get all of the groups belonging to a board.
+     *
+     * A group is defined as the colorful headers that split up pulses into categories.
+     *
+     * @api
+     *
+     * @param bool $showArchived Set to true if you would like to get archived groups in a board as well
+     *
+     * @since 0.1.0
+     *
+     * @return PulseGroup[]
+     */
     public function getGroups ($showArchived = false)
     {
         if (!$this->groupsFetched)

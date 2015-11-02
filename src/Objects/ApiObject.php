@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * This file contains the ApiObject class
+ *
+ * @copyright 2015 Vladimir Jimenez
+ * @license   https://github.com/allejo/PhpSoda/blob/master/LICENSE.md MIT
+ */
+
 namespace allejo\DaPulse\Objects;
 
 use allejo\DaPulse\Exceptions\InvalidObjectException;
@@ -8,29 +15,93 @@ use allejo\DaPulse\Utilities\UrlQuery;
 /**
  * The base class for all DaPulse API objects
  *
+ * @internal
  * @package allejo\DaPulse\Objects
  * @since   0.1.0
  */
 abstract class ApiObject
 {
+    /**
+     * The namespace used for all main PhpPulse objects. This is value is prepended before PhpPulse objects when being
+     * checked with `instanceof`.
+     *
+     * @internal
+     */
     const OBJ_NAMESPACE = "\\allejo\\DaPulse\\";
+
+    /**
+     * The default API protocol used for URL calls
+     *
+     * @internal
+     */
     const API_PROTOCOL = "https";
+
+    /**
+     * The API end point for URL calls
+     *
+     * @internal
+     */
     const API_ENDPOINT = "api.dapulse.com";
+
+    /**
+     * The API version used for URL calls
+     *
+     * @internal
+     */
     const API_VERSION  = "v1";
+
+    /**
+     * The suffix that is appended to the URL to access functionality for certain objects
+     *
+     * @internal
+     */
     const API_PREFIX   = "";
 
+    /**
+     * The API key used to make the URL calls
+     *
+     * @var string
+     */
     protected static $apiKey;
 
+    /**
+     * When set to true, the object can only be constructed from an associative array of data. It will not attempt
+     * to fetch the data with an API call; this is intended for objects are not directly accessible via the API.
+     *
+     * @var bool
+     */
     protected $arrayConstructionOnly = false;
+
+    /**
+     * Set to true if the object has been deleted via an API call but the instance still exists. This variable will
+     * prevent further API calls to a nonexistent object.
+     *
+     * @var bool
+     */
     protected $deletedObject = false;
-    protected $urlEndPoint;
+
+    /**
+     * An associative array representing the original JSON response from DaPulse
+     *
+     * @var array
+     */
     protected $jsonResponse;
 
+    /**
+     * Create an object from an API call
+     *
+     * @param int|array $idOrArray Either the numerical ID of an object or an associative array representing a JSON
+     *                             response from an API call
+     *
+     * @since 0.1.0
+     */
     public function __construct ($idOrArray)
     {
+        $urlEndPoint = "";
+
         if (!is_array($idOrArray))
         {
-            $this->urlEndPoint = sprintf("%s/%d.json", self::apiEndpoint(), $idOrArray);
+            $urlEndPoint = sprintf("%s/%d.json", self::apiEndpoint(), $idOrArray);
         }
 
         if ($this->arrayConstructionOnly && !is_array($idOrArray))
@@ -38,7 +109,7 @@ abstract class ApiObject
             throw new \InvalidArgumentException("A " . get_called_class() . " cannot be fetched from an ID.");
         }
 
-        $this->jsonResponse = (is_array($idOrArray)) ? $idOrArray : $this::sendGet($this->urlEndPoint);
+        $this->jsonResponse = (is_array($idOrArray)) ? $idOrArray : $this::sendGet($urlEndPoint);
 
         $this->assignResults();
     }
