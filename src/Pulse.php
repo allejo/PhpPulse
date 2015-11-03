@@ -176,7 +176,31 @@ class Pulse extends ApiObject
     //   Column data functions
     // ================================================================================================================
 
-    public function getColumnValue($columnId)
+    /**
+     * @deprecated Use Pulse::getColumn() instead
+     *
+     * @param string $columnId
+     *
+     * @since 0.1.0
+     *
+     * @return mixed
+     */
+    public function getColumnValue ($columnId)
+    {
+        return $this->getColumn($columnId);
+    }
+
+    /**
+     * @param string $columnId
+     *
+     * @since 0.1.0
+     *
+     * @throws \allejo\DaPulse\Exceptions\InvalidObjectException
+     * @throws \allejo\DaPulse\Exceptions\KeyNotFoundException
+     *
+     * @return PulseColumnValue
+     */
+    public function getColumn ($columnId)
     {
         if (!isset($this->column_values) || !array_key_exists($columnId, $this->column_values))
         {
