@@ -2,7 +2,13 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\InvalidObjectException;
+use allejo\DaPulse\Exceptions\KeyNotFoundException;
 use allejo\DaPulse\Objects\ApiObject;
+use allejo\DaPulse\Objects\PulseColumnColorValue;
+use allejo\DaPulse\Objects\PulseColumnDateValue;
+use allejo\DaPulse\Objects\PulseColumnPersonValue;
+use allejo\DaPulse\Objects\PulseColumnTextValue;
 use allejo\DaPulse\Objects\PulseColumnValue;
 use allejo\DaPulse\Utilities\ArrayUtilities;
 
@@ -78,7 +84,7 @@ class Pulse extends ApiObject
     protected $group_id;
 
     /**
-     * @var array
+     * @var PulseColumn[]
      */
     protected $column_structure;
 
@@ -177,13 +183,22 @@ class Pulse extends ApiObject
     // ================================================================================================================
 
     /**
-     * @deprecated Use Pulse::getColumn() instead
+     * Access a pulse's specific column to either access their value or to modify the value.
      *
-     * @param string $columnId
+     * This function has been replaced with {@see Pulse::getColumn()}.
+     *
+     * @deprecated 0.0.1a
+     *
+     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column
+     *                         title
      *
      * @since 0.1.0
      *
-     * @return mixed
+     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
+     *                                by this library or the DaPulse API.
+     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     *
+     * @return PulseColumnValue The returned object will be a child of this abstract class.
      */
     public function getColumnValue ($columnId)
     {
@@ -191,14 +206,28 @@ class Pulse extends ApiObject
     }
 
     /**
-     * @param string $columnId
+     * Access a pulse's specific column to either access their value or to modify the value.
+     *
+     * The returned object will be a child of **PulseColumnValue**; the classes which extend this class are listed in
+     * the "See Also" section.
+     *
+     * @api
+     *
+     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column
+     *                         title
+     *
+     * @see PulseColumnColorValue PulseColumnColorValue
+     * @see PulseColumnDateValue PulseColumnDateValue
+     * @see PulseColumnPersonValue PulseColumnPersonValue
+     * @see PulseColumnTextValue PulseColumnTextValue
      *
      * @since 0.1.0
      *
-     * @throws \allejo\DaPulse\Exceptions\InvalidObjectException
-     * @throws \allejo\DaPulse\Exceptions\KeyNotFoundException
+     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
+     *                                by this library or the DaPulse API.
+     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
      *
-     * @return PulseColumnValue
+     * @return PulseColumnValue The returned object will be a child of this abstract class.
      */
     public function getColumn ($columnId)
     {
