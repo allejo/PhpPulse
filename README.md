@@ -2,7 +2,9 @@
 
 A PHP library for working with the [DaPulse API](https://developers.dapulse.com/). This project is provided to work with the API in an easy fashion instead of manually making the calls to the API.
 
-**Notice:** This library is still under heavy development and there's still a lot that I need to write. I will be updating this README and the Wiki with examples as I finish writing the functionality. I ask that you please hold off on feature requests until I make the initial release of this library. If you'd like to show your support or interest, star and/or watch this repository to follow it's development. Thank you!
+**Notice:** This library is still under heavy development and there's still a lot that I need to write and a lot being changed. I will be updating this README and the Wiki with examples as I finish writing the functionality. I ask that you please hold off on feature requests until I make the initial release of this library. If you'd like to show your support or interest, star and/or watch this repository to follow it's development. Thank you!
+
+Because a lot of the functionality is still subject to change, please be mindful of that when using the master branch. I will do my best to deprecate things as I push updates but I make no guarantees.
 
 ## Requirements
 
