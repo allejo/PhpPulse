@@ -210,8 +210,10 @@ class Pulse extends ApiObject
      *
      * See the related functions to see the appropriate replacements.
      *
+     * @todo This function only exists for legacy applications. Remove in 0.1.1
+     *
      * @api
-     * @deprecated 0.0.1
+     * @deprecated 0.0.1 This function will be removed by 0.1.1. New stricter functions are available
      * @param string $columnId The ID of the column to access. It's typically a slugified version of the column title
      * @see Pulse::getColorColumn()  getColorColumn()
      * @see Pulse::getDateColumn()   getDateColumn()
@@ -225,7 +227,21 @@ class Pulse extends ApiObject
      */
     public function getColumnValue ($columnId)
     {
-        return $this->getColumn($columnId);
+        if (!isset($this->column_values) || !array_key_exists($columnId, $this->column_values))
+        {
+            $key = ArrayUtilities::array_search_column($this->raw_column_values, 'cid', $columnId);
+
+            $data = $this->raw_column_values[$key];
+            $type = $this->column_structure[$key]->getType();
+
+            $data['column_id'] = $data['cid'];
+            $data['board_id'] = $this->getBoardId();
+            $data['pulse_id'] = $this->getId();
+
+            $this->column_values[$columnId] = PulseColumnValue::createColumnType($type, $data);
+        }
+
+        return $this->column_values[$columnId];
     }
 
     /**
