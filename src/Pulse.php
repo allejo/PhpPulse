@@ -9,6 +9,7 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Exceptions\KeyNotFoundException;
 use allejo\DaPulse\Objects\ApiObject;
@@ -28,6 +29,9 @@ use allejo\DaPulse\Utilities\ArrayUtilities;
  */
 class Pulse extends ApiObject
 {
+    /**
+     * @ignore
+     */
     const API_PREFIX = "pulses";
 
     // ================================================================================================================
@@ -204,12 +208,15 @@ class Pulse extends ApiObject
     /**
      * Access a pulse's specific column to either access their value or to modify the value.
      *
-     * This function has been replaced with {@see Pulse::getColumn()}.
+     * See the related functions to see the appropriate replacements.
      *
      * @api
-     * @deprecated 0.0.1a
-     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column
-     *                         title
+     * @deprecated 0.0.1
+     * @param string $columnId The ID of the column to access. It's typically a slugified version of the column title
+     * @see Pulse::getColorColumn()  getColorColumn()
+     * @see Pulse::getDateColumn()   getDateColumn()
+     * @see Pulse::getPersonColumn() getPersonColumn()
+     * @see Pulse::getTextColumn()   getTextColumn()
      * @since 0.1.0
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
@@ -222,25 +229,98 @@ class Pulse extends ApiObject
     }
 
     /**
-     * Access a pulse's specific column to either access their value or to modify the value.
+     * Access a color type column value belonging to this pulse in order to read it or modify.
      *
-     * The returned object will be a child of **PulseColumnValue**; the classes which extend this class are listed in
-     * the "See Also" section.
+     * This function should only be used to access color type values; an exception will be thrown otherwise.
      *
      * @api
-     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column
-     *                         title
-     * @see PulseColumnColorValue PulseColumnColorValue
-     * @see PulseColumnDateValue PulseColumnDateValue
-     * @see PulseColumnPersonValue PulseColumnPersonValue
-     * @see PulseColumnTextValue PulseColumnTextValue
+     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
      * @since 0.1.0
+     * @throws InvalidColumnException The specified column is not a "color" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
      * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @return PulseColumnColorValue A column object with access to its contents
+     */
+    public function getColorColumn ($columnId)
+    {
+        return $this->getColumn($columnId, "color");
+    }
+
+    /**
+     * Access a date type column value belonging to this pulse in order to read it or modify.
+     *
+     * This function should only be used to access data type values; an exception will be thrown otherwise.
+     *
+     * @api
+     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     * @since 0.1.0
+     * @throws InvalidColumnException The specified column is not a "date" type column
+     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
+     *                                by this library or the DaPulse API.
+     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @return PulseColumnDateValue A column object with access to its contents
+     */
+    public function getDateColumn ($columnId)
+    {
+        return $this->getColumn($columnId, "date");
+    }
+
+    /**
+     * Access a person type column value belonging to this pulse in order to read it or modify.
+     *
+     * This function should only be used to access person type values; an exception will be thrown otherwise.
+     *
+     * @api
+     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     * @since 0.1.0
+     * @throws InvalidColumnException The specified column is not a "person" type column
+     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
+     *                                by this library or the DaPulse API.
+     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @return PulseColumnPersonValue A column object with access to its contents
+     */
+    public function getPersonColumn ($columnId)
+    {
+        return $this->getColumn($columnId, "person");
+    }
+
+    /**
+     * Access a text type column value belonging to this pulse in order to read it or modify.
+     *
+     * This function should only be used to access text type values; an exception will be thrown otherwise.
+     *
+     * @api
+     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     * @since 0.1.0
+     * @throws InvalidColumnException The specified column is not a "text" type column
+     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
+     *                                by this library or the DaPulse API.
+     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @return PulseColumnTextValue A column object with access to its contents
+     */
+    public function getTextColumn ($columnId)
+    {
+        return $this->getColumn($columnId, "text");
+    }
+
+    /**
+     * Build a pulse's column object if it doesn't exist or return the existing column.
+     *
+     * @param string $columnId   The ID of the column to access. This is typically a slugified version of the column
+     *                           title
+     * @param string $columnType The type of column being accessed: 'text', 'color', 'person', or 'date'
+     *
+     * @since 0.1.0
+     *
+     * @throws InvalidColumnException The specified column is not the same type as specified in `$columnType`
+     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
+     *                                by this library or the DaPulse API.
+     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     *
      * @return PulseColumnValue The returned object will be a child of this abstract class.
      */
-    public function getColumn ($columnId)
+    private function getColumn ($columnId, $columnType)
     {
         if (!isset($this->column_values) || !array_key_exists($columnId, $this->column_values))
         {
@@ -248,6 +328,11 @@ class Pulse extends ApiObject
 
             $data = $this->raw_column_values[$key];
             $type = $this->column_structure[$key]->getType();
+
+            if ($type !== $columnType)
+            {
+                throw new InvalidColumnException("The '$columnId' column was expected to be '$columnType' but was '$type' instead.");
+            }
 
             $data['column_id'] = $data['cid'];
             $data['board_id'] = $this->getBoardId();
@@ -381,7 +466,7 @@ class Pulse extends ApiObject
      * ```
      *
      * @api
-     * @param array $params
+     * @param array $params GET parameters passed to with the query to modify the data returned.
      * @since 0.1.0
      * @return Pulse[]
      */
