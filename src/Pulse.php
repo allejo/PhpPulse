@@ -1,5 +1,12 @@
 <?php
 
+/**
+ * This file contains the Pulse class
+ *
+ * @copyright 2015 Vladimir Jimenez
+ * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
+ */
+
 namespace allejo\DaPulse;
 
 use allejo\DaPulse\Exceptions\InvalidObjectException;
@@ -12,6 +19,13 @@ use allejo\DaPulse\Objects\PulseColumnTextValue;
 use allejo\DaPulse\Objects\PulseColumnValue;
 use allejo\DaPulse\Utilities\ArrayUtilities;
 
+/**
+ * A class representing a single pulse in a board
+ *
+ * @api
+ * @package allejo\DaPulse
+ * @since 0.1.0
+ */
 class Pulse extends ApiObject
 {
     const API_PREFIX = "pulses";
@@ -102,6 +116,11 @@ class Pulse extends ApiObject
      */
     protected $column_values;
 
+    /**
+     * The common URL path for retrieving objects relating a pulse such as subscribers, notes, or updates
+     *
+     * @var string
+     */
     private $urlSyntax = "%s/%s/%s.json";
 
     // ================================================================================================================
@@ -187,17 +206,14 @@ class Pulse extends ApiObject
      *
      * This function has been replaced with {@see Pulse::getColumn()}.
      *
+     * @api
      * @deprecated 0.0.1a
-     *
      * @param string $columnId The ID of the column to access. This is typically a slugified version of the column
      *                         title
-     *
      * @since 0.1.0
-     *
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
      * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
-     *
      * @return PulseColumnValue The returned object will be a child of this abstract class.
      */
     public function getColumnValue ($columnId)
@@ -212,21 +228,16 @@ class Pulse extends ApiObject
      * the "See Also" section.
      *
      * @api
-     *
      * @param string $columnId The ID of the column to access. This is typically a slugified version of the column
      *                         title
-     *
      * @see PulseColumnColorValue PulseColumnColorValue
      * @see PulseColumnDateValue PulseColumnDateValue
      * @see PulseColumnPersonValue PulseColumnPersonValue
      * @see PulseColumnTextValue PulseColumnTextValue
-     *
      * @since 0.1.0
-     *
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
      * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
-     *
      * @return PulseColumnValue The returned object will be a child of this abstract class.
      */
     public function getColumn ($columnId)
@@ -252,6 +263,25 @@ class Pulse extends ApiObject
     //   Subscribers functions
     // ================================================================================================================
 
+    /**
+     * Access a pulse's subscribers
+     *
+     * To modify the amount of data returned with pagination, use the following values in the array to configure your
+     * pagination or offsets.
+     *
+     * ```php
+     * $params = array(
+     *     "page"     => 1,  // (int) Page offset to fetch
+     *     "per_page" => 10, // (int) Number of results per page
+     *     "offset"   => 5,  // (int) Instead of starting at result 0, start counting from result 5
+     * );
+     * ```
+     *
+     * @api
+     * @param array $params GET parameters passed to with the query to modify the data returned.
+     * @since 0.1.0
+     * @return PulseUser[]
+     */
     public function getSubscribers ($params = array())
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "subscribers");
@@ -266,15 +296,14 @@ class Pulse extends ApiObject
     /**
      * Create a new note in this project
      *
+     * @api
      * @param  string   $title         The title of the note
      * @param  string   $content       The body of the note
      * @param  bool     $owners_only   Set to true if only pulse owners can edit this note.
      * @param  int|null $user_id       The id of the user to be marked as the note’s last updater
      * @param  bool     $create_update Indicates whether to create an update on the pulse notifying subscribers on the
      *                                 changes (required user_id to be set).
-     *
      * @since  0.1.0
-     *
      * @return PulseNote
      */
     public function addNote ($title, $content, $owners_only = false, $user_id = NULL, $create_update = false)
@@ -303,8 +332,8 @@ class Pulse extends ApiObject
     /**
      * Return all of the notes belonging to this project
      *
+     * @api
      * @since  0.1.0
-     *
      * @return PulseNote[]
      */
     public function getNotes ()
@@ -318,6 +347,13 @@ class Pulse extends ApiObject
     //   Updates functions
     // ================================================================================================================
 
+    /**
+     * Get all of the updates that belong this Pulse
+     *
+     * @api
+     * @since 0.1.0
+     * @return PulseUpdate[]
+     */
     public function getUpdates ()
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "updates");
@@ -329,6 +365,26 @@ class Pulse extends ApiObject
     //   Static functions
     // ================================================================================================================
 
+    /**
+     * Get all of the pulses that belong to the organization across all boards.
+     *
+     * To modify the amount of data returned with pagination, use the following values in the array to configure your
+     * pagination or offsets.
+     *
+     * ```php
+     * $params = array(
+     *     "page"     => 1,          // (int) Page offset to fetch
+     *     "per_page" => 10,         // (int) Number of results per page
+     *     "offset"   => 5,          // (int) Instead of starting at result 0, start counting from result 5
+     *     "order_by_latest" => true // (bool) Order the pulses with the most recent first
+     * );
+     * ```
+     *
+     * @api
+     * @param array $params
+     * @since 0.1.0
+     * @return Pulse[]
+     */
     public static function getPulses ($params = array())
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
