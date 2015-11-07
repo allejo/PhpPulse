@@ -18,9 +18,10 @@ use allejo\DaPulse\Exceptions\HttpException;
  * This class configures cURL with all of the appropriate authentication information and proper cURL configuration for
  * processing requests.
  *
- * There's no need to access this class outside of this library as the appropriate functionality is properly wrapped in
- * the appropriate Pulse classes.
+ * This class is provided as a convenience for all of the URL requests made by PhpPulse. This class may also be used
+ * by external tools to make custom requests.
  *
+ * @api
  * @package allejo\DaPulse\Utilities
  * @since   0.1.0
  */
@@ -62,6 +63,51 @@ class UrlQuery
     public function __destruct ()
     {
         curl_close($this->cURL);
+    }
+
+    /**
+     * Set the credentials for basic authentication
+     *
+     * @param string $username The username basic authentication
+     * @param string $password The password basic authentication
+     *
+     * @since 0.1.0
+     *
+     * @throws \InvalidArgumentException Either the username or the password was an empty or null string
+     */
+    public function setAuthentication ($username, $password)
+    {
+        if (StringUtilities::isNullOrEmpty($username) || StringUtilities::isNullOrEmpty($password))
+        {
+            throw new \InvalidArgumentException("Both the username and password must be non-empty strings.");
+        }
+
+        curl_setopt_array($this->cURL, array(
+            CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
+            CURLOPT_USERPWD => $username . ":" . $password
+        ));
+    }
+
+    /**
+     * Set cURL headers
+     *
+     * @param array $headers The headers that will be sent with cURL
+     *
+     * @since 0.1.0
+     *
+     * @throws \InvalidArgumentException The $headers parameter was not an array or it was an empty array
+     */
+    public function setHeaders ($headers)
+    {
+        if (empty($headers) || !is_array($headers))
+        {
+            throw new \InvalidArgumentException("The headers parameter must be a non-empty array");
+        }
+
+        curl_setopt_array($this->cURL, array(
+            CURLOPT_HEADER => true,
+            CURLOPT_HTTPHEADER => $headers
+        ));
     }
 
     /**
