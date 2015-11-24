@@ -2,8 +2,6 @@
 
 namespace allejo\DaPulse\Objects;
 
-use Symfony\Component\Validator\Constraints\DateTime;
-
 /**
  * Class PulseColumnTextValue
  *
@@ -23,7 +21,7 @@ class PulseColumnDateValue extends PulseColumnValue
     }
 
     /**
-     * @param DateTime $dateTime
+     * @param \DateTime $dateTime
      */
     public function updateValue ($dateTime)
     {
