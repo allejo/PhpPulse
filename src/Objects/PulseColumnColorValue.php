@@ -5,7 +5,6 @@ namespace allejo\DaPulse\Objects;
 /**
  * Class PulseColumnColorValue
  *
- * @internal
  * @package allejo\DaPulse\Objects
  */
 class PulseColumnColorValue extends PulseColumnValue

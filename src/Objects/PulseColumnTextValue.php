@@ -5,7 +5,6 @@ namespace allejo\DaPulse\Objects;
 /**
  * Class PulseColumnTextValue
  *
- * @internal
  * @package allejo\DaPulse\Objects
  */
 class PulseColumnTextValue extends PulseColumnValue

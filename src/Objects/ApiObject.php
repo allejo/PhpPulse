@@ -4,7 +4,7 @@
  * This file contains the ApiObject class
  *
  * @copyright 2015 Vladimir Jimenez
- * @license   https://github.com/allejo/PhpSoda/blob/master/LICENSE.md MIT
+ * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
  */
 
 namespace allejo\DaPulse\Objects;
@@ -92,6 +92,9 @@ abstract class ApiObject
      *
      * @param int|array $idOrArray Either the numerical ID of an object or an associative array representing a JSON
      *                             response from an API call
+     *
+     * @throw \InvalidArgumentException The specified object cannot be created directly from an API call but instead
+     *        requires an associative array of information gathered from other API calls.
      *
      * @since 0.1.0
      */

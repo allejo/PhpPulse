@@ -288,7 +288,7 @@ class Pulse extends ApiObject
             $data['board_id'] = $this->getBoardId();
             $data['pulse_id'] = $this->getId();
 
-            $this->column_values[$columnId] = PulseColumnValue::createColumnType($type, $data);
+            $this->column_values[$columnId] = PulseColumnValue::_createColumnType($type, $data);
         }
 
         return $this->column_values[$columnId];
@@ -404,7 +404,7 @@ class Pulse extends ApiObject
             $data['board_id'] = $this->getBoardId();
             $data['pulse_id'] = $this->getId();
 
-            $this->column_values[$columnId] = PulseColumnValue::createColumnType($type, $data);
+            $this->column_values[$columnId] = PulseColumnValue::_createColumnType($type, $data);
         }
 
         return $this->column_values[$columnId];

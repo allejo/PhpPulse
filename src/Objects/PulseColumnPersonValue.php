@@ -7,7 +7,6 @@ use allejo\DaPulse\PulseUser;
 /**
  * Class PulseColumnTextValue
  *
- * @internal
  * @package allejo\DaPulse\Objects
  */
 class PulseColumnPersonValue extends PulseColumnValue
