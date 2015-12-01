@@ -25,7 +25,7 @@ class PulseColumnDateValue extends PulseColumnValue
      */
     public function updateValue ($dateTime)
     {
-        $url = sprintf("%s/%d/columns/%s/text.json", parent::apiEndpoint(), $this->board_id, $this->column_id);
+        $url = sprintf("%s/%d/columns/%s/date.json", parent::apiEndpoint(), $this->board_id, $this->column_id);
         $postParams = array(
             "pulse_id" => $this->pulse_id,
             "date_str" => date_format($dateTime, "Y-m-d")
