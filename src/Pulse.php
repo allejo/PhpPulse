@@ -202,6 +202,56 @@ class Pulse extends ApiObject
     }
 
     // ================================================================================================================
+    //   Pulse functions
+    // ================================================================================================================
+
+    /**
+     * Delete the current Pulse
+     *
+     * @api
+     * @throws \allejo\DaPulse\Exceptions\InvalidObjectException
+     */
+    public function deletePulse ()
+    {
+        $this->checkInvalid();
+
+        $deleteURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
+
+        self::sendDelete($deleteURL);
+
+        $this->deletedObject = true;
+    }
+
+    public function duplicatePulse ($group_id = null, $owner_id = null)
+    {
+        $url = sprintf("%s/%s/pulses/%s/duplicate.json", parent::apiEndpoint("boards"), $this->getBoardId(), $this->getId());
+        $postParams = array();
+
+        if ($owner_id instanceof PulseUser)
+        {
+            $owner_id = $owner_id->getId();
+        }
+
+        self::setIfNotNullOrEmpty($postParams, "group_id", $group_id);
+        self::setIfNotNullOrEmpty($postParams, "owner_id", $owner_id);
+
+        $result = self::sendPost($url, $postParams);
+        $this->pulseInjection($result);
+
+        return (new Pulse($result['pulse']));
+    }
+
+    private function pulseInjection (&$result)
+    {
+        $parentBoard = new PulseBoard($this->getBoardId());
+
+        // Inject some information so a Pulse object can survive on its own
+        $result["pulse"]["group_id"] = $result["board_meta"]["group_id"];
+        $result["pulse"]["column_structure"] = $parentBoard->getColumns();
+        $result["pulse"]["raw_column_values"] = $result["column_values"];
+    }
+
+    // ================================================================================================================
     //   Column data functions
     // ================================================================================================================
 

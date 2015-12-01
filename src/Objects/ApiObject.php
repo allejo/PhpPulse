@@ -380,13 +380,18 @@ abstract class ApiObject
     /**
      * Get the base URL to use in all of the API calls
      *
+     * @param  string|null $apiPrefix If the API end point is different from the class's constant, this value will be
+     *                                used as the suffix for the API endpoint
+     *
      * @since  0.1.0
      *
      * @return string The base URL to call
      */
-    protected static function apiEndpoint ()
+    protected static function apiEndpoint ($apiPrefix = NULL)
     {
-        return sprintf("%s://%s/%s/%s", self::API_PROTOCOL, self::API_ENDPOINT, self::API_VERSION, static::API_PREFIX);
+        $apiSection = isset($apiPrefix) ? $apiPrefix : static::API_PREFIX;
+
+        return sprintf("%s://%s/%s/%s", self::API_PROTOCOL, self::API_ENDPOINT, self::API_VERSION, $apiSection);
     }
 
     /**
