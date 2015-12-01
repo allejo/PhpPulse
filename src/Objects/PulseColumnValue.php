@@ -59,8 +59,8 @@ abstract class PulseColumnValue extends ApiObject
      *
      * @since 0.1.0
      *
-     * @throw \InvalidArgumentException An ID is given when an instance of this object can only be created from an array
-     *        of existing data
+     * @throws \InvalidArgumentException An ID is given when an instance of this object can only be created from an array
+     *         of existing data
      */
     public function __construct($array)
     {
