@@ -76,7 +76,7 @@ abstract class PulseColumnValue extends ApiObject
      *
      * @internal
      *
-     * @param string $type The type of column as specified by DaPulse's API; i.e. 'text', 'date', 'color', 'person'
+     * @param string $type The type of column as specified by DaPulse's API; i.e. 'text', 'date', 'status', 'person'
      * @param array  $data An associative array containing data regarding the column
      *
      * @since 0.1.0

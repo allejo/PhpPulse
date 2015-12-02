@@ -3,6 +3,7 @@
 namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
+use allejo\DaPulse\Objects\PulseColumnValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseUser;
@@ -171,5 +172,19 @@ class GettersTest extends PulseUnitTest
         {
             $this->assertEquals($expectedValues[$i], $this->pulses[$i]->getStatusColumn('status')->getValue());
         }
+    }
+
+    public function testGetBadColumnType()
+    {
+        $this->setExpectedException('allejo\DaPulse\Exceptions\InvalidObjectException');
+
+        PulseColumnValue::_createColumnType("non-existent", array());
+    }
+
+    public function testGroupOfPulseWithApiCall()
+    {
+        $newPulse = new Pulse(3930967);
+
+        $this->assertEquals("topics", $newPulse->getGroupId());
     }
 }

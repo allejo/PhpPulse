@@ -201,6 +201,39 @@ class Pulse extends ApiObject
         return $this->updated_at;
     }
 
+    /**
+     * Get the ID of the group this Pulse is a part of. If this value is not available, an API call will be made to
+     * find the group ID via brute force.
+     *
+     * **Note** The group ID is cached if it is not available. To update the cached value, use $forceFetch to force an
+     * API call to get a new value.
+     *
+     * **Warning** An API call is always slower than using the cached value.
+     *
+     * @param bool $forceFetch Force an API call to get an updated group ID if it has been changed
+     * @since 0.1.0
+     * @return string
+     */
+    public function getGroupId($forceFetch = false)
+    {
+        if (empty($this->group_id) || $forceFetch)
+        {
+            $parentBoard = new PulseBoard($this->board_id);
+            $pulses = $parentBoard->getPulses();
+
+            foreach ($pulses as $pulse)
+            {
+                if ($this->getId() === $pulse->getId())
+                {
+                    $this->group_id = $pulse->getGroupId();
+                    break;
+                }
+            }
+        }
+
+        return $this->group_id;
+    }
+
     // ================================================================================================================
     //   Pulse functions
     // ================================================================================================================
