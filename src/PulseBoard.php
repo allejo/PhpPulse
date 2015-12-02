@@ -91,13 +91,6 @@ class PulseBoard extends ApiObject
     protected $updated_at;
 
     /**
-     * Stores all of the pulses that belong under this board
-     *
-     * @var Pulse[]
-     */
-    protected $pulses;
-
-    /**
      * Whether or not groups have been fetched. Group data comes from both a unique API call and from the initial call
      * of getting the board data, so this data is merged; this boolean is to avoid fetching this data twice.
      *
@@ -321,7 +314,7 @@ class PulseBoard extends ApiObject
 
         // The API doesn't return the board ID, so since we have access to it here: set it manually
         $groupResult             = self::sendPost($url, $postParams);
-        $groupResult["board_id"] = $this->id;
+        $groupResult["board_id"] = $this->getId();
 
         return (new PulseGroup($groupResult));
     }
@@ -339,23 +332,23 @@ class PulseBoard extends ApiObject
     //   Pulse functions
     // ================================================================================================================
 
-    public function getPulses ($forceFetch = false)
+    /**
+     * @return Pulse[]
+     */
+    public function getPulses ()
     {
-        if (empty($this->pulses) || $forceFetch)
+        $url = sprintf("%s/%d/pulses.json", parent::apiEndpoint(), $this->getId());
+        $data = self::sendGet($url);
+        $pulses = array();
+
+        foreach ($data as $entry)
         {
-            $url = sprintf("%s/%d/pulses.json", parent::apiEndpoint(), $this->getId());
-            $data = self::sendGet($url);
-            $this->pulses = array();
+            $this->pulseInjection($entry);
 
-            foreach ($data as $entry)
-            {
-                $this->pulseInjection($entry);
-
-                $this->pulses[] = new Pulse($entry["pulse"]);
-            }
+            $pulses[] = new Pulse($entry["pulse"]);
         }
 
-        return $this->pulses;
+        return $pulses;
     }
 
     public function createPulse ($name, $owner, $group_id = null)
