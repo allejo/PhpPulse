@@ -9,6 +9,8 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\ArgumentMismatchException;
+use allejo\DaPulse\Exceptions\InvalidArraySizeException;
 use allejo\DaPulse\Objects\ApiObject;
 use allejo\DaPulse\Utilities\ArrayUtilities;
 
@@ -224,7 +226,7 @@ class PulseBoard extends ApiObject
      * @param string $title  The title of the column. This title will automatically be "slugified" and become the ID
      *                       of the column.
      * @param string $type   The type of value that this column will use. Either use the available constants in the
-     *                       PulseColumn class or use the following strings: "date", "person", "status", "text".
+     *                       PulseColumn class or use the following strings: "date", "person", "color", "text".
      * @param array  $labels If the column type will be "status," then this array will be the values for each of the
      *                       colors.
      *
@@ -246,19 +248,24 @@ class PulseBoard extends ApiObject
      *
      * @since 0.1.0
      *
+     * @throws ArgumentMismatchException Status definitions were defined yet the type of the column was not a status
+     *                                   type column
+     * @throws InvalidArraySizeException The array containing the value of statuses has a key larger than the
+     *                                   supported 10 indices
+     *
      * @return $this This instance will be updated to have updated information to reflect the new column that was
      *               created
      */
     public function createColumn ($title, $type, $labels = array())
     {
-        if (max(array_keys($labels)) > 11)
+        if ($type !== PulseColumn::Status && !empty($labels))
         {
-            throw new \InvalidArgumentException("The range of status can only be from 0-10.");
+            throw new ArgumentMismatchException("No color definitions are required for a non-color column.");
         }
 
-        if ($type !== "status" && !empty($labels))
+        if ($type === PulseColumn::Status && count($labels) > 0 && max(array_keys($labels)) > 10)
         {
-            throw new \InvalidArgumentException("No status definitions are required for a non-status column.");
+            throw new InvalidArraySizeException("The range of status can only be from 0-10.");
         }
 
         $url        = sprintf("%s/%d/columns.json", parent::apiEndpoint(), $this->getId());
@@ -391,7 +398,7 @@ class PulseBoard extends ApiObject
         $this->deletedObject = true;
     }
 
-    public static function createBoard ($user_id, $name, $description = NULL)
+    public static function createBoard ($name, $user_id, $description = NULL)
     {
         $url        = sprintf("%s.json", parent::apiEndpoint());
         $postParams = array(

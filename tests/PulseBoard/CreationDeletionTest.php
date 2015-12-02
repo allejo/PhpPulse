@@ -4,8 +4,11 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\PulseBoard;
 
-class PulseBoardModificationTest extends PulseUnitTest
+class CreationDeletionTest extends PulseUnitTest
 {
+    /**
+     * @var int
+     */
     private $userID;
 
     public function setUp()
@@ -19,7 +22,7 @@ class PulseBoardModificationTest extends PulseUnitTest
     {
         $boardCountBefore = count(PulseBoard::getBoards());
 
-        $newBoard = PulseBoard::createBoard($this->userID, "Fuzzy Unicorn Board", "Unicorns are incredibly majestic");
+        $newBoard = PulseBoard::createBoard("Fuzzy Unicorn Board", $this->userID, "Unicorns are incredibly majestic");
 
         $boardCountAfter = count(PulseBoard::getBoards());
 
