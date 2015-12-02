@@ -13,7 +13,7 @@ class PulseColumnDateValue extends PulseColumnValue
     {
         if (!isset($this->column_value))
         {
-            $this->column_value = new DateTime($this->jsonResponse["value"]);
+            $this->column_value = new \DateTime($this->jsonResponse["value"]);
         }
 
         return $this->column_value;

@@ -2,7 +2,7 @@
 
 namespace allejo\DaPulse\Tests;
 
-use allejo\DaPulse\Objects\PulseColumnColorValue;
+use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseColumn;
@@ -68,7 +68,7 @@ class ModificationTest extends PulseUnitTest
         $this->setExpectedException('allejo\DaPulse\Exceptions\ArgumentMismatchException');
 
         $colors = array(
-            PulseColumnColorValue::Orange => "Just Started"
+            PulseColumnStatusValue::Orange => "Just Started"
         );
 
         $this->pulseBoard->createColumn("Dynamic Status", PulseColumn::Date, $colors);

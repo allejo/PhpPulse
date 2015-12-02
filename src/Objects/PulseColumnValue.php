@@ -10,6 +10,8 @@
 namespace allejo\DaPulse\Objects;
 
 use allejo\DaPulse\Exceptions\InvalidObjectException;
+use allejo\DaPulse\Pulse;
+use allejo\DaPulse\PulseColumn;
 
 /**
  * The base class used for column values belonging to a specified class
@@ -81,22 +83,22 @@ abstract class PulseColumnValue extends ApiObject
      *
      * @throws \allejo\DaPulse\Exceptions\InvalidObjectException
      *
-     * @return PulseColumnColorValue|PulseColumnDateValue|PulseColumnPersonValue|PulseColumnTextValue
+     * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnPersonValue|PulseColumnTextValue
      */
     public static function _createColumnType ($type, $data)
     {
         switch ($type)
         {
-            case "text":
+            case PulseColumn::Text:
                 return (new PulseColumnTextValue($data));
 
-            case "color":
-                return (new PulseColumnColorValue($data));
+            case PulseColumn::Status:
+                return (new PulseColumnStatusValue($data));
 
-            case "person":
+            case PulseColumn::Person:
                 return (new PulseColumnPersonValue($data));
 
-            case "date":
+            case PulseColumn::Date:
                 return (new PulseColumnDateValue($data));
         }
 

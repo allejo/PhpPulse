@@ -7,7 +7,7 @@ namespace allejo\DaPulse\Objects;
  *
  * @package allejo\DaPulse\Objects
  */
-class PulseColumnColorValue extends PulseColumnValue
+class PulseColumnStatusValue extends PulseColumnValue
 {
     /**
      * The index of the orange status

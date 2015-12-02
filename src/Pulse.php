@@ -13,7 +13,7 @@ use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Exceptions\KeyNotFoundException;
 use allejo\DaPulse\Objects\ApiObject;
-use allejo\DaPulse\Objects\PulseColumnColorValue;
+use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Objects\PulseColumnDateValue;
 use allejo\DaPulse\Objects\PulseColumnPersonValue;
 use allejo\DaPulse\Objects\PulseColumnTextValue;
@@ -264,8 +264,10 @@ class Pulse extends ApiObject
      *
      * @api
      * @deprecated 0.0.1 This function will be removed by 0.1.1. New stricter functions are available
-     * @param string $columnId The ID of the column to access. It's typically a slugified version of the column title
-     * @see Pulse::getColorColumn()  getColorColumn()
+     *
+*@param string $columnId The ID of the column to access. It's typically a slugified version of the column title
+     *
+*@see Pulse::getStatusColumn()  getColorColumn()
      * @see Pulse::getDateColumn()   getDateColumn()
      * @see Pulse::getPersonColumn() getPersonColumn()
      * @see Pulse::getTextColumn()   getTextColumn()
@@ -300,17 +302,19 @@ class Pulse extends ApiObject
      * This function should only be used to access color type values; an exception will be thrown otherwise.
      *
      * @api
-     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
-     * @since 0.1.0
+     *
+*@param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     *
+*@since 0.1.0
      * @throws InvalidColumnException The specified column is not a "color" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
      * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
-     * @return PulseColumnColorValue A column object with access to its contents
+     * @return PulseColumnStatusValue A column object with access to its contents
      */
-    public function getColorColumn ($columnId)
+    public function getStatusColumn ($columnId)
     {
-        return $this->getColumn($columnId, "color");
+        return $this->getColumn($columnId, PulseColumn::Status);
     }
 
     /**
@@ -329,7 +333,7 @@ class Pulse extends ApiObject
      */
     public function getDateColumn ($columnId)
     {
-        return $this->getColumn($columnId, "date");
+        return $this->getColumn($columnId, PulseColumn::Date);
     }
 
     /**
@@ -348,7 +352,7 @@ class Pulse extends ApiObject
      */
     public function getPersonColumn ($columnId)
     {
-        return $this->getColumn($columnId, "person");
+        return $this->getColumn($columnId, PulseColumn::Person);
     }
 
     /**
@@ -367,7 +371,7 @@ class Pulse extends ApiObject
      */
     public function getTextColumn ($columnId)
     {
-        return $this->getColumn($columnId, "text");
+        return $this->getColumn($columnId, PulseColumn::Text);
     }
 
     /**
