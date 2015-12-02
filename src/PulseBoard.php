@@ -226,7 +226,7 @@ class PulseBoard extends ApiObject
      * @param string $title  The title of the column. This title will automatically be "slugified" and become the ID
      *                       of the column.
      * @param string $type   The type of value that this column will use. Either use the available constants in the
-     *                       PulseColumn class or use the following strings: "date", "person", "color", "text".
+     *                       PulseColumn class or use the following strings: "date", "person", "status", "text".
      * @param array  $labels If the column type will be "status," then this array will be the values for each of the
      *                       colors.
      *
