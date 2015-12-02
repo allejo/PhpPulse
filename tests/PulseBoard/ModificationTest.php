@@ -90,4 +90,12 @@ class ModificationTest extends PulseUnitTest
         $this->assertEquals($this->pulseColumnCount + 1, $newColumnCount);
         $this->assertEquals($columnType, $newestColumn->getType());
     }
+
+    public function testCreateGroup()
+    {
+        $newGroup = $this->pulseBoard->createGroup("API Group");
+        $groups = $this->pulseBoard->getGroups();
+
+        $this->assertPulseArrayContains($newGroup, $groups);
+    }
 }

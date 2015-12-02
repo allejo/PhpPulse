@@ -40,4 +40,20 @@ abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
 
         $this->assertInstanceOf($instanceOf, $actual, $message);
     }
+
+    protected function assertPulseArrayContains($needle, $haystack, $message = "")
+    {
+        $resultFound = false;
+
+        foreach ($haystack as $hay)
+        {
+            if ($needle->getId() === $hay->getId())
+            {
+                $resultFound = true;
+                break;
+            }
+        }
+
+        $this->assertTrue($resultFound, $message);
+    }
 }
