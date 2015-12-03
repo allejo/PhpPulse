@@ -298,9 +298,9 @@ class Pulse extends ApiObject
      * @api
      * @deprecated 0.0.1 This function will be removed by 0.1.1. New stricter functions are available
      *
-*@param string $columnId The ID of the column to access. It's typically a slugified version of the column title
+     * @param string $columnId The ID of the column to access. It's typically a slugified version of the column title
      *
-*@see Pulse::getStatusColumn()  getColorColumn()
+     * @see Pulse::getStatusColumn()  getColorColumn()
      * @see Pulse::getDateColumn()   getDateColumn()
      * @see Pulse::getPersonColumn() getPersonColumn()
      * @see Pulse::getTextColumn()   getTextColumn()
