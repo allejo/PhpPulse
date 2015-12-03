@@ -32,6 +32,12 @@ class PulseColumn extends ApiObject
 
     public function getType ()
     {
+        // @todo Workaround due to a bug in DaPulse's API see: https://github.com/allejo/PhpPulse/issues/5
+        if ($this->type === "color")
+        {
+            $this->type = self::Status;
+        }
+
         return $this->type;
     }
 

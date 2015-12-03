@@ -81,6 +81,8 @@ abstract class PulseColumnValue extends ApiObject
      *
      * @since 0.1.0
      *
+     * @todo Fix the hardcoded "color" case statement. See: https://github.com/allejo/PhpPulse/issues/5
+     *
      * @throws \allejo\DaPulse\Exceptions\InvalidObjectException
      *
      * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnPersonValue|PulseColumnTextValue
@@ -92,6 +94,7 @@ abstract class PulseColumnValue extends ApiObject
             case PulseColumn::Text:
                 return (new PulseColumnTextValue($data));
 
+            case "color":
             case PulseColumn::Status:
                 return (new PulseColumnStatusValue($data));
 
