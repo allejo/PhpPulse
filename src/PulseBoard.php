@@ -381,7 +381,7 @@ class PulseBoard extends ApiObject
     //   Board functions
     // ================================================================================================================
 
-    public function deleteBoard ()
+    public function archiveBoard ()
     {
         $this->checkInvalid();
 

@@ -41,7 +41,7 @@ class ModificationTest extends PulseUnitTest
 
     public function tearDown()
     {
-        $this->pulseBoard->deleteBoard();
+        $this->pulseBoard->archiveBoard();
     }
 
     public function columnTypeProvider()

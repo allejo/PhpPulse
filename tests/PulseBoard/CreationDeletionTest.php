@@ -45,7 +45,7 @@ class CreationDeletionTest extends PulseUnitTest
     {
         /* @var $board PulseBoard */
         $board = $arrayOfValues["board"];
-        $board->deleteBoard();
+        $board->archiveBoard();
 
         $currentBoardCount = count(PulseBoard::getBoards());
 
