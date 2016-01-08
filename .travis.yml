@@ -19,5 +19,6 @@ after_script:
  - php vendor/bin/coveralls -v
 
 notifications:
+  email: false
   webhooks:
-    - http://helit.org:8093/+sujevo-dev/showSuccessfulBuildMessages=always
+    - http://helit.tech:8093/+sujevo-dev/showSuccessfulBuildMessages=always
