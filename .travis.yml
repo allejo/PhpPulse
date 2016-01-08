@@ -7,9 +7,16 @@ php:
   - 7
   - hhvm
 
+sudo: false
+
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
 before_script:
  - wget http://getcomposer.org/composer.phar
- - php composer.phar install --dev --no-interaction
+ - php composer.phar install --dev --no-interaction --prefer-dist
 
 script:
  - mkdir -p build/logs
