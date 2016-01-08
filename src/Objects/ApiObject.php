@@ -114,6 +114,7 @@ abstract class ApiObject
 
         $this->jsonResponse = (is_array($idOrArray)) ? $idOrArray : $this::sendGet($urlEndPoint);
 
+        $this->initializeValues();
         $this->assignResults();
     }
 
@@ -157,6 +158,11 @@ abstract class ApiObject
             throw new InvalidObjectException("This object no longer exists on DaPulse", 2);
         }
     }
+
+    /**
+     * Overload this function if any class variables need to be initialized to a default value
+     */
+    protected function initializeValues() {}
 
     /**
      * Inject data into the array that will be mapped into individual instance variables. This function must be called

@@ -128,6 +128,17 @@ class Pulse extends ApiObject
     private $urlSyntax = "%s/%s/%s.json";
 
     // ================================================================================================================
+    //   Overloaded functions
+    // ================================================================================================================
+
+    protected function initializeValues ()
+    {
+        $this->column_values     = array();
+        $this->column_structure  = array();
+        $this->raw_column_values = array();
+    }
+
+    // ================================================================================================================
     //   Getter functions
     // ================================================================================================================
 
@@ -336,9 +347,9 @@ class Pulse extends ApiObject
      *
      * @api
      *
-*@param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
-*@since 0.1.0
+     * @since 0.1.0
      * @throws InvalidColumnException The specified column is not a "color" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
@@ -429,19 +440,37 @@ class Pulse extends ApiObject
         {
             $key = ArrayUtilities::array_search_column($this->raw_column_values, 'cid', $columnId);
 
-            $data = $this->raw_column_values[$key];
-            $type = $this->column_structure[$key]->getType();
-
-            if ($type !== $columnType)
+            // We can't find the key, this means that we got our information from accessing a Pulse directly instead of
+            // getting it through a PulseBoard. This isn't as robust as accessing a PulseBoard but it's more efficient.
+            // We make a separate API call to get the value of a column.
+            if ($key === false)
             {
-                throw new InvalidColumnException("The '$columnId' column was expected to be '$columnType' but was '$type' instead.");
+                $url = sprintf("%s/%d/columns/%s/value.json", parent::apiEndpoint("boards"), $this->getBoardId(), $columnId);
+                $params = array(
+                    "pulse_id" => $this->getId()
+                );
+                $results = parent::sendGet($url, $params);
+
+                // Store our value inside of jsonResponse so all of the respective objects can treat the data the same
+                // as when accessed through a PulseBoard
+                $data['jsonResponse']['value'] = $results['value'];
+            }
+            else
+            {
+                $data = $this->raw_column_values[$key];
+                $type = $this->column_structure[$key]->getType();
+
+                if ($type !== $columnType)
+                {
+                    throw new InvalidColumnException("The '$columnId' column was expected to be '$columnType' but was '$type' instead.");
+                }
             }
 
-            $data['column_id'] = $data['cid'];
+            $data['column_id'] = $columnId;
             $data['board_id'] = $this->getBoardId();
             $data['pulse_id'] = $this->getId();
 
-            $this->column_values[$columnId] = PulseColumnValue::_createColumnType($type, $data);
+            $this->column_values[$columnId] = PulseColumnValue::_createColumnType($columnType, $data);
         }
 
         return $this->column_values[$columnId];
