@@ -9,9 +9,9 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\HttpException;
 use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
-use allejo\DaPulse\Exceptions\KeyNotFoundException;
 use allejo\DaPulse\Objects\ApiObject;
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Objects\PulseColumnDateValue;
@@ -318,7 +318,7 @@ class Pulse extends ApiObject
      * @since 0.1.0
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
-     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
      * @return PulseColumnValue The returned object will be a child of this abstract class.
      */
     public function getColumnValue ($columnId)
@@ -353,7 +353,7 @@ class Pulse extends ApiObject
      * @throws InvalidColumnException The specified column is not a "color" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
-     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
      * @return PulseColumnStatusValue A column object with access to its contents
      */
     public function getStatusColumn ($columnId)
@@ -372,7 +372,7 @@ class Pulse extends ApiObject
      * @throws InvalidColumnException The specified column is not a "date" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
-     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
      * @return PulseColumnDateValue A column object with access to its contents
      */
     public function getDateColumn ($columnId)
@@ -391,7 +391,7 @@ class Pulse extends ApiObject
      * @throws InvalidColumnException The specified column is not a "person" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
-     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
      * @return PulseColumnPersonValue A column object with access to its contents
      */
     public function getPersonColumn ($columnId)
@@ -410,7 +410,7 @@ class Pulse extends ApiObject
      * @throws InvalidColumnException The specified column is not a "text" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
-     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
      * @return PulseColumnTextValue A column object with access to its contents
      */
     public function getTextColumn ($columnId)
@@ -430,7 +430,7 @@ class Pulse extends ApiObject
      * @throws InvalidColumnException The specified column is not the same type as specified in `$columnType`
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
-     * @throws KeyNotFoundException   The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
      *
      * @return PulseColumnValue The returned object will be a child of this abstract class.
      */
@@ -449,7 +449,15 @@ class Pulse extends ApiObject
                 $params = array(
                     "pulse_id" => $this->getId()
                 );
-                $results = parent::sendGet($url, $params);
+
+                try
+                {
+                    $results = parent::sendGet($url, $params);
+                }
+                catch (HttpException $e)
+                {
+                    throw new InvalidColumnException("The '$columnId' column could not be found");
+                }
 
                 // Store our value inside of jsonResponse so all of the respective objects can treat the data the same
                 // as when accessed through a PulseBoard

@@ -108,4 +108,11 @@ class GetColumnValuesTest extends PulseUnitTest
 
         PulseColumnValue::_createColumnType("non-existent", array());
     }
+
+    public function testGetNonExistentColumn()
+    {
+        $this->setExpectedException('allejo\DaPulse\Exceptions\InvalidColumnException');
+
+        $this->pulses[1]->getDateColumn("non-existent");
+    }
 }

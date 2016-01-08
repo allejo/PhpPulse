@@ -9,8 +9,6 @@
 
 namespace allejo\DaPulse\Utilities;
 
-use allejo\DaPulse\Exceptions\KeyNotFoundException;
-
 /**
  * This class contains static utilities used for manipulating arrays.
  *
@@ -47,9 +45,8 @@ class ArrayUtilities
      *
      * @since  0.1.0
      *
-     * @throws KeyNotFoundException
-     *
-     * @return int|mixed|string
+     * @return mixed  This function returns an int or string if the key is found. This function will return false if the
+     *                key was not found; be sure to use "===" for comparison.
      */
     public static function array_search_column($array, $column, $search)
     {
@@ -68,7 +65,7 @@ class ArrayUtilities
             }
         }
 
-        throw new KeyNotFoundException("No elements containing '$search' was found.");
+        return false;
     }
 
     /**
