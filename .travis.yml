@@ -15,8 +15,9 @@ cache:
     - $HOME/.composer/cache
 
 before_script:
- - wget http://getcomposer.org/composer.phar
- - php composer.phar install --dev --no-interaction --prefer-dist
+  - composer self-update -q
+  - if [ -n "$GH_TOKEN" ]; then composer config github-oauth.github.com ${GH_TOKEN}; fi;
+  - composer install --dev --no-interaction --prefer-dist
 
 script:
  - mkdir -p build/logs
