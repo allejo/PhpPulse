@@ -9,6 +9,7 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\IllegalAccessException;
 use allejo\DaPulse\Objects\ApiUser;
 
 /**
@@ -25,11 +26,32 @@ class PulseUser extends ApiUser
     const API_PREFIX = "users";
 
     /**
+     * The membership type of this user with respect to a specific Pulse or PulseBoard. This value will not be set if
+     * a PulseUser object is created standalone and not by another object which supports subscribers or membership.
+     *
+     * @var mixed
+     */
+    protected $membership;
+
+    /**
      * The URL pattern used for all calls
      *
      * @var string
      */
     private $urlSyntax = "%s/%s/%s.json";
+
+    /**
+     *
+     */
+    public function getMembership ()
+    {
+        if (isset($this->membership))
+        {
+            return $this->membership;
+        }
+
+        throw new IllegalAccessException("This value is not accessible which means this user was not created in regards to another object.");
+    }
 
     /**
      * Get the user's newsfeed

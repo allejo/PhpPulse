@@ -489,6 +489,34 @@ class Pulse extends ApiObject
     // ================================================================================================================
 
     /**
+     * Subscribe a user to a pulse
+     *
+     * @api
+     *
+     * @param  int|PulseUser $user_id  The user that will be subscribed
+     * @param  bool|null     $as_admin True to make them an admin of the Pulse
+     *
+     * @since  0.1.0
+     *
+     * @throws HttpException Subscribing a user failed; access the exception for more information.
+     */
+    public function addSubscriber ($user_id, $as_admin = null)
+    {
+        if ($user_id instanceof PulseUser)
+        {
+            $user_id = $user_id->getId();
+        }
+
+        $url = sprintf("%s/%d/subscribers.json", parent::apiEndpoint(), $this->getId());
+        $params = array(
+            "user_id" => $user_id
+        );
+
+        parent::setIfNotNullOrEmpty($params, "as_admin", $as_admin);
+        parent::sendPut($url, $params);
+    }
+
+    /**
      * Access a pulse's subscribers
      *
      * To modify the amount of data returned with pagination, use the following values in the array to configure your
@@ -512,6 +540,29 @@ class Pulse extends ApiObject
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "subscribers");
 
         return parent::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
+    }
+
+    /**
+     * Unsubscribe a person from a pulse
+     *
+     * @api
+     *
+     * @param int|PulseUser $user_id The user that will be subscribed
+     *
+     * @since 0.1.0
+     *
+     * @throws HttpException Removing a user failed; access the exception for more information.
+     */
+    public function removeSubscriber ($user_id)
+    {
+        if ($user_id instanceof PulseUser)
+        {
+            $user_id = $user_id->getId();
+        }
+
+        $url = sprintf("%s/%d/subscribers/%d.json", parent::apiEndpoint(), $this->getId(), $user_id);
+
+        parent::sendDelete($url);
     }
 
     // ================================================================================================================
