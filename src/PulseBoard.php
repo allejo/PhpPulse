@@ -196,6 +196,63 @@ class PulseBoard extends ApiObject
     }
 
     // ================================================================================================================
+    //   Subscriber functions
+    // ================================================================================================================
+
+    /**
+     * Get the users who are subscribed to this board
+     *
+     * @param  array $params
+     *
+     * @return PulseUser[]
+     */
+    public function getSubscribers ($params = array())
+    {
+        $url = sprintf("%s/%d/subscribers.json", parent::apiEndpoint(), $this->getId());
+
+        return parent::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
+    }
+
+    /**
+     * Subscriber a user to a board
+     *
+     * @param int|PulseUser $user_id  The user that will be subscribed to the board
+     * @param bool|null     $as_admin Set to true if the user will be an admin of the board
+     */
+    public function addSubscriber ($user_id, $as_admin = NULL)
+    {
+        if ($user_id instanceof PulseUser)
+        {
+            $user_id = $user_id->getId();
+        }
+
+        $url = sprintf("%s/%d/subscribers.json", parent::apiEndpoint(), $this->getId());
+        $params = array(
+            "user_id" => $user_id
+        );
+
+        parent::setIfNotNullOrEmpty($params, "as_admin", $as_admin);
+        parent::sendPut($url, $params);
+    }
+
+    /**
+     * Unsubscribe a user from this board
+     *
+     * @param int|PulseUser $user_id The user that will be unsubscribed from the board
+     */
+    public function removeSubscriber ($user_id)
+    {
+        if ($user_id instanceof PulseUser)
+        {
+            $user_id = $user_id->getId();
+        }
+
+        $url = sprintf("%s/%d/subscribers/%d.json", parent::apiEndpoint(), $this->getId(), $user_id);
+
+        parent::sendDelete($url);
+    }
+
+    // ================================================================================================================
     //   Columns functions
     // ================================================================================================================
 
