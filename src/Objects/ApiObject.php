@@ -118,6 +118,10 @@ abstract class ApiObject
         $this->assignResults();
     }
 
+    // ================================================================================================================
+    //   Getter functions
+    // ================================================================================================================
+
     /**
      * Access the JSON response from DaPulse directly
      *
@@ -125,17 +129,21 @@ abstract class ApiObject
      *
      * @return array
      */
-    public function getJson ()
+    final public function getJson ()
     {
         return $this->jsonResponse;
     }
+
+    // ================================================================================================================
+    //   Helper functions
+    // ================================================================================================================
 
     /**
      * Assign an associative array from a JSON response and map them to instance variables
      *
      * @since 0.1.0
      */
-    protected function assignResults ()
+    final protected function assignResults ()
     {
         foreach($this->jsonResponse as $key => $val)
         {
@@ -151,7 +159,7 @@ abstract class ApiObject
      *
      * @throws InvalidObjectException
      */
-    protected function checkInvalid ()
+    final protected function checkInvalid ()
     {
         if ($this->deletedObject)
         {
@@ -160,9 +168,33 @@ abstract class ApiObject
     }
 
     /**
+     * Store the value in an array if the value is not null. This function is a shortcut of setting values in an array
+     * only if they are not null, if not leave them unset; used ideally for PUT requests.
+     *
+     * @param array  $array The array that will store all of the POST parameters
+     * @param string $name  The name of the field
+     * @param string $value The value to be stored in a given field
+     */
+    final protected static function setIfNotNullOrEmpty (&$array, $name, $value)
+    {
+        if (!is_null($value) || !empty($value))
+        {
+            $array[$name] = $value;
+        }
+    }
+
+    // ================================================================================================================
+    //   Empty functions
+    // ================================================================================================================
+
+    /**
      * Overload this function if any class variables need to be initialized to a default value
      */
     protected function initializeValues() {}
+
+    // ================================================================================================================
+    //   Lazy loading functions
+    // ================================================================================================================
 
     /**
      * Inject data into the array that will be mapped into individual instance variables. This function must be called
@@ -176,7 +208,7 @@ abstract class ApiObject
      *
      * @throw \InvalidArgumentException If either parameters are not arrays
      */
-    protected static function lazyInject (&$target, $array)
+    final protected static function lazyInject (&$target, $array)
     {
         if (!is_array($target) || !is_array($array))
         {
@@ -194,39 +226,6 @@ abstract class ApiObject
     }
 
     /**
-     * Convert the specified item into the specified object if needed
-     *
-     * @param mixed  $target     The item to check
-     * @param string $objectType The class name of the Objects the items should be
-     *
-     * @since 0.1.0
-     */
-    protected static function lazyLoad (&$target, $objectType)
-    {
-        if (self::lazyLoadConversionNeeded($target, $objectType))
-        {
-            $target = new $objectType($target);
-        }
-    }
-
-    /**
-     * Check if an individual item needs to be lazily converted into an object
-     *
-     * @param  mixed  $target     The item to check
-     * @param  string $objectType The class name of the Objects the items should be
-     *
-     * @since  0.1.0
-     *
-     * @return bool
-     */
-    protected static function lazyLoadConversionNeeded ($target, $objectType)
-    {
-        $objectDefinition = "\\allejo\\DaPulse\\" . $objectType;
-
-        return !($target instanceof $objectDefinition);
-    }
-
-    /**
      * Convert the specified array into an array of object types if needed
      *
      * @param  string $objectType The class name of the Objects the items should be
@@ -234,11 +233,27 @@ abstract class ApiObject
      *
      * @since  0.1.0
      */
-    protected static function lazyArray (&$array, $objectType)
+    final protected static function lazyArray (&$array, $objectType)
     {
         if (self::lazyArrayConversionNeeded($objectType, $array))
         {
             $array = self::jsonArrayToObjectArray($objectType, $array);
+        }
+    }
+
+    /**
+     * Convert the specified item into the specified object if needed
+     *
+     * @param mixed  $target     The item to check
+     * @param string $objectType The class name of the Objects the items should be
+     *
+     * @since 0.1.0
+     */
+    final protected static function lazyLoad (&$target, $objectType)
+    {
+        if (self::lazyLoadConversionNeeded($target, $objectType))
+        {
+            $target = new $objectType($target);
         }
     }
 
@@ -252,11 +267,28 @@ abstract class ApiObject
      *
      * @return bool True if the array needs to converted into an array of objects
      */
-    protected static function lazyArrayConversionNeeded ($objectType, $array)
+    final protected static function lazyArrayConversionNeeded ($objectType, $array)
     {
         $firstItem = $array[0];
 
         return self::lazyLoadConversionNeeded($firstItem, $objectType);
+    }
+
+    /**
+     * Check if an individual item needs to be lazily converted into an object
+     *
+     * @param  mixed  $target     The item to check
+     * @param  string $objectType The class name of the Objects the items should be
+     *
+     * @since  0.1.0
+     *
+     * @return bool
+     */
+    final protected static function lazyLoadConversionNeeded ($target, $objectType)
+    {
+        $objectDefinition = "\\allejo\\DaPulse\\" . $objectType;
+
+        return !($target instanceof $objectDefinition);
     }
 
     /**
@@ -272,7 +304,7 @@ abstract class ApiObject
      *
      * @return array
      */
-    protected static function fetchJsonArrayToObjectArray ($url, $className, $params = array())
+    final protected static function fetchJsonArrayToObjectArray ($url, $className, $params = array())
     {
         $objects = self::sendGet($url, $params);
 
@@ -289,7 +321,7 @@ abstract class ApiObject
      *
      * @return array An array of the specified objects
      */
-    protected static function jsonArrayToObjectArray ($className, $objects)
+    final protected static function jsonArrayToObjectArray ($className, $objects)
     {
         $class = self::OBJ_NAMESPACE . $className;
         $array = array();
@@ -302,21 +334,9 @@ abstract class ApiObject
         return $array;
     }
 
-    /**
-     * Store the value in an array if the value is not null. This function is a shortcut of setting values in an array
-     * only if they are not null, if not leave them unset; used ideally for PUT requests.
-     *
-     * @param array  $array The array that will store all of the POST parameters
-     * @param string $name  The name of the field
-     * @param string $value The value to be stored in a given field
-     */
-    protected static function setIfNotNullOrEmpty (&$array, $name, $value)
-    {
-        if (!is_null($value) || !empty($value))
-        {
-            $array[$name] = $value;
-        }
-    }
+    // ================================================================================================================
+    //   URL jobs functions
+    // ================================================================================================================
 
     /**
      * Send a GET request to fetch the data from the specified URL
@@ -330,7 +350,7 @@ abstract class ApiObject
      *
      * @return mixed          An associative array of the JSON response from DaPulse
      */
-    protected static function sendGet ($url, $params = array())
+    final protected static function sendGet ($url, $params = array())
     {
         $params["api_key"] = self::$apiKey;
 
@@ -350,7 +370,7 @@ abstract class ApiObject
      *
      * @return mixed
      */
-    protected static function sendPost ($url, $postParams, $getParams = array())
+    final protected static function sendPost ($url, $postParams, $getParams = array())
     {
         return self::sendRequest("POST", $url, $postParams, $getParams);
     }
@@ -366,7 +386,7 @@ abstract class ApiObject
      *
      * @return mixed
      */
-    protected static function sendPut ($url, $postParams, $getParams = array())
+    final protected static function sendPut ($url, $postParams, $getParams = array())
     {
         return self::sendRequest("PUT", $url, $postParams, $getParams);
     }
@@ -381,26 +401,9 @@ abstract class ApiObject
      *
      * @return mixed
      */
-    protected static function sendDelete ($url, $getParams = array())
+    final protected static function sendDelete ($url, $getParams = array())
     {
         return self::sendRequest("DELETE", $url, null, $getParams);
-    }
-
-    /**
-     * Get the base URL to use in all of the API calls
-     *
-     * @param  string|null $apiPrefix If the API end point is different from the class's constant, this value will be
-     *                                used as the suffix for the API endpoint
-     *
-     * @since  0.1.0
-     *
-     * @return string The base URL to call
-     */
-    protected static function apiEndpoint ($apiPrefix = NULL)
-    {
-        $apiSection = isset($apiPrefix) ? $apiPrefix : static::API_PREFIX;
-
-        return sprintf("%s://%s/%s/%s", self::API_PROTOCOL, self::API_ENDPOINT, self::API_VERSION, $apiSection);
     }
 
     /**
@@ -437,6 +440,27 @@ abstract class ApiObject
         }
     }
 
+    // ================================================================================================================
+    //   API key functions
+    // ================================================================================================================
+
+    /**
+     * Get the base URL to use in all of the API calls
+     *
+     * @param  string|null $apiPrefix If the API end point is different from the class's constant, this value will be
+     *                                used as the suffix for the API endpoint
+     *
+     * @since  0.1.0
+     *
+     * @return string The base URL to call
+     */
+    final protected static function apiEndpoint ($apiPrefix = NULL)
+    {
+        $apiSection = isset($apiPrefix) ? $apiPrefix : static::API_PREFIX;
+
+        return sprintf("%s://%s/%s/%s", self::API_PROTOCOL, self::API_ENDPOINT, self::API_VERSION, $apiSection);
+    }
+
     /**
      * Set the API for all calls to the API
      *
@@ -444,7 +468,7 @@ abstract class ApiObject
      *
      * @since 0.1.0
      */
-    public static function setApiKey ($apiKey)
+    final public static function setApiKey ($apiKey)
     {
         self::$apiKey = $apiKey;
     }
