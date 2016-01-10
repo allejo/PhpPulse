@@ -100,7 +100,7 @@ Each Contributor hereby assign to the project maintainer all right, title, and i
 All submissions are subject to these terms.
 
 ### Notes
-You may not place any restrictions on how the project maintainer maintains or handles your submitted works. Works that are derivations of existing works in the project are subject to the current project license (LGPL) and any other licenses the project may be released under. Authors that submit works must have the legal right to agree to these terms, either as original author or authorized licensee of derived works. Minors must have a parent or guardian sign the acceptance form for them.
+You may not place any restrictions on how the project maintainer maintains or handles your submitted works. Works that are derivations of existing works in the project are subject to the current project license and any other licenses the project may be released under. Authors that submit works must have the legal right to agree to these terms, either as original author or authorized licensee of derived works. Minors must have a parent or guardian sign the acceptance form for them.
 
 ## Acknowledgements
 
