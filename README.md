@@ -41,7 +41,7 @@ I am in the process of writing extensive documentation on how to use this librar
 
 ### IRC
 
-Channel: **#sujevo**
+Channel: **#sujevo**  
 Network: irc.freenode.net
 
 ## License
