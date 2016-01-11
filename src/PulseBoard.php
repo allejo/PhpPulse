@@ -143,25 +143,6 @@ class PulseBoard extends ApiObject
     }
 
     /**
-     * The board's visible columns.
-     *
-     * @api
-     *
-     * @since  0.1.0
-     *
-     * @return PulseColumn[]
-     */
-    public function getColumns()
-    {
-        self::lazyInject($this->columns, array(
-            "board_id" => $this->getId()
-        ));
-        self::lazyArray($this->columns, "PulseColumn");
-
-        return $this->columns;
-    }
-
-    /**
      * Creation time.
      *
      * @api
@@ -265,6 +246,25 @@ class PulseBoard extends ApiObject
     // =================================================================================================================
     //   Columns functions
     // =================================================================================================================
+
+    /**
+     * The board's visible columns.
+     *
+     * @api
+     *
+     * @since  0.1.0
+     *
+     * @return PulseColumn[]
+     */
+    public function getColumns()
+    {
+        self::lazyInject($this->columns, array(
+            "board_id" => $this->getId()
+        ));
+        self::lazyArray($this->columns, "PulseColumn");
+
+        return $this->columns;
+    }
 
     /**
      * Create a new column for the current board.
