@@ -1,6 +1,8 @@
 {
   "name": "allejo/php-pulse",
-  "description": "A PHP library for working with the DaPulse API",
+  "keywords": ["dapulse", "api"],
+  "homepage": "http://phppulse.readthedocs.org/en/latest/",
+  "description": "A wrapper for working with the DaPulse API",
   "type": "library",
   "license": "MIT",
   "require": {
