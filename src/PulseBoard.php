@@ -12,7 +12,6 @@ namespace allejo\DaPulse;
 use allejo\DaPulse\Exceptions\ArgumentMismatchException;
 use allejo\DaPulse\Exceptions\InvalidArraySizeException;
 use allejo\DaPulse\Objects\ApiObject;
-use allejo\DaPulse\Utilities\ArrayUtilities;
 
 /**
  * This class contains all of the respective functionality for working a board on DaPulse
@@ -70,13 +69,6 @@ class PulseBoard extends ApiObject
     protected $columns;
 
     /**
-     * The board's visible groups.
-     *
-     * @var array
-     */
-    protected $groups;
-
-    /**
      * Creation time.
      *
      * @var \DateTime
@@ -89,14 +81,6 @@ class PulseBoard extends ApiObject
      * @var \DateTime
      */
     protected $updated_at;
-
-    /**
-     * Whether or not groups have been fetched. Group data comes from both a unique API call and from the initial call
-     * of getting the board data, so this data is merged; this boolean is to avoid fetching this data twice.
-     *
-     * @var bool
-     */
-    private $groupsFetched = false;
 
     // =================================================================================================================
     //   Getter functions
@@ -369,27 +353,33 @@ class PulseBoard extends ApiObject
      *
      * @api
      *
-     * @param bool $showArchived Set to true if you would like to get archived groups in a board as well
+     * @param bool $show_archived Set to true if you would like to get archived groups in a board as well
      *
      * @since 0.1.0
      *
      * @return PulseGroup[]
      */
-    public function getGroups ($showArchived = false)
+    public function getGroups ($show_archived = NULL)
     {
-        if (!$this->groupsFetched)
-        {
-            $fetchedGroups = $this->fetchGroups($showArchived);
+        $url = sprintf("%s/%d/groups.json", self::apiEndpoint(), $this->getId());
+        $params = array();
 
-            $this->groups = ArrayUtilities::array_merge_recursive_distinct($this->groups, $fetchedGroups);
-            $this->groupsFetched = true;
-        }
+        self::setIfNotNullOrEmpty($params, "show_archived", $show_archived);
 
-        self::lazyArray($this->groups, "PulseGroup");
-
-        return $this->groups;
+        return self::fetchJsonArrayToObjectArray($url, "PulseGroup", $params);
     }
 
+    /**
+     * Create a new group in a board
+     *
+     * @api
+     *
+     * @param  string $title The title of the board
+     *
+     * @since  0.1.0
+     *
+     * @return PulseGroup
+     */
     public function createGroup ($title)
     {
         $url        = sprintf("%s/%s/groups.json", self::apiEndpoint(), $this->getId());
@@ -402,13 +392,20 @@ class PulseBoard extends ApiObject
         return (new PulseGroup($groupResult));
     }
 
-    private function fetchGroups ($showArchived)
+    /**
+     * Delete a group from a board
+     *
+     * @api
+     *
+     * @param string $group_id The group ID to be deleted
+     *
+     * @since 0.1.0
+     */
+    public function deleteGroup ($group_id)
     {
-        $url = sprintf("%s/%s/groups.json", self::apiEndpoint(), $this->getId());
+        $url = sprintf("%s/%d/groups/%s.json", self::apiEndpoint(), $this->getId(), $group_id);
 
-        $this->groupsFetched = true;
-
-        return self::sendGet($url, array("show_archived" => $showArchived));
+        self::sendDelete($url);
     }
 
     // =================================================================================================================
