@@ -637,6 +637,22 @@ class Pulse extends ApiObject
         return parent::fetchJsonArrayToObjectArray($url, "PulseUpdate");
     }
 
+    /**
+     * Create an update for the current Pulse
+     *
+     * @api
+     *
+     * @param int|PulseUser $user
+     * @param string        $text
+     * @param null|bool     $announceToAll
+     *
+     * @since 0.1.0
+     */
+    public function createUpdate ($user, $text, $announceToAll = NULL)
+    {
+        PulseUpdate::createUpdate($user, $this->getId(), $text, $announceToAll);
+    }
+
     // ================================================================================================================
     //   Static functions
     // ================================================================================================================
