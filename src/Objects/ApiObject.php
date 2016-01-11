@@ -286,7 +286,7 @@ abstract class ApiObject
      */
     final protected static function lazyLoadConversionNeeded ($target, $objectType)
     {
-        $objectDefinition = "\\allejo\\DaPulse\\" . $objectType;
+        $objectDefinition = ($objectType[0] === "\\") ? $objectType : "\\allejo\\DaPulse\\" . $objectType;
 
         return !($target instanceof $objectDefinition);
     }

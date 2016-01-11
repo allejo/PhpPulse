@@ -195,6 +195,8 @@ class PulseUpdate extends ApiObject
      */
     public function getCreatedAt()
     {
+        self::lazyLoad($this->created_at, '\DateTime');
+
         return $this->created_at;
     }
 
@@ -205,6 +207,8 @@ class PulseUpdate extends ApiObject
      */
     public function getUpdatedAt()
     {
+        self::lazyLoad($this->updated_at, '\DateTime');
+
         return $this->updated_at;
     }
 
@@ -215,7 +219,7 @@ class PulseUpdate extends ApiObject
      */
     public function getWatchers ()
     {
-        parent::lazyArray($this->watched, "PulseUser");
+        self::lazyArray($this->watched, "PulseUser");
 
         return $this->watched;
     }
