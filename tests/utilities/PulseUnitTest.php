@@ -19,6 +19,16 @@ abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
         PulseBoard::setApiKey($authClient->getApiToken());
     }
 
+    protected function assertIsInt($expected, $message = "")
+    {
+        $this->assertTrue(is_int($expected), $message);
+    }
+
+    protected function assertIsString($expected, $message = "")
+    {
+        $this->assertTrue(is_string($expected), $message);
+    }
+
     protected function assertCountEqual($expected, $actual, $message = "")
     {
         $this->assertEquals($expected, count($actual), $message);

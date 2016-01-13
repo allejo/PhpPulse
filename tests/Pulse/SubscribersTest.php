@@ -3,6 +3,7 @@
 namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Pulse;
+use allejo\DaPulse\PulseUser;
 
 class SubscribersTest extends PulseUnitTest
 {
@@ -58,13 +59,66 @@ class SubscribersTest extends PulseUnitTest
         }
     }
 
-    public function testAddingSubscriber ()
+    public function testAddingSubscriberAsPulseUser ()
+    {
+        $pulse     = new Pulse(3855117);
+        $roomba    = new PulseUser($this->user2);
+        $origCount = count($pulse->getSubscribers());
+
+        $pulse->addSubscriber($roomba);
+
+        return $this->countSubscriberAndAssertAdd($pulse, $origCount);
+    }
+
+    /**
+     * @depends testAddingSubscriberAsPulseUser
+     *
+     * @param $arrayOfValues
+     */
+    public function testRemovingSubscriberAsPulseUser ($arrayOfValues)
+    {
+        /* @var $pulse Pulse */
+        $pulse     = $arrayOfValues['pulse'];
+        $roomba    = new PulseUser($this->user2);
+        $origCount = count($pulse->getSubscribers());
+
+        $pulse->removeSubscriber($roomba);
+        $this->countSubscriberAndAssertRemove($pulse, $origCount);
+    }
+
+    public function testAddingSubscriberAsInt ()
     {
         $pulse = new Pulse(3855117);
         $origCount = count($pulse->getSubscribers());
 
         $pulse->addSubscriber($this->user2);
 
+        return $this->countSubscriberAndAssertAdd($pulse, $origCount);
+    }
+
+    /**
+     * @depends testAddingSubscriberAsInt
+     *
+     * @param array $arrayOfValues
+     */
+    public function testRemovingSubscriberAsInt ($arrayOfValues)
+    {
+        /* @var $pulse Pulse */
+        $pulse = $arrayOfValues['pulse'];
+        $origCount = count($pulse->getSubscribers());
+
+        $pulse->removeSubscriber($this->user2);
+        $this->countSubscriberAndAssertRemove($pulse, $origCount);
+    }
+
+    /**
+     * @param Pulse $pulse
+     * @param int   $origCount
+     *
+     * @return array
+     */
+    private function countSubscriberAndAssertAdd (&$pulse, $origCount)
+    {
         $newCount = count($pulse->getSubscribers());
 
         $this->assertGreaterThan($origCount, $newCount);
@@ -75,18 +129,11 @@ class SubscribersTest extends PulseUnitTest
     }
 
     /**
-     * @depends testAddingSubscriber
-     *
-     * @param array $arrayOfValues
+     * @param Pulse $pulse
+     * @param int   $origCount
      */
-    public function testRemovingSubscriber($arrayOfValues)
+    private function countSubscriberAndAssertRemove (&$pulse, $origCount)
     {
-        /* @var $pulse Pulse */
-        $pulse = $arrayOfValues['pulse'];
-        $origCount = count($pulse->getSubscribers());
-
-        $pulse->removeSubscriber($this->user2);
-
         $newCount = count($pulse->getSubscribers());
 
         $this->assertLessThan($origCount, $newCount);

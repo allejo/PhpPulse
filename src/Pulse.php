@@ -580,7 +580,7 @@ class Pulse extends ApiObject
      * @param  string   $title         The title of the note
      * @param  string   $content       The body of the note
      * @param  bool     $owners_only   Set to true if only pulse owners can edit this note.
-     * @param  int|null $user_id       The id of the user to be marked as the note’s last updater
+     * @param  int|null $user_id       The id of the user to be marked as the note's last updater
      * @param  bool     $create_update Indicates whether to create an update on the pulse notifying subscribers on the
      *                                 changes (required user_id to be set).
      * @since  0.1.0

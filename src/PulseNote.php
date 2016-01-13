@@ -2,6 +2,7 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\ApiObject;
 
 class PulseNote extends ApiObject
@@ -114,7 +115,7 @@ class PulseNote extends ApiObject
      *
      * @return string
      */
-    public function getProjectId()
+    public function getPulseId()
     {
         return $this->project_id;
     }
@@ -167,13 +168,35 @@ class PulseNote extends ApiObject
     //   Modification functions
     // ================================================================================================================
 
+    /**
+     * Edit a note's content or information. Set values to NULL in order to not update them
+     *
+     * @api
+     *
+     * @param  null|string        $title         The new title of the note
+     * @param  null|string        $content       The new content of the note
+     * @param  null|int|PulseUser $user_id       The new author of the note
+     * @param  null|bool          $create_update Whether to create an update or not
+     *
+     * @since  0.1.0
+     *
+     * @throws InvalidObjectException    The object has already been deleted from DaPulse
+     * @throws \InvalidArgumentException An update was to be created but no author for the update was specified
+     *
+     * @return $this
+     */
     public function editNote ($title = NULL, $content = NULL, $user_id = NULL, $create_update = NULL)
     {
         $this->checkInvalid();
 
+        if ($user_id instanceof PulseUser)
+        {
+            $user_id = $user_id->getId();
+        }
+
         $url        = $this->getNotesUrl();
         $postParams = array(
-            "id"      => $this->getProjectId(),
+            "id"      => $this->getPulseId(),
             "note_id" => $this->getId()
         );
 
@@ -182,12 +205,86 @@ class PulseNote extends ApiObject
         self::setIfNotNullOrEmpty($postParams, "user_id", $user_id);
         self::setIfNotNullOrEmpty($postParams, "create_update", $create_update);
 
+        if ($create_update && is_null($user_id))
+        {
+            throw new \InvalidArgumentException("The user_id value must be set if an update is to be created");
+        }
+
         $this->jsonResponse = self::sendPut($url, $postParams);
         $this->assignResults();
 
         return $this;
     }
 
+    /**
+     * Edit the title of the note only.
+     *
+     * **Note** This is a convenience function that just calls PulseNote->editNote(). In order to change multiple
+     * values, use PulseNote->editNote() instead of chaining the individual edit functions because each convenience
+     * function will make their own separate API call making the process significantly slower.
+     *
+     * @api
+     *
+     * @param  string $title The new title of the note
+     *
+     * @since  0.1.0
+     *
+     * @return $this
+     */
+    public function editTitle ($title)
+    {
+        return $this->editNote($title);
+    }
+
+    /**
+     * Edit the content of the note only.
+     *
+     * **Note** This is a convenience function that just calls PulseNote->editNote(). In order to change multiple
+     * values, use PulseNote->editNote() instead of chaining the individual edit functions because each convenience
+     * function will make their own separate API call making the process significantly slower.
+     *
+     * @api
+     *
+     * @param  string $content The new content of the note
+     *
+     * @since  0.1.0
+     *
+     * @return $this
+     */
+    public function editContent ($content)
+    {
+        return $this->editNote(NULL, $content);
+    }
+
+    /**
+     * Edit the author of the note only.
+     *
+     * **Note** This is a convenience function that just calls PulseNote->editNote(). In order to change multiple
+     * values, use PulseNote->editNote() instead of chaining the individual edit functions because each convenience
+     * function will make their own separate API call making the process significantly slower.
+     *
+     * @api
+     *
+     * @param  string $user_id The new author of the note
+     *
+     * @since  0.1.0
+     *
+     * @return $this
+     */
+    public function editAuthor ($user_id)
+    {
+        return $this->editNote(NULL, NULL, $user_id);
+    }
+
+    /**
+     * Delete this note
+     *
+     * @api
+     *
+     * @since 0.1.0
+     *
+     * @throws InvalidObjectException The object has already been deleted from DaPulse
+     */
     public function deleteNote ()
     {
         $this->checkInvalid();
@@ -199,6 +296,6 @@ class PulseNote extends ApiObject
 
     private function getNotesUrl ()
     {
-        return sprintf("%s/%s/notes/%s.json", self::apiEndpoint(), $this->getProjectId(), $this->getId());
+        return sprintf("%s/%s/notes/%s.json", self::apiEndpoint(), $this->getPulseId(), $this->getId());
     }
 }
