@@ -21,10 +21,10 @@ class PulseColumnTextValue extends PulseColumnValue
 
     public function updateValue ($text)
     {
-        $url = sprintf("%s/%d/columns/%s/text.json", parent::apiEndpoint(), $this->board_id, $this->column_id);
+        $url        = sprintf("%s/%d/columns/%s/text.json", self::apiEndpoint(), $this->board_id, $this->column_id);
         $postParams = array(
             "pulse_id" => $this->pulse_id,
-            "text" => $text
+            "text"     => $text
         );
 
         self::sendPut($url, $postParams);

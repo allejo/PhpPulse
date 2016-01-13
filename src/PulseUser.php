@@ -154,7 +154,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getUrl()
+    public function getUrl ()
     {
         return $this->url;
     }
@@ -164,7 +164,7 @@ class PulseUser extends ApiObject
      *
      * @return int
      */
-    public function getId()
+    public function getId ()
     {
         return $this->id;
     }
@@ -174,7 +174,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getName()
+    public function getName ()
     {
         return $this->name;
     }
@@ -184,7 +184,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getEmail()
+    public function getEmail ()
     {
         return $this->email;
     }
@@ -194,7 +194,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getPhotoUrl()
+    public function getPhotoUrl ()
     {
         return $this->photo_url;
     }
@@ -204,7 +204,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle ()
     {
         return $this->title;
     }
@@ -214,7 +214,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getPosition()
+    public function getPosition ()
     {
         return $this->position;
     }
@@ -224,7 +224,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getPhone()
+    public function getPhone ()
     {
         return $this->phone;
     }
@@ -234,7 +234,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getLocation()
+    public function getLocation ()
     {
         return $this->location;
     }
@@ -244,7 +244,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getStatus()
+    public function getStatus ()
     {
         return $this->status;
     }
@@ -254,7 +254,7 @@ class PulseUser extends ApiObject
      *
      * @return string
      */
-    public function getBirthday()
+    public function getBirthday ()
     {
         return $this->birthday;
     }
@@ -264,7 +264,7 @@ class PulseUser extends ApiObject
      *
      * @return bool
      */
-    public function getIsGuest()
+    public function getIsGuest ()
     {
         return $this->is_guest;
     }
@@ -274,7 +274,7 @@ class PulseUser extends ApiObject
      *
      * @return string[]
      */
-    public function getSkills()
+    public function getSkills ()
     {
         return $this->skills;
     }
@@ -284,7 +284,7 @@ class PulseUser extends ApiObject
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt ()
     {
         self::lazyLoad($this->created_at, '\DateTime');
 
@@ -296,7 +296,7 @@ class PulseUser extends ApiObject
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt ()
     {
         self::lazyLoad($this->updated_at, '\DateTime');
 

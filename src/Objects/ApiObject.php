@@ -48,14 +48,14 @@ abstract class ApiObject
      *
      * @internal
      */
-    const API_VERSION  = "v1";
+    const API_VERSION = "v1";
 
     /**
      * The suffix that is appended to the URL to access functionality for certain objects
      *
      * @internal
      */
-    const API_PREFIX   = "";
+    const API_PREFIX = "";
 
     /**
      * The API key used to make the URL calls
@@ -145,7 +145,7 @@ abstract class ApiObject
      */
     final protected function assignResults ()
     {
-        foreach($this->jsonResponse as $key => $val)
+        foreach ($this->jsonResponse as $key => $val)
         {
             if (property_exists(get_called_class(), $key))
             {
@@ -190,7 +190,9 @@ abstract class ApiObject
     /**
      * Overload this function if any class variables need to be initialized to a default value
      */
-    protected function initializeValues() {}
+    protected function initializeValues ()
+    {
+    }
 
     // ================================================================================================================
     //   Lazy loading functions
@@ -297,8 +299,8 @@ abstract class ApiObject
      * @param  string $url       The API endpoint to call to get the JSON response from
      * @param  string $className The class name of the Object type to cast to
      * @param  array  $params    An associative array of URL parameters that will be passed to the specific call. For
-     *                           example, limiting the number of results or the pagination of results. **Warning** The API
-     *                           key does NOT need to be passed here
+     *                           example, limiting the number of results or the pagination of results. **Warning** The
+     *                           API key does NOT need to be passed here
      *
      * @since  0.1.0
      *
@@ -403,7 +405,7 @@ abstract class ApiObject
      */
     final protected static function sendDelete ($url, $getParams = array())
     {
-        return self::sendRequest("DELETE", $url, null, $getParams);
+        return self::sendRequest("DELETE", $url, NULL, $getParams);
     }
 
     /**

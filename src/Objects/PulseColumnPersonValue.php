@@ -21,16 +21,16 @@ class PulseColumnPersonValue extends PulseColumnValue
         return $this->column_value;
     }
 
-    public function updateValue ($userID)
+    public function updateValue ($userId)
     {
-        $url = sprintf("%s/%d/columns/%s/person.json", parent::apiEndpoint(), $this->board_id, $this->column_id);
+        $url        = sprintf("%s/%d/columns/%s/person.json", self::apiEndpoint(), $this->board_id, $this->column_id);
         $postParams = array(
             "pulse_id" => $this->pulse_id,
-            "user_id" => $userID
+            "user_id"  => $userId
         );
 
         self::sendPut($url, $postParams);
 
-        $this->column_value = new PulseUser($userID);
+        $this->column_value = new PulseUser($userId);
     }
 }

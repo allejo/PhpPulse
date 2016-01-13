@@ -13,9 +13,9 @@ use allejo\DaPulse\Exceptions\HttpException;
 use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\ApiObject;
-use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Objects\PulseColumnDateValue;
 use allejo\DaPulse\Objects\PulseColumnPersonValue;
+use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Objects\PulseColumnTextValue;
 use allejo\DaPulse\Objects\PulseColumnValue;
 use allejo\DaPulse\Utilities\ArrayUtilities;
@@ -25,7 +25,7 @@ use allejo\DaPulse\Utilities\ArrayUtilities;
  *
  * @api
  * @package allejo\DaPulse
- * @since 0.1.0
+ * @since   0.1.0
  */
 class Pulse extends ApiObject
 {
@@ -147,7 +147,7 @@ class Pulse extends ApiObject
      *
      * @return string
      */
-    public function getUrl()
+    public function getUrl ()
     {
         return $this->url;
     }
@@ -157,7 +157,7 @@ class Pulse extends ApiObject
      *
      * @return int
      */
-    public function getId()
+    public function getId ()
     {
         return $this->id;
     }
@@ -167,7 +167,7 @@ class Pulse extends ApiObject
      *
      * @return string
      */
-    public function getName()
+    public function getName ()
     {
         return $this->name;
     }
@@ -177,7 +177,7 @@ class Pulse extends ApiObject
      *
      * @return int
      */
-    public function getUpdatesCount()
+    public function getUpdatesCount ()
     {
         return $this->updates_count;
     }
@@ -187,7 +187,7 @@ class Pulse extends ApiObject
      *
      * @return int
      */
-    public function getBoardId()
+    public function getBoardId ()
     {
         return $this->board_id;
     }
@@ -197,7 +197,7 @@ class Pulse extends ApiObject
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt ()
     {
         self::lazyLoad($this->created_at, '\DateTime');
 
@@ -209,7 +209,7 @@ class Pulse extends ApiObject
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt ()
     {
         self::lazyLoad($this->updated_at, '\DateTime');
 
@@ -226,15 +226,16 @@ class Pulse extends ApiObject
      * **Warning** An API call is always slower than using the cached value.
      *
      * @param bool $forceFetch Force an API call to get an updated group ID if it has been changed
+     *
      * @since 0.1.0
      * @return string
      */
-    public function getGroupId($forceFetch = false)
+    public function getGroupId ($forceFetch = false)
     {
         if (empty($this->group_id) || $forceFetch)
         {
             $parentBoard = new PulseBoard($this->board_id);
-            $pulses = $parentBoard->getPulses();
+            $pulses      = $parentBoard->getPulses();
 
             foreach ($pulses as $pulse)
             {
@@ -270,18 +271,18 @@ class Pulse extends ApiObject
         $this->deletedObject = true;
     }
 
-    public function duplicatePulse ($group_id = null, $owner_id = null)
+    public function duplicatePulse ($groupId = NULL, $ownerId = NULL)
     {
-        $url = sprintf("%s/%s/pulses/%s/duplicate.json", parent::apiEndpoint("boards"), $this->getBoardId(), $this->getId());
+        $url        = sprintf("%s/%s/pulses/%s/duplicate.json", self::apiEndpoint("boards"), $this->getBoardId(), $this->getId());
         $postParams = array();
 
-        if ($owner_id instanceof PulseUser)
+        if ($ownerId instanceof PulseUser)
         {
-            $owner_id = $owner_id->getId();
+            $ownerId = $ownerId->getId();
         }
 
-        self::setIfNotNullOrEmpty($postParams, "group_id", $group_id);
-        self::setIfNotNullOrEmpty($postParams, "owner_id", $owner_id);
+        self::setIfNotNullOrEmpty($postParams, "group_id", $groupId);
+        self::setIfNotNullOrEmpty($postParams, "owner_id", $ownerId);
 
         $result = self::sendPost($url, $postParams);
         $this->pulseInjection($result);
@@ -294,8 +295,8 @@ class Pulse extends ApiObject
         $parentBoard = new PulseBoard($this->getBoardId());
 
         // Inject some information so a Pulse object can survive on its own
-        $result["pulse"]["group_id"] = $result["board_meta"]["group_id"];
-        $result["pulse"]["column_structure"] = $parentBoard->getColumns();
+        $result["pulse"]["group_id"]          = $result["board_meta"]["group_id"];
+        $result["pulse"]["column_structure"]  = $parentBoard->getColumns();
         $result["pulse"]["raw_column_values"] = $result["column_values"];
     }
 
@@ -308,18 +309,18 @@ class Pulse extends ApiObject
      *
      * See the related functions to see the appropriate replacements.
      *
-     * @todo This function only exists for legacy applications. Remove in 0.1.1
+     * @todo       This function only exists for legacy applications. Remove in 0.1.1
      *
      * @api
      * @deprecated 0.0.1 This function will be removed by 0.1.1. New stricter functions are available
      *
      * @param string $columnId The ID of the column to access. It's typically a slugified version of the column title
      *
-     * @see Pulse::getStatusColumn()  getColorColumn()
-     * @see Pulse::getDateColumn()   getDateColumn()
-     * @see Pulse::getPersonColumn() getPersonColumn()
-     * @see Pulse::getTextColumn()   getTextColumn()
-     * @since 0.1.0
+     * @see        Pulse::getStatusColumn()  getColorColumn()
+     * @see        Pulse::getDateColumn()   getDateColumn()
+     * @see        Pulse::getPersonColumn() getPersonColumn()
+     * @see        Pulse::getTextColumn()   getTextColumn()
+     * @since      0.1.0
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
      * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
@@ -335,8 +336,8 @@ class Pulse extends ApiObject
             $type = $this->column_structure[$key]->getType();
 
             $data['column_id'] = $data['cid'];
-            $data['board_id'] = $this->getBoardId();
-            $data['pulse_id'] = $this->getId();
+            $data['board_id']  = $this->getBoardId();
+            $data['pulse_id']  = $this->getId();
 
             $this->column_values[$columnId] = PulseColumnValue::_createColumnType($type, $data);
         }
@@ -371,8 +372,10 @@ class Pulse extends ApiObject
      * This function should only be used to access data type values; an exception will be thrown otherwise.
      *
      * @api
+     *
      * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
-     * @since 0.1.0
+     *
+     * @since                         0.1.0
      * @throws InvalidColumnException The specified column is not a "date" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
@@ -390,8 +393,10 @@ class Pulse extends ApiObject
      * This function should only be used to access person type values; an exception will be thrown otherwise.
      *
      * @api
+     *
      * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
-     * @since 0.1.0
+     *
+     * @since                         0.1.0
      * @throws InvalidColumnException The specified column is not a "person" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
@@ -409,8 +414,10 @@ class Pulse extends ApiObject
      * This function should only be used to access text type values; an exception will be thrown otherwise.
      *
      * @api
+     *
      * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
-     * @since 0.1.0
+     *
+     * @since                         0.1.0
      * @throws InvalidColumnException The specified column is not a "text" type column
      * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
      *                                by this library or the DaPulse API.
@@ -442,21 +449,22 @@ class Pulse extends ApiObject
     {
         if (!isset($this->column_values) || !array_key_exists($columnId, $this->column_values))
         {
-            $key = ArrayUtilities::array_search_column($this->raw_column_values, 'cid', $columnId);
+            $key  = ArrayUtilities::array_search_column($this->raw_column_values, 'cid', $columnId);
+            $data = array();
 
             // We can't find the key, this means that we got our information from accessing a Pulse directly instead of
             // getting it through a PulseBoard. This isn't as robust as accessing a PulseBoard but it's more efficient.
             // We make a separate API call to get the value of a column.
             if ($key === false)
             {
-                $url = sprintf("%s/%d/columns/%s/value.json", parent::apiEndpoint("boards"), $this->getBoardId(), $columnId);
+                $url    = sprintf("%s/%d/columns/%s/value.json", self::apiEndpoint("boards"), $this->getBoardId(), $columnId);
                 $params = array(
                     "pulse_id" => $this->getId()
                 );
 
                 try
                 {
-                    $results = parent::sendGet($url, $params);
+                    $results = self::sendGet($url, $params);
                 }
                 catch (HttpException $e)
                 {
@@ -479,8 +487,8 @@ class Pulse extends ApiObject
             }
 
             $data['column_id'] = $columnId;
-            $data['board_id'] = $this->getBoardId();
-            $data['pulse_id'] = $this->getId();
+            $data['board_id']  = $this->getBoardId();
+            $data['pulse_id']  = $this->getId();
 
             $this->column_values[$columnId] = PulseColumnValue::_createColumnType($columnType, $data);
         }
@@ -497,27 +505,27 @@ class Pulse extends ApiObject
      *
      * @api
      *
-     * @param  int|PulseUser $user_id  The user that will be subscribed
-     * @param  bool|null     $as_admin True to make them an admin of the Pulse
+     * @param  int|PulseUser $userId  The user that will be subscribed
+     * @param  bool|null     $asAdmin True to make them an admin of the Pulse
      *
      * @since  0.1.0
      *
      * @throws HttpException Subscribing a user failed; access the exception for more information.
      */
-    public function addSubscriber ($user_id, $as_admin = null)
+    public function addSubscriber ($userId, $asAdmin = NULL)
     {
-        if ($user_id instanceof PulseUser)
+        if ($userId instanceof PulseUser)
         {
-            $user_id = $user_id->getId();
+            $userId = $userId->getId();
         }
 
-        $url = sprintf("%s/%d/subscribers.json", parent::apiEndpoint(), $this->getId());
+        $url    = sprintf("%s/%d/subscribers.json", self::apiEndpoint(), $this->getId());
         $params = array(
-            "user_id" => $user_id
+            "user_id" => $userId
         );
 
-        parent::setIfNotNullOrEmpty($params, "as_admin", $as_admin);
-        parent::sendPut($url, $params);
+        self::setIfNotNullOrEmpty($params, "as_admin", $asAdmin);
+        self::sendPut($url, $params);
     }
 
     /**
@@ -535,15 +543,17 @@ class Pulse extends ApiObject
      * ```
      *
      * @api
+     *
      * @param array $params GET parameters passed to with the query to modify the data returned.
+     *
      * @since 0.1.0
      * @return PulseUser[]
      */
     public function getSubscribers ($params = array())
     {
-        $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "subscribers");
+        $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "subscribers");
 
-        return parent::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
+        return self::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
     }
 
     /**
@@ -551,22 +561,22 @@ class Pulse extends ApiObject
      *
      * @api
      *
-     * @param int|PulseUser $user_id The user that will be subscribed
+     * @param int|PulseUser $userId The user that will be subscribed
      *
      * @since 0.1.0
      *
      * @throws HttpException Removing a user failed; access the exception for more information.
      */
-    public function removeSubscriber ($user_id)
+    public function removeSubscriber ($userId)
     {
-        if ($user_id instanceof PulseUser)
+        if ($userId instanceof PulseUser)
         {
-            $user_id = $user_id->getId();
+            $userId = $userId->getId();
         }
 
-        $url = sprintf("%s/%d/subscribers/%d.json", parent::apiEndpoint(), $this->getId(), $user_id);
+        $url = sprintf("%s/%d/subscribers/%d.json", self::apiEndpoint(), $this->getId(), $userId);
 
-        parent::sendDelete($url);
+        self::sendDelete($url);
     }
 
     // ================================================================================================================
@@ -577,29 +587,31 @@ class Pulse extends ApiObject
      * Create a new note in this project
      *
      * @api
+     *
      * @param  string   $title         The title of the note
      * @param  string   $content       The body of the note
-     * @param  bool     $owners_only   Set to true if only pulse owners can edit this note.
-     * @param  int|null $user_id       The id of the user to be marked as the note's last updater
-     * @param  bool     $create_update Indicates whether to create an update on the pulse notifying subscribers on the
+     * @param  bool     $ownersOnly    Set to true if only pulse owners can edit this note.
+     * @param  int|null $userId        The id of the user to be marked as the note's last updater
+     * @param  bool     $createUpdate  Indicates whether to create an update on the pulse notifying subscribers on the
      *                                 changes (required user_id to be set).
+     *
      * @since  0.1.0
      * @return PulseNote
      */
-    public function addNote ($title, $content, $owners_only = false, $user_id = NULL, $create_update = false)
+    public function addNote ($title, $content, $ownersOnly = false, $userId = NULL, $createUpdate = false)
     {
-        $url        = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "notes");
+        $url        = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "notes");
         $postParams = array(
             "id"            => $this->id,
             "title"         => $title,
             "content"       => $content,
-            "owners_only"   => $owners_only,
-            "create_update" => $create_update
+            "owners_only"   => $ownersOnly,
+            "create_update" => $createUpdate
         );
 
-        self::setIfNotNullOrEmpty($postParams, "user_id", $user_id);
+        self::setIfNotNullOrEmpty($postParams, "user_id", $userId);
 
-        if ($create_update && is_null($user_id))
+        if ($createUpdate && is_null($userId))
         {
             throw new \InvalidArgumentException("The user_id value must be set if an update is to be created");
         }
@@ -618,9 +630,9 @@ class Pulse extends ApiObject
      */
     public function getNotes ()
     {
-        $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "notes");
+        $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "notes");
 
-        return parent::fetchJsonArrayToObjectArray($url, "PulseNote");
+        return self::fetchJsonArrayToObjectArray($url, "PulseNote");
     }
 
     // ================================================================================================================
@@ -636,9 +648,9 @@ class Pulse extends ApiObject
      */
     public function getUpdates ()
     {
-        $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "updates");
+        $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "updates");
 
-        return parent::fetchJsonArrayToObjectArray($url, "PulseUpdate");
+        return self::fetchJsonArrayToObjectArray($url, "PulseUpdate");
     }
 
     /**
@@ -677,14 +689,16 @@ class Pulse extends ApiObject
      * ```
      *
      * @api
+     *
      * @param array $params GET parameters passed to with the query to modify the data returned.
+     *
      * @since 0.1.0
      * @return Pulse[]
      */
     public static function getPulses ($params = array())
     {
-        $url = sprintf("%s.json", parent::apiEndpoint());
+        $url = sprintf("%s.json", self::apiEndpoint());
 
-        return parent::fetchJsonArrayToObjectArray($url, "Pulse", $params);
+        return self::fetchJsonArrayToObjectArray($url, "Pulse", $params);
     }
 }

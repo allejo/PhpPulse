@@ -48,7 +48,7 @@ class ArrayUtilities
      * @return mixed  This function returns an int or string if the key is found. This function will return false if the
      *                key was not found; be sure to use "===" for comparison.
      */
-    public static function array_search_column($array, $column, $search)
+    public static function array_search_column ($array, $column, $search)
     {
         if (function_exists('array_column'))
         {
@@ -89,6 +89,7 @@ class ArrayUtilities
      *
      * @param array $array1
      * @param array $array2
+     *
      * @return array
      * @author Daniel <daniel (at) danielsmedegaardbuus (dot) dk>
      * @author Gabriel Sobrinho <gabriel (dot) sobrinho (at) gmail (dot) com>

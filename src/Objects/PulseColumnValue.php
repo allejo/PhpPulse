@@ -10,7 +10,6 @@
 namespace allejo\DaPulse\Objects;
 
 use allejo\DaPulse\Exceptions\InvalidObjectException;
-use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseColumn;
 
 /**
@@ -18,7 +17,7 @@ use allejo\DaPulse\PulseColumn;
  *
  * @internal
  * @package allejo\DaPulse\Objects
- * @since 0.1.0
+ * @since   0.1.0
  */
 abstract class PulseColumnValue extends ApiObject
 {
@@ -61,10 +60,10 @@ abstract class PulseColumnValue extends ApiObject
      *
      * @since 0.1.0
      *
-     * @throws \InvalidArgumentException An ID is given when an instance of this object can only be created from an array
-     *         of existing data
+     * @throws \InvalidArgumentException An ID is given when an instance of this object can only be created from an
+     *                                   array of existing data
      */
-    public function __construct($array)
+    public function __construct ($array)
     {
         $this->arrayConstructionOnly = true;
 
@@ -81,9 +80,9 @@ abstract class PulseColumnValue extends ApiObject
      *
      * @since 0.1.0
      *
-     * @todo Fix the hardcoded "color" case statement. See: https://github.com/allejo/PhpPulse/issues/5
+     * @todo  Fix the hardcoded "color" case statement. See: https://github.com/allejo/PhpPulse/issues/5
      *
-     * @throws \allejo\DaPulse\Exceptions\InvalidObjectException
+     * @throws InvalidObjectException
      *
      * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnPersonValue|PulseColumnTextValue
      */
@@ -108,6 +107,7 @@ abstract class PulseColumnValue extends ApiObject
         throw new InvalidObjectException("'$type' is an unsupported column type to modify.");
     }
 
-    abstract public function getValue();
-    abstract public function updateValue($updateValue);
+    abstract public function getValue ();
+
+    abstract public function updateValue ($updateValue);
 }

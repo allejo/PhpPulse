@@ -5,7 +5,6 @@ checks:
     php:
         uppercase_constants: true
         return_doc_comments: true
-        properties_in_camelcaps: true
         prefer_while_loop_over_for_loop: true
         phpunit_assertions: true
         parameter_doc_comments: true

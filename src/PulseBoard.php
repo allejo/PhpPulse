@@ -95,7 +95,7 @@ class PulseBoard extends ApiObject
      *
      * @return string
      */
-    public function getUrl()
+    public function getUrl ()
     {
         return $this->url;
     }
@@ -109,7 +109,7 @@ class PulseBoard extends ApiObject
      *
      * @return int
      */
-    public function getId()
+    public function getId ()
     {
         return $this->id;
     }
@@ -123,7 +123,7 @@ class PulseBoard extends ApiObject
      *
      * @return string
      */
-    public function getName()
+    public function getName ()
     {
         return $this->name;
     }
@@ -137,7 +137,7 @@ class PulseBoard extends ApiObject
      *
      * @return string
      */
-    public function getDescription()
+    public function getDescription ()
     {
         return $this->description;
     }
@@ -151,7 +151,7 @@ class PulseBoard extends ApiObject
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt ()
     {
         self::lazyLoad($this->created_at, '\DateTime');
 
@@ -167,7 +167,7 @@ class PulseBoard extends ApiObject
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt ()
     {
         self::lazyLoad($this->updated_at, '\DateTime');
 
@@ -201,24 +201,24 @@ class PulseBoard extends ApiObject
      *
      * @api
      *
-     * @param int|PulseUser $user_id  The user that will be subscribed to the board
-     * @param bool|null     $as_admin Set to true if the user will be an admin of the board
+     * @param int|PulseUser $userId  The user that will be subscribed to the board
+     * @param bool|null     $asAdmin Set to true if the user will be an admin of the board
      *
      * @since 0.1.0
      */
-    public function addSubscriber ($user_id, $as_admin = NULL)
+    public function addSubscriber ($userId, $asAdmin = NULL)
     {
-        if ($user_id instanceof PulseUser)
+        if ($userId instanceof PulseUser)
         {
-            $user_id = $user_id->getId();
+            $userId = $userId->getId();
         }
 
-        $url = sprintf("%s/%d/subscribers.json", self::apiEndpoint(), $this->getId());
+        $url    = sprintf("%s/%d/subscribers.json", self::apiEndpoint(), $this->getId());
         $params = array(
-            "user_id" => $user_id
+            "user_id" => $userId
         );
 
-        self::setIfNotNullOrEmpty($params, "as_admin", $as_admin);
+        self::setIfNotNullOrEmpty($params, "as_admin", $asAdmin);
         self::sendPut($url, $params);
     }
 
@@ -227,18 +227,18 @@ class PulseBoard extends ApiObject
      *
      * @api
      *
-     * @param int|PulseUser $user_id The user that will be unsubscribed from the board
+     * @param int|PulseUser $userId The user that will be unsubscribed from the board
      *
      * @since 0.1.0
      */
-    public function removeSubscriber ($user_id)
+    public function removeSubscriber ($userId)
     {
-        if ($user_id instanceof PulseUser)
+        if ($userId instanceof PulseUser)
         {
-            $user_id = $user_id->getId();
+            $userId = $userId->getId();
         }
 
-        $url = sprintf("%s/%d/subscribers/%d.json", self::apiEndpoint(), $this->getId(), $user_id);
+        $url = sprintf("%s/%d/subscribers/%d.json", self::apiEndpoint(), $this->getId(), $userId);
 
         self::sendDelete($url);
     }
@@ -256,7 +256,7 @@ class PulseBoard extends ApiObject
      *
      * @return PulseColumn[]
      */
-    public function getColumns()
+    public function getColumns ()
     {
         self::lazyInject($this->columns, array(
             "board_id" => $this->getId()
@@ -290,21 +290,21 @@ class PulseBoard extends ApiObject
      * @param array  $labels If the column type will be "status," then this array will be the values for each of the
      *                       colors.
      *
-     * @see PulseColumn::Date   PulseColumn::Date
-     * @see PulseColumn::Person PulseColumn::Person
-     * @see PulseColumn::Status PulseColumn::Status
-     * @see PulseColumn::Text   PulseColumn::Text
-     * @see PulseColumnColorValue::Orange  PulseColumnColorValue::Orange
-     * @see PulseColumnColorValue::L_Green PulseColumnColorValue::L_Green
-     * @see PulseColumnColorValue::Red     PulseColumnColorValue::Red
-     * @see PulseColumnColorValue::Blue    PulseColumnColorValue::Blue
-     * @see PulseColumnColorValue::Purple  PulseColumnColorValue::Purple
-     * @see PulseColumnColorValue::Grey    PulseColumnColorValue::Grey
-     * @see PulseColumnColorValue::Green   PulseColumnColorValue::Green
-     * @see PulseColumnColorValue::L_Blue  PulseColumnColorValue::L_Blue
-     * @see PulseColumnColorValue::Gold    PulseColumnColorValue::Gold
-     * @see PulseColumnColorValue::Yellow  PulseColumnColorValue::Yellow
-     * @see PulseColumnColorValue::Black   PulseColumnColorValue::Black
+     * @see   PulseColumn::Date   PulseColumn::Date
+     * @see   PulseColumn::Person PulseColumn::Person
+     * @see   PulseColumn::Status PulseColumn::Status
+     * @see   PulseColumn::Text   PulseColumn::Text
+     * @see   PulseColumnColorValue::Orange  PulseColumnColorValue::Orange
+     * @see   PulseColumnColorValue::L_Green PulseColumnColorValue::L_Green
+     * @see   PulseColumnColorValue::Red     PulseColumnColorValue::Red
+     * @see   PulseColumnColorValue::Blue    PulseColumnColorValue::Blue
+     * @see   PulseColumnColorValue::Purple  PulseColumnColorValue::Purple
+     * @see   PulseColumnColorValue::Grey    PulseColumnColorValue::Grey
+     * @see   PulseColumnColorValue::Green   PulseColumnColorValue::Green
+     * @see   PulseColumnColorValue::L_Blue  PulseColumnColorValue::L_Blue
+     * @see   PulseColumnColorValue::Gold    PulseColumnColorValue::Gold
+     * @see   PulseColumnColorValue::Yellow  PulseColumnColorValue::Yellow
+     * @see   PulseColumnColorValue::Black   PulseColumnColorValue::Black
      *
      * @since 0.1.0
      *
@@ -353,18 +353,18 @@ class PulseBoard extends ApiObject
      *
      * @api
      *
-     * @param bool $show_archived Set to true if you would like to get archived groups in a board as well
+     * @param bool $showArchived Set to true if you would like to get archived groups in a board as well
      *
      * @since 0.1.0
      *
      * @return PulseGroup[]
      */
-    public function getGroups ($show_archived = NULL)
+    public function getGroups ($showArchived = NULL)
     {
-        $url = sprintf("%s/%d/groups.json", self::apiEndpoint(), $this->getId());
+        $url    = sprintf("%s/%d/groups.json", self::apiEndpoint(), $this->getId());
         $params = array();
 
-        self::setIfNotNullOrEmpty($params, "show_archived", $show_archived);
+        self::setIfNotNullOrEmpty($params, "show_archived", $showArchived);
 
         return self::fetchJsonArrayToObjectArray($url, "PulseGroup", $params);
     }
@@ -397,13 +397,13 @@ class PulseBoard extends ApiObject
      *
      * @api
      *
-     * @param string $group_id The group ID to be deleted
+     * @param string $groupId The group ID to be deleted
      *
      * @since 0.1.0
      */
-    public function deleteGroup ($group_id)
+    public function deleteGroup ($groupId)
     {
-        $url = sprintf("%s/%d/groups/%s.json", self::apiEndpoint(), $this->getId(), $group_id);
+        $url = sprintf("%s/%d/groups/%s.json", self::apiEndpoint(), $this->getId(), $groupId);
 
         self::sendDelete($url);
     }
@@ -417,8 +417,8 @@ class PulseBoard extends ApiObject
      */
     public function getPulses ()
     {
-        $url = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
-        $data = self::sendGet($url);
+        $url    = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
+        $data   = self::sendGet($url);
         $pulses = array();
 
         foreach ($data as $entry)
@@ -431,17 +431,17 @@ class PulseBoard extends ApiObject
         return $pulses;
     }
 
-    public function createPulse ($name, $owner, $group_id = null)
+    public function createPulse ($name, $owner, $groupId = NULL)
     {
-        $url = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
+        $url        = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
         $postParams = array(
             "user_id" => $owner,
-            "pulse" => array(
+            "pulse"   => array(
                 "name" => $name
             )
         );
 
-        self::setIfNotNullOrEmpty($postParams, "group_id", $group_id);
+        self::setIfNotNullOrEmpty($postParams, "group_id", $groupId);
 
         $result = self::sendPost($url, $postParams);
         $this->pulseInjection($result);
@@ -452,8 +452,8 @@ class PulseBoard extends ApiObject
     private function pulseInjection (&$result)
     {
         // Inject some information so a Pulse object can survive on its own
-        $result["pulse"]["group_id"] = $result["board_meta"]["group_id"];
-        $result["pulse"]["column_structure"] = $this->getColumns();
+        $result["pulse"]["group_id"]          = $result["board_meta"]["group_id"];
+        $result["pulse"]["column_structure"]  = $this->getColumns();
         $result["pulse"]["raw_column_values"] = $result["column_values"];
     }
 
@@ -471,11 +471,11 @@ class PulseBoard extends ApiObject
         $this->deletedObject = true;
     }
 
-    public static function createBoard ($name, $user_id, $description = NULL)
+    public static function createBoard ($name, $userId, $description = NULL)
     {
         $url        = sprintf("%s.json", self::apiEndpoint());
         $postParams = array(
-            "user_id" => $user_id,
+            "user_id" => $userId,
             "name"    => $name
         );
 

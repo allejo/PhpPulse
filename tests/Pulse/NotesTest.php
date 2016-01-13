@@ -22,8 +22,8 @@ class PulseNotesTest extends PulseUnitTest
 
         $this->pulse = new Pulse(5523969);
 
-        $this->title = "Violently Making Toast";
-        $this->content = "By adding the word 'violently' in front a phrase, it makes the phrase more amusing";
+        $this->title      = "Violently Making Toast";
+        $this->content    = "By adding the word 'violently' in front a phrase, it makes the phrase more amusing";
         $this->ownersOnly = true;
     }
 

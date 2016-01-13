@@ -84,7 +84,7 @@ class UrlQuery
 
         curl_setopt_array($this->cURL, array(
             CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
-            CURLOPT_USERPWD => $username . ":" . $password
+            CURLOPT_USERPWD  => $username . ":" . $password
         ));
     }
 
@@ -105,7 +105,7 @@ class UrlQuery
         }
 
         curl_setopt_array($this->cURL, array(
-            CURLOPT_HEADER => true,
+            CURLOPT_HEADER     => true,
             CURLOPT_HTTPHEADER => $headers
         ));
     }
@@ -125,7 +125,7 @@ class UrlQuery
     /**
      * Send a POST request
      *
-     * @param  array  $postArray        The data that will be sent to DaPulse
+     * @param  array $postArray The data that will be sent to DaPulse
      *
      * @since  0.1.0
      *
@@ -136,7 +136,7 @@ class UrlQuery
         $this->setPostFields($postArray);
 
         curl_setopt_array($this->cURL, array(
-            CURLOPT_POST => true,
+            CURLOPT_POST          => true,
             CURLOPT_CUSTOMREQUEST => "POST"
         ));
 
@@ -146,7 +146,7 @@ class UrlQuery
     /**
      * Send a PUT request
      *
-     * @param  array  $postArray        The data that will be sent to DaPulse
+     * @param  array $postArray The data that will be sent to DaPulse
      *
      * @since  0.1.0
      *
@@ -202,7 +202,7 @@ class UrlQuery
      */
     private function handleQuery ()
     {
-        $result = $this->executeCurl();
+        $result   = $this->executeCurl();
         $httpCode = curl_getinfo($this->cURL, CURLINFO_HTTP_CODE);
 
         if ($httpCode !== 200 && $httpCode !== 201)
@@ -221,7 +221,7 @@ class UrlQuery
     private function configureCurl ()
     {
         curl_setopt_array($this->cURL, array(
-            CURLOPT_URL => $this->url,
+            CURLOPT_URL            => $this->url,
             CURLOPT_RETURNTRANSFER => true
         ));
     }
@@ -268,7 +268,7 @@ class UrlQuery
      * )
      * ```
      *
-     * @param  array  $params    An array containing parameter names as keys and parameter values as values in the array.
+     * @param  array $params An array containing parameter names as keys and parameter values as values in the array.
      *
      * @since  0.1.0
      *
@@ -287,7 +287,7 @@ class UrlQuery
             else if (is_array($value))
             {
                 $formattedArray = self::formatArray($key, $value);
-                $parameters[] = self::formatParameters($formattedArray);
+                $parameters[]   = self::formatParameters($formattedArray);
 
                 continue;
             }
@@ -337,7 +337,7 @@ class UrlQuery
 
         foreach ($array as $key => $value)
         {
-            $arrayKey = sprintf("%s[%s]", $prefix, $key);
+            $arrayKey              = sprintf("%s[%s]", $prefix, $key);
             $parameters[$arrayKey] = $value;
         }
 

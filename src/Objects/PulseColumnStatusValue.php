@@ -81,7 +81,7 @@ class PulseColumnStatusValue extends PulseColumnValue
             throw new \InvalidArgumentException("DaPulse only has color indexes from 0-10");
         }
 
-        $url        = sprintf("%s/%d/columns/%s/status.json", parent::apiEndpoint(), $this->board_id, $this->column_id);
+        $url        = sprintf("%s/%d/columns/%s/status.json", self::apiEndpoint(), $this->board_id, $this->column_id);
         $postParams = array(
             "pulse_id"    => $this->pulse_id,
             "color_index" => $color

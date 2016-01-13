@@ -100,7 +100,7 @@ class PulseUpdate extends ApiObject
      *
      * @return PulseUser
      */
-    public function getUser()
+    public function getUser ()
     {
         self::lazyLoad($this->user, "PulseUser");
 
@@ -112,7 +112,7 @@ class PulseUpdate extends ApiObject
      *
      * @return string
      */
-    public function getUrl()
+    public function getUrl ()
     {
         return $this->url;
     }
@@ -122,7 +122,7 @@ class PulseUpdate extends ApiObject
      *
      * @return string
      */
-    public function getId()
+    public function getId ()
     {
         return $this->id;
     }
@@ -132,7 +132,7 @@ class PulseUpdate extends ApiObject
      *
      * @return string
      */
-    public function getBody()
+    public function getBody ()
     {
         return $this->body;
     }
@@ -142,7 +142,7 @@ class PulseUpdate extends ApiObject
      *
      * @return string
      */
-    public function getBodyText()
+    public function getBodyText ()
     {
         return $this->body_text;
     }
@@ -152,7 +152,7 @@ class PulseUpdate extends ApiObject
      *
      * @return static[]
      */
-    public function getReplies()
+    public function getReplies ()
     {
         self::lazyArray($this->replies, "PulseUpdate");
 
@@ -164,7 +164,7 @@ class PulseUpdate extends ApiObject
      *
      * @return string
      */
-    public function getKind()
+    public function getKind ()
     {
         return $this->kind;
     }
@@ -174,7 +174,7 @@ class PulseUpdate extends ApiObject
      *
      * @return string
      */
-    public function getHasAssets()
+    public function getHasAssets ()
     {
         return $this->has_assets;
     }
@@ -184,7 +184,7 @@ class PulseUpdate extends ApiObject
      *
      * @return string
      */
-    public function getAssets()
+    public function getAssets ()
     {
         return $this->assets;
     }
@@ -194,7 +194,7 @@ class PulseUpdate extends ApiObject
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt ()
     {
         self::lazyLoad($this->created_at, '\DateTime');
 
@@ -206,7 +206,7 @@ class PulseUpdate extends ApiObject
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt ()
     {
         self::lazyLoad($this->updated_at, '\DateTime');
 
@@ -238,7 +238,7 @@ class PulseUpdate extends ApiObject
      *
      * @throws InvalidObjectException This PulseUpdate as already been deleted
      */
-    public function deleteUpdate()
+    public function deleteUpdate ()
     {
         $this->checkInvalid();
 
@@ -293,7 +293,7 @@ class PulseUpdate extends ApiObject
             $user = $user->getId();
         }
 
-        $url = sprintf("%s/%d/%s.json", self::apiEndpoint(), $this->getId(), (($like) ? "like" : "unlike"));
+        $url    = sprintf("%s/%d/%s.json", self::apiEndpoint(), $this->getId(), (($like) ? "like" : "unlike"));
         $params = array(
             "user" => $user
         );
@@ -349,10 +349,10 @@ class PulseUpdate extends ApiObject
             $pulse = $pulse->getId();
         }
 
-        $url = sprintf("%s.json", self::apiEndpoint());
+        $url    = sprintf("%s.json", self::apiEndpoint());
         $params = array(
-            "user" => $user,
-            "pulse" => $pulse,
+            "user"        => $user,
+            "pulse"       => $pulse,
             "update_text" => $text
         );
 

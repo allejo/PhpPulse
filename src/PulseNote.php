@@ -85,7 +85,7 @@ class PulseNote extends ApiObject
      *
      * @return string
      */
-    public function getType()
+    public function getType ()
     {
         return $this->type;
     }
@@ -95,7 +95,7 @@ class PulseNote extends ApiObject
      *
      * @return string
      */
-    public function getId()
+    public function getId ()
     {
         return $this->id;
     }
@@ -105,7 +105,7 @@ class PulseNote extends ApiObject
      *
      * @return string
      */
-    public function getTitle()
+    public function getTitle ()
     {
         return $this->title;
     }
@@ -115,7 +115,7 @@ class PulseNote extends ApiObject
      *
      * @return string
      */
-    public function getPulseId()
+    public function getPulseId ()
     {
         return $this->project_id;
     }
@@ -125,7 +125,7 @@ class PulseNote extends ApiObject
      *
      * @return string
      */
-    public function getPermissions()
+    public function getPermissions ()
     {
         return $this->permissions;
     }
@@ -135,7 +135,7 @@ class PulseNote extends ApiObject
      *
      * @return string
      */
-    public function getContent()
+    public function getContent ()
     {
         return $this->content;
     }
@@ -145,7 +145,7 @@ class PulseNote extends ApiObject
      *
      * @return \DateTime
      */
-    public function getCreatedAt()
+    public function getCreatedAt ()
     {
         self::lazyLoad($this->created_at, '\DateTime');
 
@@ -157,7 +157,7 @@ class PulseNote extends ApiObject
      *
      * @return \DateTime
      */
-    public function getUpdatedAt()
+    public function getUpdatedAt ()
     {
         self::lazyLoad($this->updated_at, '\DateTime');
 
@@ -173,10 +173,10 @@ class PulseNote extends ApiObject
      *
      * @api
      *
-     * @param  null|string        $title         The new title of the note
-     * @param  null|string        $content       The new content of the note
-     * @param  null|int|PulseUser $user_id       The new author of the note
-     * @param  null|bool          $create_update Whether to create an update or not
+     * @param  null|string        $title        The new title of the note
+     * @param  null|string        $content      The new content of the note
+     * @param  null|int|PulseUser $userId       The new author of the note
+     * @param  null|bool          $createUpdate Whether to create an update or not
      *
      * @since  0.1.0
      *
@@ -185,13 +185,13 @@ class PulseNote extends ApiObject
      *
      * @return $this
      */
-    public function editNote ($title = NULL, $content = NULL, $user_id = NULL, $create_update = NULL)
+    public function editNote ($title = NULL, $content = NULL, $userId = NULL, $createUpdate = NULL)
     {
         $this->checkInvalid();
 
-        if ($user_id instanceof PulseUser)
+        if ($userId instanceof PulseUser)
         {
-            $user_id = $user_id->getId();
+            $userId = $userId->getId();
         }
 
         $url        = $this->getNotesUrl();
@@ -202,10 +202,10 @@ class PulseNote extends ApiObject
 
         self::setIfNotNullOrEmpty($postParams, "title", $title);
         self::setIfNotNullOrEmpty($postParams, "content", $content);
-        self::setIfNotNullOrEmpty($postParams, "user_id", $user_id);
-        self::setIfNotNullOrEmpty($postParams, "create_update", $create_update);
+        self::setIfNotNullOrEmpty($postParams, "user_id", $userId);
+        self::setIfNotNullOrEmpty($postParams, "create_update", $createUpdate);
 
-        if ($create_update && is_null($user_id))
+        if ($createUpdate && is_null($userId))
         {
             throw new \InvalidArgumentException("The user_id value must be set if an update is to be created");
         }
@@ -265,15 +265,15 @@ class PulseNote extends ApiObject
      *
      * @api
      *
-     * @param  string $user_id The new author of the note
+     * @param  string $userId The new author of the note
      *
      * @since  0.1.0
      *
      * @return $this
      */
-    public function editAuthor ($user_id)
+    public function editAuthor ($userId)
     {
-        return $this->editNote(NULL, NULL, $user_id);
+        return $this->editNote(NULL, NULL, $userId);
     }
 
     /**
