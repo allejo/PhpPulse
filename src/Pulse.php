@@ -12,12 +12,12 @@ namespace allejo\DaPulse;
 use allejo\DaPulse\Exceptions\HttpException;
 use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
-use allejo\DaPulse\Objects\ApiObject;
 use allejo\DaPulse\Objects\PulseColumnDateValue;
 use allejo\DaPulse\Objects\PulseColumnPersonValue;
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Objects\PulseColumnTextValue;
 use allejo\DaPulse\Objects\PulseColumnValue;
+use allejo\DaPulse\Objects\SubscribableObject;
 use allejo\DaPulse\Utilities\ArrayUtilities;
 
 /**
@@ -27,7 +27,7 @@ use allejo\DaPulse\Utilities\ArrayUtilities;
  * @package allejo\DaPulse
  * @since   0.1.0
  */
-class Pulse extends ApiObject
+class Pulse extends SubscribableObject
 {
     /**
      * @ignore
@@ -44,13 +44,6 @@ class Pulse extends ApiObject
      * @var string
      */
     protected $url;
-
-    /**
-     * The pulse's unique identifier.
-     *
-     * @var int
-     */
-    protected $id;
 
     /**
      * The pulse's name.
@@ -150,16 +143,6 @@ class Pulse extends ApiObject
     public function getUrl ()
     {
         return $this->url;
-    }
-
-    /**
-     * The pulse's unique identifier.
-     *
-     * @return int
-     */
-    public function getId ()
-    {
-        return $this->id;
     }
 
     /**
@@ -494,89 +477,6 @@ class Pulse extends ApiObject
         }
 
         return $this->column_values[$columnId];
-    }
-
-    // ================================================================================================================
-    //   Subscribers functions
-    // ================================================================================================================
-
-    /**
-     * Subscribe a user to a pulse
-     *
-     * @api
-     *
-     * @param  int|PulseUser $userId  The user that will be subscribed
-     * @param  bool|null     $asAdmin True to make them an admin of the Pulse
-     *
-     * @since  0.1.0
-     *
-     * @throws HttpException Subscribing a user failed; access the exception for more information.
-     */
-    public function addSubscriber ($userId, $asAdmin = NULL)
-    {
-        if ($userId instanceof PulseUser)
-        {
-            $userId = $userId->getId();
-        }
-
-        $url    = sprintf("%s/%d/subscribers.json", self::apiEndpoint(), $this->getId());
-        $params = array(
-            "user_id" => $userId
-        );
-
-        self::setIfNotNullOrEmpty($params, "as_admin", $asAdmin);
-        self::sendPut($url, $params);
-    }
-
-    /**
-     * Access a pulse's subscribers
-     *
-     * To modify the amount of data returned with pagination, use the following values in the array to configure your
-     * pagination or offsets.
-     *
-     * ```php
-     * $params = array(
-     *     "page"     => 1,  // (int) Page offset to fetch
-     *     "per_page" => 10, // (int) Number of results per page
-     *     "offset"   => 5,  // (int) Instead of starting at result 0, start counting from result 5
-     * );
-     * ```
-     *
-     * @api
-     *
-     * @param array $params GET parameters passed to with the query to modify the data returned.
-     *
-     * @since 0.1.0
-     * @return PulseUser[]
-     */
-    public function getSubscribers ($params = array())
-    {
-        $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "subscribers");
-
-        return self::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
-    }
-
-    /**
-     * Unsubscribe a person from a pulse
-     *
-     * @api
-     *
-     * @param int|PulseUser $userId The user that will be subscribed
-     *
-     * @since 0.1.0
-     *
-     * @throws HttpException Removing a user failed; access the exception for more information.
-     */
-    public function removeSubscriber ($userId)
-    {
-        if ($userId instanceof PulseUser)
-        {
-            $userId = $userId->getId();
-        }
-
-        $url = sprintf("%s/%d/subscribers/%d.json", self::apiEndpoint(), $this->getId(), $userId);
-
-        self::sendDelete($url);
     }
 
     // ================================================================================================================

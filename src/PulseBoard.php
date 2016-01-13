@@ -11,7 +11,7 @@ namespace allejo\DaPulse;
 
 use allejo\DaPulse\Exceptions\ArgumentMismatchException;
 use allejo\DaPulse\Exceptions\InvalidArraySizeException;
-use allejo\DaPulse\Objects\ApiObject;
+use allejo\DaPulse\Objects\SubscribableObject;
 
 /**
  * This class contains all of the respective functionality for working a board on DaPulse
@@ -20,7 +20,7 @@ use allejo\DaPulse\Objects\ApiObject;
  * @package allejo\DaPulse
  * @since   0.1.0
  */
-class PulseBoard extends ApiObject
+class PulseBoard extends SubscribableObject
 {
     /**
      * The suffix that is appended to the URL to access functionality for certain objects
@@ -172,75 +172,6 @@ class PulseBoard extends ApiObject
         self::lazyLoad($this->updated_at, '\DateTime');
 
         return $this->updated_at;
-    }
-
-    // =================================================================================================================
-    //   Subscriber functions
-    // =================================================================================================================
-
-    /**
-     * Get the users who are subscribed to this board
-     *
-     * @api
-     *
-     * @param  array $params
-     *
-     * @since  0.1.0
-     *
-     * @return PulseUser[]
-     */
-    public function getSubscribers ($params = array())
-    {
-        $url = sprintf("%s/%d/subscribers.json", $this::apiEndpoint(), $this->getId());
-
-        return self::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
-    }
-
-    /**
-     * Subscriber a user to a board
-     *
-     * @api
-     *
-     * @param int|PulseUser $userId  The user that will be subscribed to the board
-     * @param bool|null     $asAdmin Set to true if the user will be an admin of the board
-     *
-     * @since 0.1.0
-     */
-    public function addSubscriber ($userId, $asAdmin = NULL)
-    {
-        if ($userId instanceof PulseUser)
-        {
-            $userId = $userId->getId();
-        }
-
-        $url    = sprintf("%s/%d/subscribers.json", self::apiEndpoint(), $this->getId());
-        $params = array(
-            "user_id" => $userId
-        );
-
-        self::setIfNotNullOrEmpty($params, "as_admin", $asAdmin);
-        self::sendPut($url, $params);
-    }
-
-    /**
-     * Unsubscribe a user from this board
-     *
-     * @api
-     *
-     * @param int|PulseUser $userId The user that will be unsubscribed from the board
-     *
-     * @since 0.1.0
-     */
-    public function removeSubscriber ($userId)
-    {
-        if ($userId instanceof PulseUser)
-        {
-            $userId = $userId->getId();
-        }
-
-        $url = sprintf("%s/%d/subscribers/%d.json", self::apiEndpoint(), $this->getId(), $userId);
-
-        self::sendDelete($url);
     }
 
     // =================================================================================================================
