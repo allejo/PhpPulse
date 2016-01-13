@@ -173,7 +173,7 @@ abstract class ApiObject
      *
      * @param array  $array The array that will store all of the POST parameters
      * @param string $name  The name of the field
-     * @param string $value The value to be stored in a given field
+     * @param mixed  $value The value to be stored in a given field
      */
     final protected static function setIfNotNullOrEmpty (&$array, $name, $value)
     {
