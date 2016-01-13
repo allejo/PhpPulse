@@ -1,7 +1,7 @@
 PhpPulse Documentation
 ======================
 
-PhpPulse is a 
+PhpPulse is a wrapper for working with the DaPulse API.
 
 .. toctree::
    :maxdepth: 2

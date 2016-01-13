@@ -34,7 +34,7 @@ If I don't need to ``use`` the Pulse class, then I can also set the key with Pul
 Warnings
 --------
 
-- **Never** commit your API key to version control. Your key should always be stored in a configuration file that is read by the code; this configuration file should also **never** be committed to version control. An API key may be regenerated but the API gives full read/write access to all of your team's DaPulse content
+- **Never** commit your API key to version control. Your key should always be stored in a configuration file that is read by the code; this configuration file should also **never** be committed to version control. An API key may be regenerated but the API gives full read/write access to all of your team's DaPulse content.
 
 Troubleshooting
 ---------------

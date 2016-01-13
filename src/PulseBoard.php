@@ -225,17 +225,17 @@ class PulseBoard extends SubscribableObject
      * @see   PulseColumn::Person PulseColumn::Person
      * @see   PulseColumn::Status PulseColumn::Status
      * @see   PulseColumn::Text   PulseColumn::Text
-     * @see   PulseColumnColorValue::Orange  PulseColumnColorValue::Orange
-     * @see   PulseColumnColorValue::L_Green PulseColumnColorValue::L_Green
-     * @see   PulseColumnColorValue::Red     PulseColumnColorValue::Red
-     * @see   PulseColumnColorValue::Blue    PulseColumnColorValue::Blue
-     * @see   PulseColumnColorValue::Purple  PulseColumnColorValue::Purple
-     * @see   PulseColumnColorValue::Grey    PulseColumnColorValue::Grey
-     * @see   PulseColumnColorValue::Green   PulseColumnColorValue::Green
-     * @see   PulseColumnColorValue::L_Blue  PulseColumnColorValue::L_Blue
-     * @see   PulseColumnColorValue::Gold    PulseColumnColorValue::Gold
-     * @see   PulseColumnColorValue::Yellow  PulseColumnColorValue::Yellow
-     * @see   PulseColumnColorValue::Black   PulseColumnColorValue::Black
+     * @see   PulseColumnStatusValue::Orange  PulseColumnStatusValue::Orange
+     * @see   PulseColumnStatusValue::L_Green PulseColumnStatusValue::L_Green
+     * @see   PulseColumnStatusValue::Red     PulseColumnStatusValue::Red
+     * @see   PulseColumnStatusValue::Blue    PulseColumnStatusValue::Blue
+     * @see   PulseColumnStatusValue::Purple  PulseColumnStatusValue::Purple
+     * @see   PulseColumnStatusValue::Grey    PulseColumnStatusValue::Grey
+     * @see   PulseColumnStatusValue::Green   PulseColumnStatusValue::Green
+     * @see   PulseColumnStatusValue::L_Blue  PulseColumnStatusValue::L_Blue
+     * @see   PulseColumnStatusValue::Gold    PulseColumnStatusValue::Gold
+     * @see   PulseColumnStatusValue::Yellow  PulseColumnStatusValue::Yellow
+     * @see   PulseColumnStatusValue::Black   PulseColumnStatusValue::Black
      *
      * @since 0.1.0
      *
