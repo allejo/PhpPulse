@@ -94,13 +94,20 @@ abstract class ApiObject
      *                             response from an API call
      *
      * @throw \InvalidArgumentException The specified object cannot be created directly from an API call but instead
-     *        requires an associative array of information gathered from other API calls.
+     *                                  requires an associative array of information gathered from other API calls.
      *
      * @since 0.1.0
      */
     public function __construct ($idOrArray)
     {
         $urlEndPoint = "";
+        $staticClass = explode("\\", get_called_class());
+        $staticClass = end($staticClass);
+
+        if (is_null($idOrArray))
+        {
+            throw new \InvalidArgumentException("You may not initialize " . $staticClass . " with null.");
+        }
 
         if (!is_array($idOrArray))
         {
@@ -109,7 +116,7 @@ abstract class ApiObject
 
         if ($this->arrayConstructionOnly && !is_array($idOrArray))
         {
-            throw new \InvalidArgumentException("A " . get_called_class() . " cannot be fetched from an ID.");
+            throw new \InvalidArgumentException("A " . $staticClass . " cannot be fetched from an ID.");
         }
 
         $this->jsonResponse = (is_array($idOrArray)) ? $idOrArray : $this::sendGet($urlEndPoint);
