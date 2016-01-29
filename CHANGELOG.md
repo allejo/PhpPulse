@@ -8,6 +8,8 @@
     - PulseUser
 - Objects now return an `InvalidArgumentException` when given null to the constructor
 - Pulse column objects no longer attempt to create null objects and instead return null when asked for the value
+- Introduce `PulseColumnStatusValue::getHexColor()` to get hex values of the respective statuses
+- `PulseColumnPersonValue::updateValue` now supports passing a PulseUser object in addition to just an int
 
 ### 0.1.0 Alpha 1
 

@@ -107,6 +107,11 @@ abstract class PulseColumnValue extends ApiObject
         throw new InvalidObjectException("'$type' is an unsupported column type to modify.");
     }
 
+    /**
+     * Check whether to return null because a column's value does not exist.
+     *
+     * @return bool True if the column does not have a value
+     */
     protected function isNullValue ()
     {
         return (is_null($this->jsonResponse["value"]) && !isset($this->column_value));

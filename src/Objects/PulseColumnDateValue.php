@@ -6,9 +6,22 @@ namespace allejo\DaPulse\Objects;
  * Class PulseColumnTextValue
  *
  * @package allejo\DaPulse\Objects
+ * @since   0.1.0
  */
 class PulseColumnDateValue extends PulseColumnValue
 {
+    /**
+     * Get the date listed in the date column
+     *
+     * **Warning** This function may return a null value so ensure the returned value is not null before calling any
+     * functions that belong to a DateTime object.
+     *
+     * @api
+     *
+     * @since  0.1.0
+     *
+     * @return \DateTime|null Null is returned when no date is listed in this date column
+     */
     public function getValue ()
     {
         if ($this->isNullValue())
@@ -25,7 +38,13 @@ class PulseColumnDateValue extends PulseColumnValue
     }
 
     /**
-     * @param \DateTime $dateTime
+     * Update the date of the date column. The specific time of the DateTime object will be ignored.
+     *
+     * @api
+     *
+     * @param \DateTime $dateTime The new date
+     *
+     * @since 0.1.0
      */
     public function updateValue ($dateTime)
     {

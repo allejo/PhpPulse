@@ -6,6 +6,7 @@ namespace allejo\DaPulse\Objects;
  * Class PulseColumnColorValue
  *
  * @package allejo\DaPulse\Objects
+ * @since   0.1.0
  */
 class PulseColumnStatusValue extends PulseColumnValue
 {
@@ -64,13 +65,17 @@ class PulseColumnStatusValue extends PulseColumnValue
      */
     const Black = 10;
 
+    /**
+     * Get the numerical representation of the color that a status column is set to.
+     *
+     * @api
+     *
+     * @since  0.1.0
+     *
+     * @return int The color value of a column
+     */
     public function getValue ()
     {
-        if ($this->isNullValue())
-        {
-            return null;
-        }
-
         if (!isset($this->column_value))
         {
             $this->column_value = $this->jsonResponse["value"]["index"];
@@ -79,6 +84,30 @@ class PulseColumnStatusValue extends PulseColumnValue
         return $this->column_value;
     }
 
+    /**
+     * Update the status of a status column
+     *
+     * It is highly recommended that you use the constants available in the **PulseColumnColorValue** class to match the
+     * colors; keep in mind this value cannot be higher than 11.
+     *
+     * @api
+     *
+     * @param int $color The numerical value of the new color value
+     *
+     * @see   PulseColumnStatusValue::Orange  PulseColumnStatusValue::Orange
+     * @see   PulseColumnStatusValue::L_Green PulseColumnStatusValue::L_Green
+     * @see   PulseColumnStatusValue::Red     PulseColumnStatusValue::Red
+     * @see   PulseColumnStatusValue::Blue    PulseColumnStatusValue::Blue
+     * @see   PulseColumnStatusValue::Purple  PulseColumnStatusValue::Purple
+     * @see   PulseColumnStatusValue::Grey    PulseColumnStatusValue::Grey
+     * @see   PulseColumnStatusValue::Green   PulseColumnStatusValue::Green
+     * @see   PulseColumnStatusValue::L_Blue  PulseColumnStatusValue::L_Blue
+     * @see   PulseColumnStatusValue::Gold    PulseColumnStatusValue::Gold
+     * @see   PulseColumnStatusValue::Yellow  PulseColumnStatusValue::Yellow
+     * @see   PulseColumnStatusValue::Black   PulseColumnStatusValue::Black
+     *
+     * @since 0.1.0
+     */
     public function updateValue ($color)
     {
         if ($color < 0 && $color > 10)
@@ -95,5 +124,35 @@ class PulseColumnStatusValue extends PulseColumnValue
         self::sendPut($url, $postParams);
 
         $this->column_value = $color;
+    }
+
+    /**
+     * Get the hex value of the color used on DaPulse to represent the different statuses.
+     *
+     * @api
+     *
+     * @param  int $numericalValue The numerical value of the column
+     *
+     * @since  0.1.0
+     *
+     * @return string A hex value **without** the leading #
+     */
+    public static function getHexColor ($numericalValue)
+    {
+        $colorArray = array(
+            self::Orange  => "fdab3d",
+            self::L_Green => "00c875",
+            self::Red     => "e2445c",
+            self::Blue    => "0086c0",
+            self::L_Blue  => "579bfc",
+            self::Purple  => "a25ddc",
+            self::Green   => "037f4c",
+            self::Gold    => "CAB641",
+            self::Yellow  => "FFCB00",
+            self::Black   => "333333",
+            self::Grey    => "c4c4c4"
+        );
+
+        return $colorArray[$numericalValue];
     }
 }
