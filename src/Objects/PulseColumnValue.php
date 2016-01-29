@@ -107,6 +107,11 @@ abstract class PulseColumnValue extends ApiObject
         throw new InvalidObjectException("'$type' is an unsupported column type to modify.");
     }
 
+    protected function isNullValue ()
+    {
+        return (is_null($this->jsonResponse["value"]) && !isset($this->column_value));
+    }
+
     abstract public function getValue ();
 
     abstract public function updateValue ($updateValue);
