@@ -110,7 +110,7 @@ class PulseColumnStatusValue extends PulseColumnValue
      */
     public function updateValue ($color)
     {
-        if ($color < 0 && $color > 10)
+        if ($color < 0 || $color > 10 || !is_int($color))
         {
             throw new \InvalidArgumentException("DaPulse only has color indexes from 0-10");
         }

@@ -3,12 +3,11 @@
 namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
-use allejo\DaPulse\Objects\PulseColumnValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseUser;
 
-class SetColumnValuesTest extends PulseUnitTest
+class PulseSetColumnsTest extends PulseUnitTest
 {
     private $userId;
 
@@ -21,6 +20,15 @@ class SetColumnValuesTest extends PulseUnitTest
      * @var Pulse
      */
     private $pulse;
+
+    public static function invalidColorValues()
+    {
+        return array(
+            array(-1),
+            array(11),
+            array(9.8)
+        );
+    }
 
     public function setUp()
     {
@@ -48,6 +56,16 @@ class SetColumnValuesTest extends PulseUnitTest
         $this->assertEquals($value, $this->pulse->getStatusColumn("status")->getValue());
     }
 
+    /**
+     * @dataProvider invalidColorValues
+     */
+    public function testSettingInvalidStatusColumn($color)
+    {
+        $this->setExpectedException('\InvalidArgumentException');
+
+        $this->pulse->getStatusColumn("status")->updateValue($color);
+    }
+
     public function testSettingTextColumn()
     {
         $value = "Bacon";
@@ -70,5 +88,23 @@ class SetColumnValuesTest extends PulseUnitTest
 
         $this->assertEquals($value, $pulse->getDateColumn("due_date")->getValue());
         $this->assertEquals($value, $this->pulse->getDateColumn("due_date")->getValue());
+    }
+
+    public function testSettingPersonColumnFromInt()
+    {
+        $column = $this->pulse->getPersonColumn('person');
+        $column->updateValue($this->userId);
+
+        $this->assertEquals($this->userId, $column->getValue()->getId());
+    }
+
+    public function testSettingPersonColumnFromObject()
+    {
+        $user = new PulseUser($this->userId);
+        $column = $this->pulse->getPersonColumn('person');
+
+        $column->updateValue($user);
+
+        $this->assertEquals($user, $column->getValue());
     }
 }
