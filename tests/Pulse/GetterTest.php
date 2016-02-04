@@ -4,7 +4,7 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Pulse;
 
-class GetValuesDataTypesTest extends PulseUnitTest
+class PulseGettersTest extends PulseUnitTest
 {
     private $id;
 

@@ -8,7 +8,7 @@ use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseUser;
 
-class GetColumnValuesTest extends PulseUnitTest
+class PulseGetColumnsTest extends PulseUnitTest
 {
     private $id;
 
@@ -71,6 +71,16 @@ class GetColumnValuesTest extends PulseUnitTest
         $user = new PulseUser($this->userId);
 
         $this->assertEquals($user, $this->pulses[1]->getPersonColumn('person')->getValue());
+    }
+
+    public function testGetPersonNullColumn()
+    {
+        $this->assertNull($this->pulses[0]->getPersonColumn('person')->getValue());
+    }
+
+    public function testGetDateNullColumn()
+    {
+        $this->assertNull($this->pulses[0]->getDateColumn('due_date')->getValue());
     }
 
     public function testGetDateColumnValues()

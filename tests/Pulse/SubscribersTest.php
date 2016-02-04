@@ -5,7 +5,7 @@ namespace allejo\DaPulse\Tests;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseUser;
 
-class SubscribersTest extends PulseUnitTest
+class PulseSubscribersTest extends PulseUnitTest
 {
     /**
      * @var Pulse

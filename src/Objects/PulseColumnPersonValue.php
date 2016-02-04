@@ -42,6 +42,8 @@ class PulseColumnPersonValue extends PulseColumnValue
     /**
      * Update the person in a person column
      *
+     * **Warning** Currently, there is no way of removing a person from a column; only replacing them.
+     *
      * @api
      *
      * @param int|PulseUser $user The new user that will be assigned to the person column
