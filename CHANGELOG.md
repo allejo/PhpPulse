@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.1.0
+
+The first stable release of the wrapper with full support for Version 1 of DaPulse's API. A handful of bugs have been
+fixed since the last alpha release.
+
+- Fix `PulseColumnStatusValue::updateValue()` to properly throw an exception when an invalid number is given
+
 ### 0.1.0 Alpha 2
 
 - Fix bug where `getCreatedAt()` and `getUpdatedAt()` did not return DateTime objects for the following objects:
