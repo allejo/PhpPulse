@@ -4,7 +4,7 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\PulseBoard;
 
-class CreationDeletionTest extends PulseUnitTest
+class PulseBoardCreationDeletionTest extends PulseUnitTest
 {
     /**
      * @var int

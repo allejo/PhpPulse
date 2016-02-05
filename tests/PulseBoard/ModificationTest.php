@@ -3,11 +3,11 @@
 namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
-use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseColumn;
+use allejo\DaPulse\PulseGroup;
 
-class ModificationTest extends PulseUnitTest
+class PulseBoardModificationTest extends PulseUnitTest
 {
     /**
      * @var int
@@ -91,12 +91,18 @@ class ModificationTest extends PulseUnitTest
         $this->assertEquals($columnType, $newestColumn->getType());
     }
 
-    public function testCreateGroup()
+    public function testCreateDeleteGroup()
     {
         $newGroup = $this->pulseBoard->createGroup("API Group");
         $groups = $this->pulseBoard->getGroups();
 
         $this->assertPulseArrayContains($newGroup, $groups);
+
+        $this->pulseBoard->deleteGroup($newGroup->getId());
+        $newGroups = $this->pulseBoard->getGroups();
+        $this->assertCountLessThan($newGroups, $groups);
+
+        return $newGroup;
     }
 
     public function testCreatePulse()

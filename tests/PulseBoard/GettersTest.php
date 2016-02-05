@@ -2,13 +2,10 @@
 
 namespace allejo\DaPulse\Tests;
 
-use allejo\DaPulse\Objects\PulseColumnStatusValue;
-use allejo\DaPulse\Objects\PulseColumnValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
-use allejo\DaPulse\PulseUser;
 
-class GettersTest extends PulseUnitTest
+class PulseBoardGettersTest extends PulseUnitTest
 {
     private $id;
 

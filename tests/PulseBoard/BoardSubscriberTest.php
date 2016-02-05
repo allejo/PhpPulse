@@ -4,7 +4,7 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\PulseBoard;
 
-class BoardSubscriberTest extends PulseUnitTest
+class PulseBoardSubscriberTest extends PulseUnitTest
 {
     /**
      * @var PulseBoard
