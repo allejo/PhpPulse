@@ -7,6 +7,8 @@ use allejo\DaPulse\Objects\ApiObject;
 
 class PulseUpdate extends ApiObject
 {
+    const API_PREFIX = "updates";
+
     /**
      * User who wrote the update.
      *
@@ -98,9 +100,23 @@ class PulseUpdate extends ApiObject
     /**
      * User who wrote the update.
      *
-     * @return PulseUser
+     * @deprecated 0.1.0 This function will be removed by 0.2.0. Use of PulseUpdate->getAuthor() instead.
+     *
+     * @return     PulseUser
      */
     public function getUser ()
+    {
+        return $this->getAuthor();
+    }
+
+    /**
+     * User who wrote the update.
+     *
+     * @api
+     * @since  0.1.0
+     * @return PulseUser
+     */
+    public function getAuthor ()
     {
         self::lazyLoad($this->user, "PulseUser");
 
@@ -110,6 +126,8 @@ class PulseUpdate extends ApiObject
     /**
      * The resource's URL.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getUrl ()
@@ -120,6 +138,8 @@ class PulseUpdate extends ApiObject
     /**
      * The update's id.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getId ()
@@ -130,6 +150,8 @@ class PulseUpdate extends ApiObject
     /**
      * The update's body.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getBody ()
@@ -140,6 +162,8 @@ class PulseUpdate extends ApiObject
     /**
      * The update's body in plain text
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getBodyText ()
@@ -150,6 +174,8 @@ class PulseUpdate extends ApiObject
     /**
      * The replies made to this update.
      *
+     * @api
+     * @since  0.1.0
      * @return static[]
      */
     public function getReplies ()
@@ -162,6 +188,8 @@ class PulseUpdate extends ApiObject
     /**
      * The update's kind.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getKind ()
@@ -172,6 +200,8 @@ class PulseUpdate extends ApiObject
     /**
      * The update's has_assets.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getHasAssets ()
@@ -182,6 +212,8 @@ class PulseUpdate extends ApiObject
     /**
      * The update's assets.
      *
+     * @api
+     * @since  0.1.0
      * @return string
      */
     public function getAssets ()
@@ -192,6 +224,8 @@ class PulseUpdate extends ApiObject
     /**
      * Creation time.
      *
+     * @api
+     * @since  0.1.0
      * @return \DateTime
      */
     public function getCreatedAt ()
@@ -204,6 +238,8 @@ class PulseUpdate extends ApiObject
     /**
      * Last update time.
      *
+     * @api
+     * @since  0.1.0
      * @return \DateTime
      */
     public function getUpdatedAt ()
@@ -216,6 +252,8 @@ class PulseUpdate extends ApiObject
     /**
      * Get the users watching this update
      *
+     * @api
+     * @since  0.1.0
      * @return PulseUser[]
      */
     public function getWatchers ()

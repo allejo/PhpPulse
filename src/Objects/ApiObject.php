@@ -262,7 +262,8 @@ abstract class ApiObject
     {
         if (self::lazyLoadConversionNeeded($target, $objectType))
         {
-            $target = new $objectType($target);
+            $object = ($objectType[0] == "\\") ? $objectType : self::OBJ_NAMESPACE . $objectType;
+            $target = new $object($target);
         }
     }
 
@@ -295,7 +296,7 @@ abstract class ApiObject
      */
     final protected static function lazyLoadConversionNeeded ($target, $objectType)
     {
-        $objectDefinition = ($objectType[0] === "\\") ? $objectType : "\\allejo\\DaPulse\\" . $objectType;
+        $objectDefinition = ($objectType[0] === "\\") ? $objectType : self::OBJ_NAMESPACE . $objectType;
 
         return !($target instanceof $objectDefinition);
     }

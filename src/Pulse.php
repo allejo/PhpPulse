@@ -295,7 +295,7 @@ class Pulse extends SubscribableObject
      * @todo       This function only exists for legacy applications. Remove in 0.1.1
      *
      * @api
-     * @deprecated 0.0.1 This function will be removed by 0.1.1. New stricter functions are available
+     * @deprecated 0.0.1 This function will be removed by 0.2.0. New stricter functions are available
      *
      * @param string $columnId The ID of the column to access. It's typically a slugified version of the column title
      *
@@ -540,7 +540,7 @@ class Pulse extends SubscribableObject
     // ================================================================================================================
 
     /**
-     * Get all of the updates that belong this Pulse
+     * Get all of the updates that belong this Pulse in reverse chronological order
      *
      * @api
      * @since 0.1.0

@@ -6,6 +6,9 @@ The first stable release of the wrapper with full support for Version 1 of DaPul
 fixed since the last alpha release.
 
 - Fix `PulseColumnStatusValue::updateValue()` to properly throw an exception when an invalid number is given
+- Fix `ApiObject::lazyLoad()` to properly load classes in the `allejo\DaPulse` namespace
+- Deprecated `PulseUpdate::getUser()` and replaced it with `PulseUpdate::getAuthor()`
+- Fix `PulseUpdate::createUpdate()` to actually work
 
 ### 0.1.0 Alpha 2
 
