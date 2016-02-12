@@ -238,6 +238,42 @@ class Pulse extends SubscribableObject
     // ================================================================================================================
 
     /**
+     * Edit the name of the pulse
+     *
+     * @api
+     * @param string $title
+     * @since 0.1.0
+     */
+    public function editName($title)
+    {
+        $editUrl    = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
+        $postParams = array(
+            'name' => $title
+        );
+
+        $this->jsonResponse = self::sendPut($editUrl, $postParams);
+        $this->assignResults();
+    }
+
+    /**
+     * Archive the current pulse.
+     *
+     * This is the equivalent of a soft delete and can be restored from the DaPulse website.
+     *
+     * @api
+     * @since 0.1.0
+     */
+    public function archivePulse()
+    {
+        $archiveURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
+        $getParams  = array(
+            'archive' => true
+        );
+
+        self::sendDelete($archiveURL, $getParams);
+    }
+
+    /**
      * Delete the current Pulse
      *
      * @api

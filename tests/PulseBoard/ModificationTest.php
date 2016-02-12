@@ -113,6 +113,17 @@ class PulseBoardModificationTest extends PulseUnitTest
         $this->assertPulseArrayContains($newPulse, $pulses);
     }
 
+    public function testEditPulse()
+    {
+        $newName = "Hello from PhpPulse";
+
+        $newPulse = $this->pulseBoard->createPulse("A PhpPulse Pulse", $this->userID);
+        $newPulse->editName($newName);
+
+        $this->assertEquals($newName, $newPulse->getName());
+
+    }
+
     public function testCreatePulseInGroup()
     {
         $myGroup = $this->pulseBoard->createGroup("Unicorn Group");
