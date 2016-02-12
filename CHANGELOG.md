@@ -9,6 +9,8 @@ fixed since the last alpha release.
 - Fix `ApiObject::lazyLoad()` to properly load classes in the `allejo\DaPulse` namespace
 - Deprecated `PulseUpdate::getUser()` and replaced it with `PulseUpdate::getAuthor()`
 - Fix `PulseUpdate::createUpdate()` to actually work
+- Introduce `Pulse::editName()` to reflect recent API updates
+- Introduce `Pulse::archivePulse()` to reflect recent API updates
 
 ### 0.1.0 Alpha 2
 
