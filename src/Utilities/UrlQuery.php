@@ -28,6 +28,11 @@ use allejo\DaPulse\Exceptions\HttpException;
 class UrlQuery
 {
     /**
+     * Send a POST or PUT body as JSON instead of URL encoded values
+     */
+    const BODY_AS_JSON = 0x1;
+
+    /**
      * The API endpoint that will be used in all requests
      *
      * @var string
@@ -125,15 +130,18 @@ class UrlQuery
     /**
      * Send a POST request
      *
-     * @param  array $postArray The data that will be sent to DaPulse
+     * @param  array    $postArray The data that will be sent to DaPulse
+     * @param  null|int $flags     Available flags: BODY_AS_JSON
      *
      * @since  0.1.0
      *
-     * @return mixed  An associative array matching the returned JSON result
+     * @throws HttpException
+     *
+     * @return mixed An associative array matching the returned JSON result
      */
-    public function sendPost ($postArray)
+    public function sendPost ($postArray, $flags = null)
     {
-        $this->setPostFields($postArray);
+        $this->setPostFields($postArray, $flags);
 
         curl_setopt_array($this->cURL, array(
             CURLOPT_POST          => true,
@@ -146,15 +154,16 @@ class UrlQuery
     /**
      * Send a PUT request
      *
-     * @param  array $postArray The data that will be sent to DaPulse
+     * @param  array    $postArray The data that will be sent to DaPulse
+     * @param  null|int $flags     Available flags: BODY_AS_JSON
      *
      * @since  0.1.0
      *
      * @return mixed  An associative array matching the returned JSON result
      */
-    public function sendPut ($postArray)
+    public function sendPut ($postArray, $flags = null)
     {
-        $this->setPostFields($postArray);
+        $this->setPostFields($postArray, $flags);
 
         curl_setopt($this->cURL, CURLOPT_CUSTOMREQUEST, "PUT");
 
@@ -178,13 +187,21 @@ class UrlQuery
     /**
      * Set the POST fields that will be submitted in the cURL request
      *
-     * @param string $postArray The POST fields that will be sent to DaPulse
+     * @param string   $postArray The POST fields that will be sent to DaPulse
+     * @param null|int $flags     Available flags: BODY_AS_JSON
      *
      * @since 0.1.0
      */
-    private function setPostFields ($postArray)
+    private function setPostFields ($postArray, $flags)
     {
-        $postData = self::formatParameters($postArray);
+        if ($flags & self::BODY_AS_JSON)
+        {
+            $postData = json_encode($postArray);
+        }
+        else
+        {
+            $postData = self::formatParameters($postArray);
+        }
 
         curl_setopt($this->cURL, CURLOPT_POSTFIELDS, $postData);
     }
@@ -195,8 +212,8 @@ class UrlQuery
      *
      * @since  0.1.0
      *
-     * @throws \allejo\DaPulse\Exceptions\CurlException If cURL is misconfigured or encounters an error
-     * @throws \allejo\DaPulse\Exceptions\HttpException An HTTP status of something other 200 is returned
+     * @throws CurlException If cURL is misconfigured or encounters an error
+     * @throws HttpException An HTTP status of something other 200 is returned
      *
      * @return mixed
      */
