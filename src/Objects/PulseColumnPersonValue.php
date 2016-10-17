@@ -63,4 +63,19 @@ class PulseColumnPersonValue extends PulseColumnValue
 
         $this->column_value = new PulseUser($user);
     }
+
+    /**
+     * {@inheritdoc}
+     */
+    protected function isNullValue ()
+    {
+        // Thank you very much, DaPulse. Changing the return type of an API endpoint clearly does not break any existing
+        // code. Check to see if an invalid user is returned to be able to return null
+
+        $isNullUser = array_key_exists('value', $this->jsonResponse) &&
+                      array_key_exists('id', $this->jsonResponse['value']) &&
+                      $this->jsonResponse['value']['id'] === 0;
+
+        return (parent::isNullValue() || $isNullUser);
+    }
 }
