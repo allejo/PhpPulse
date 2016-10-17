@@ -4,6 +4,7 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\PulseBoard;
 use PHPUnit_Framework_TestCase;
+use VCR\VCR;
 
 abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
 {
@@ -17,6 +18,15 @@ abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
         }
 
         PulseBoard::setApiKey($authClient->getApiToken());
+
+        VCR::turnOn();
+        VCR::insertCassette('PhpPulseVCR');
+    }
+
+    public function tearDown ()
+    {
+        VCR::eject();
+        VCR::turnOff();
     }
 
     protected function assertIsInt($expected, $message = "")
