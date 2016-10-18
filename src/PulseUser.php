@@ -304,20 +304,20 @@ class PulseUser extends ApiObject
     }
 
     /**
-     * Get the membership level of this user with respect to the object that returned or created this instance.
+     * This function is now a placeholder until it can be removed since the DaPulse API no longer supports this
+     * functionality
      *
-     * @throws IllegalAccessException This user was not created by an object which supports memberships
+     * @api
      *
-     * @returns string The membership access; e.g. "admin", "subscriber"
+     * @deprecated 0.2.0
+     *
+     * @since   0.1.0
+     *
+     * @returns string An empty string
      */
     public function getMembership ()
     {
-        if (isset($this->membership))
-        {
-            return $this->membership;
-        }
-
-        throw new IllegalAccessException("This value is not accessible which means this user was not created in regards to another object.");
+        return "";
     }
 
     /**
