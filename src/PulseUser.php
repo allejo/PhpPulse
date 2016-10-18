@@ -9,7 +9,6 @@
 
 namespace allejo\DaPulse;
 
-use allejo\DaPulse\Exceptions\IllegalAccessException;
 use allejo\DaPulse\Objects\ApiObject;
 
 /**
