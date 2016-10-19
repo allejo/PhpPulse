@@ -21,6 +21,11 @@ abstract class SubscribableObject extends ApiObject
     protected $id;
 
     /**
+     * @var PulseUser[]
+     */
+    protected $subscribers;
+
+    /**
      * The objects's unique identifier.
      *
      * @return int
@@ -36,16 +41,24 @@ abstract class SubscribableObject extends ApiObject
      * @api
      *
      * @param  array $params
+     * @param  bool  $forceFetch When set to true, this will force an API call to retrieve the subscribers. Otherwise,
+     *                           this'll return the cached subscribers.
      *
      * @since  0.1.0
      *
      * @return PulseUser[]
      */
-    public function getSubscribers ($params = array())
+    public function getSubscribers ($params = array(), $forceFetch = false)
     {
-        $url = sprintf("%s/%d/subscribers.json", $this::apiEndpoint(), $this->getId());
+        if (is_null($this->subscribers) || $forceFetch)
+        {
+            $url = sprintf("%s/%d/subscribers.json", $this::apiEndpoint(), $this->getId());
+            $this->subscribers = self::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
+        }
 
-        return self::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
+        self::lazyArray($this->subscribers, 'PulseUser');
+
+        return $this->subscribers;
     }
 
     /**
@@ -71,7 +84,10 @@ abstract class SubscribableObject extends ApiObject
         );
 
         self::setIfNotNullOrEmpty($params, "as_admin", $asAdmin);
-        self::sendPut($url, $params);
+        $newSubscriber = self::sendPut($url, $params);
+
+        // Save the user to the local cache
+        $this->subscribers[] = new PulseUser($newSubscriber);
     }
 
     /**
@@ -93,5 +109,14 @@ abstract class SubscribableObject extends ApiObject
         $url = sprintf("%s/%d/subscribers/%d.json", self::apiEndpoint(), $this->getId(), $userId);
 
         self::sendDelete($url);
+
+        // Remove the user from the local cache
+        foreach ($this->subscribers as $key => $subscriber)
+        {
+            if ($subscriber->getId() == $userId)
+            {
+                unset($this->subscribers[$key]);
+            }
+        }
     }
 }

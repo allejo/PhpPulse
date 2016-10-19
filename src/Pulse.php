@@ -53,13 +53,6 @@ class Pulse extends SubscribableObject
     protected $name;
 
     /**
-     * The board's subscribers.
-     *
-     * @var PulseUser[]
-     */
-    protected $subscribers;
-
-    /**
      * The amount of updates a pulse has.
      *
      * @var int
