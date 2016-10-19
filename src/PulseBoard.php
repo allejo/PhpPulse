@@ -153,7 +153,7 @@ class PulseBoard extends SubscribableObject
      */
     public function getCreatedAt ()
     {
-        self::lazyLoad($this->created_at, '\DateTime');
+        self::lazyCast($this->created_at, '\DateTime');
 
         return $this->created_at;
     }
@@ -169,7 +169,7 @@ class PulseBoard extends SubscribableObject
      */
     public function getUpdatedAt ()
     {
-        self::lazyLoad($this->updated_at, '\DateTime');
+        self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
     }
@@ -192,7 +192,7 @@ class PulseBoard extends SubscribableObject
         self::lazyInject($this->columns, array(
             "board_id" => $this->getId()
         ));
-        self::lazyArray($this->columns, "PulseColumn");
+        self::lazyCastAll($this->columns, "PulseColumn");
 
         return $this->columns;
     }
@@ -297,7 +297,7 @@ class PulseBoard extends SubscribableObject
 
         self::setIfNotNullOrEmpty($params, "show_archived", $showArchived);
 
-        return self::fetchJsonArrayToObjectArray($url, "PulseGroup", $params);
+        return self::fetchAndCastToObjectArray($url, "PulseGroup", $params);
     }
 
     /**
@@ -421,6 +421,6 @@ class PulseBoard extends SubscribableObject
     {
         $url = sprintf("%s.json", self::apiEndpoint());
 
-        return self::fetchJsonArrayToObjectArray($url, "PulseBoard", $params);
+        return self::fetchAndCastToObjectArray($url, "PulseBoard", $params);
     }
 }

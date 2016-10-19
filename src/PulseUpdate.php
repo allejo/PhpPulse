@@ -118,7 +118,7 @@ class PulseUpdate extends ApiObject
      */
     public function getAuthor ()
     {
-        self::lazyLoad($this->user, "PulseUser");
+        self::lazyCast($this->user, "PulseUser");
 
         return $this->user;
     }
@@ -180,7 +180,7 @@ class PulseUpdate extends ApiObject
      */
     public function getReplies ()
     {
-        self::lazyArray($this->replies, "PulseUpdate");
+        self::lazyCastAll($this->replies, "PulseUpdate");
 
         return $this->replies;
     }
@@ -230,7 +230,7 @@ class PulseUpdate extends ApiObject
      */
     public function getCreatedAt ()
     {
-        self::lazyLoad($this->created_at, '\DateTime');
+        self::lazyCast($this->created_at, '\DateTime');
 
         return $this->created_at;
     }
@@ -244,7 +244,7 @@ class PulseUpdate extends ApiObject
      */
     public function getUpdatedAt ()
     {
-        self::lazyLoad($this->updated_at, '\DateTime');
+        self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
     }
@@ -258,7 +258,7 @@ class PulseUpdate extends ApiObject
      */
     public function getWatchers ()
     {
-        self::lazyArray($this->watched, "PulseUser");
+        self::lazyCastAll($this->watched, "PulseUser");
 
         return $this->watched;
     }

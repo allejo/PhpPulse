@@ -175,7 +175,7 @@ class Pulse extends SubscribableObject
      */
     public function getCreatedAt ()
     {
-        self::lazyLoad($this->created_at, '\DateTime');
+        self::lazyCast($this->created_at, '\DateTime');
 
         return $this->created_at;
     }
@@ -187,7 +187,7 @@ class Pulse extends SubscribableObject
      */
     public function getUpdatedAt ()
     {
-        self::lazyLoad($this->updated_at, '\DateTime');
+        self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
     }
@@ -561,7 +561,7 @@ class Pulse extends SubscribableObject
     {
         $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "notes");
 
-        return self::fetchJsonArrayToObjectArray($url, "PulseNote");
+        return self::fetchAndCastToObjectArray($url, "PulseNote");
     }
 
     // ================================================================================================================
@@ -579,7 +579,7 @@ class Pulse extends SubscribableObject
     {
         $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "updates");
 
-        return self::fetchJsonArrayToObjectArray($url, "PulseUpdate");
+        return self::fetchAndCastToObjectArray($url, "PulseUpdate");
     }
 
     /**
@@ -628,6 +628,6 @@ class Pulse extends SubscribableObject
     {
         $url = sprintf("%s.json", self::apiEndpoint());
 
-        return self::fetchJsonArrayToObjectArray($url, "Pulse", $params);
+        return self::fetchAndCastToObjectArray($url, "Pulse", $params);
     }
 }

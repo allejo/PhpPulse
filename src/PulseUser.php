@@ -285,7 +285,7 @@ class PulseUser extends ApiObject
      */
     public function getCreatedAt ()
     {
-        self::lazyLoad($this->created_at, '\DateTime');
+        self::lazyCast($this->created_at, '\DateTime');
 
         return $this->created_at;
     }
@@ -297,7 +297,7 @@ class PulseUser extends ApiObject
      */
     public function getUpdatedAt ()
     {
-        self::lazyLoad($this->updated_at, '\DateTime');
+        self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
     }
@@ -332,7 +332,7 @@ class PulseUser extends ApiObject
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "newsfeed");
 
-        return parent::fetchJsonArrayToObjectArray($url, "PulseUpdate", $params);
+        return parent::fetchAndCastToObjectArray($url, "PulseUpdate", $params);
     }
 
     /**
@@ -348,7 +348,7 @@ class PulseUser extends ApiObject
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "posts");
 
-        return parent::fetchJsonArrayToObjectArray($url, "PulseUpdate", $params);
+        return parent::fetchAndCastToObjectArray($url, "PulseUpdate", $params);
     }
 
     /**
@@ -364,7 +364,7 @@ class PulseUser extends ApiObject
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "unread_feed");
 
-        return parent::fetchJsonArrayToObjectArray($url, "PulseUpdate", $params);
+        return parent::fetchAndCastToObjectArray($url, "PulseUpdate", $params);
     }
 
     /**
@@ -380,6 +380,6 @@ class PulseUser extends ApiObject
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
 
-        return parent::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
+        return parent::fetchAndCastToObjectArray($url, "PulseUser", $params);
     }
 }

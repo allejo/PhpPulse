@@ -207,7 +207,7 @@ abstract class ApiObject
 
     /**
      * Inject data into the array that will be mapped into individual instance variables. This function must be called
-     * **before** lazyArray() is called and maps the associative array to objects.
+     * **before** lazyCastAll() is called and maps the associative array to objects.
      *
      * @param array $target An array of associative arrays with data to be converted into objects
      * @param array $array  An associative array containing data to be merged with the key being the name of the
@@ -240,13 +240,13 @@ abstract class ApiObject
      * @param  string $objectType The class name of the Objects the items should be
      * @param  array  $array      The array to check
      *
-     * @since  0.1.0
+     * @since  0.2.0
      */
-    final protected static function lazyArray (&$array, $objectType)
+    final protected static function lazyCastAll (&$array, $objectType)
     {
-        if (self::lazyArrayConversionNeeded($objectType, $array))
+        if (self::lazyCastNeededOnArray($objectType, $array))
         {
-            $array = self::jsonArrayToObjectArray($objectType, $array);
+            $array = self::castArrayToObjectArray($objectType, $array);
         }
     }
 
@@ -256,11 +256,11 @@ abstract class ApiObject
      * @param mixed  $target     The item to check
      * @param string $objectType The class name of the Objects the items should be
      *
-     * @since 0.1.0
+     * @since 0.2.0
      */
-    final protected static function lazyLoad (&$target, $objectType)
+    final protected static function lazyCast (&$target, $objectType)
     {
-        if (self::lazyLoadConversionNeeded($target, $objectType))
+        if (self::lazyCastNeeded($target, $objectType))
         {
             $object = ($objectType[0] == "\\") ? $objectType : self::OBJ_NAMESPACE . $objectType;
             $target = new $object($target);
@@ -273,15 +273,15 @@ abstract class ApiObject
      * @param  string $objectType The class name of the Objects the items should be
      * @param  array  $array      The array to check
      *
-     * @since  0.1.0
+     * @since  0.2.0
      *
      * @return bool True if the array needs to converted into an array of objects
      */
-    final protected static function lazyArrayConversionNeeded ($objectType, $array)
+    final protected static function lazyCastNeededOnArray ($objectType, $array)
     {
         $firstItem = $array[0];
 
-        return self::lazyLoadConversionNeeded($firstItem, $objectType);
+        return self::lazyCastNeeded($firstItem, $objectType);
     }
 
     /**
@@ -290,11 +290,11 @@ abstract class ApiObject
      * @param  mixed  $target     The item to check
      * @param  string $objectType The class name of the Objects the items should be
      *
-     * @since  0.1.0
+     * @since  0.2.0
      *
      * @return bool
      */
-    final protected static function lazyLoadConversionNeeded ($target, $objectType)
+    final protected static function lazyCastNeeded ($target, $objectType)
     {
         $objectDefinition = ($objectType[0] === "\\") ? $objectType : self::OBJ_NAMESPACE . $objectType;
 
@@ -302,7 +302,7 @@ abstract class ApiObject
     }
 
     /**
-     * Fetches a JSON array and convert them into an array of objects
+     * Sends a GET request for a JSON array and casts the response into an array of objects
      *
      * @param  string $url       The API endpoint to call to get the JSON response from
      * @param  string $className The class name of the Object type to cast to
@@ -310,15 +310,15 @@ abstract class ApiObject
      *                           example, limiting the number of results or the pagination of results. **Warning** The
      *                           API key does NOT need to be passed here
      *
-     * @since  0.1.0
+     * @since  0.2.0
      *
      * @return array
      */
-    final protected static function fetchJsonArrayToObjectArray ($url, $className, $params = array())
+    final protected static function fetchAndCastToObjectArray ($url, $className, $params = array())
     {
         $objects = self::sendGet($url, $params);
 
-        return self::jsonArrayToObjectArray($className, $objects);
+        return self::castArrayToObjectArray($className, $objects);
     }
 
     /**
@@ -327,11 +327,11 @@ abstract class ApiObject
      * @param  string $className The class name of the Object type
      * @param  array  $objects   An associative array to be converted into an object
      *
-     * @since  0.1.0
+     * @since  0.2.0
      *
      * @return array An array of the specified objects
      */
-    final protected static function jsonArrayToObjectArray ($className, $objects)
+    final protected static function castArrayToObjectArray ($className, $objects)
     {
         $class = self::OBJ_NAMESPACE . $className;
         $array = array();

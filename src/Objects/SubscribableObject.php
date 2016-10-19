@@ -53,10 +53,10 @@ abstract class SubscribableObject extends ApiObject
         if (is_null($this->subscribers) || $forceFetch)
         {
             $url = sprintf("%s/%d/subscribers.json", $this::apiEndpoint(), $this->getId());
-            $this->subscribers = self::fetchJsonArrayToObjectArray($url, "PulseUser", $params);
+            $this->subscribers = self::fetchAndCastToObjectArray($url, "PulseUser", $params);
         }
 
-        self::lazyArray($this->subscribers, 'PulseUser');
+        self::lazyCastAll($this->subscribers, 'PulseUser');
 
         return $this->subscribers;
     }
