@@ -7,11 +7,6 @@ use allejo\DaPulse\PulseUser;
 
 class PulseSubscribersTest extends PulseUnitTest
 {
-    /**
-     * @var Pulse
-     */
-    private $pulse;
-
     private $user1;
     private $user2;
 
@@ -19,49 +14,21 @@ class PulseSubscribersTest extends PulseUnitTest
     {
         parent::setUp();
 
-        $this->pulse = new Pulse(3930967);
-        $this->user1 = 303448;
-        $this->user2 = 361981;
+        $this->user1 = 217784;
+        $this->user2 = 212350;
     }
 
     public function testSubscribersOnStaticPulse ()
     {
-        $subscribers = $this->pulse->getSubscribers();
+        $pulse = new Pulse(19307622);
+        $subscribers = $pulse->getSubscribers();
 
-        $this->assertCountEqual(2, $subscribers);
-    }
-
-    public function testSubscriberMembership ()
-    {
-        $subscribers = $this->pulse->getSubscribers();
-
-        foreach ($subscribers as $subscriber)
-        {
-            switch ($subscriber->getId())
-            {
-                // Main Account
-                case $this->user1:
-                {
-                    $this->assertEquals("admin", $subscriber->getMembership());
-                }
-                break;
-
-                // PhpPulse Roomba
-                case $this->user2:
-                {
-                    $this->assertEquals("subscriber", $subscriber->getMembership());
-                }
-                break;
-
-                default:
-                    break;
-            }
-        }
+        $this->assertCountEqual(1, $subscribers);
     }
 
     public function testAddingSubscriberAsPulseUser ()
     {
-        $pulse     = new Pulse(3855117);
+        $pulse     = new Pulse(19307622);
         $roomba    = new PulseUser($this->user2);
         $origCount = count($pulse->getSubscribers());
 
@@ -88,7 +55,7 @@ class PulseSubscribersTest extends PulseUnitTest
 
     public function testAddingSubscriberAsInt ()
     {
-        $pulse = new Pulse(3855117);
+        $pulse = new Pulse(19307622);
         $origCount = count($pulse->getSubscribers());
 
         $pulse->addSubscriber($this->user2);

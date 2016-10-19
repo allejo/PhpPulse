@@ -28,8 +28,8 @@ class PulseGetColumnsTest extends PulseUnitTest
     {
         parent::setUp();
 
-        $this->id = 3844236;
-        $this->userId = 303448;
+        $this->id = 19306968;
+        $this->userId = 217784;
         $this->board = new PulseBoard($this->id);
         $this->pulses = $this->board->getPulses();
     }
@@ -37,10 +37,9 @@ class PulseGetColumnsTest extends PulseUnitTest
     public function testGetNameColumnValues()
     {
         $expectedValues = array(
-            "Pulse Name",
-            "A Sample Green Pulse",
-            "Another Sibling Pulse",
-            "A Third Pulse"
+            "Mock Pulse One",
+            "Mock Pulse Two",
+            "Mockery Onion"
         );
         $count = count($expectedValues);
 
@@ -53,10 +52,9 @@ class PulseGetColumnsTest extends PulseUnitTest
     public function testGetTextColumnValues()
     {
         $expectedValues = array(
-            "Hello World",
-            "Canadian Bacon",
-            "Bar",
-            "Qux"
+            "Silver Pet Rock",
+            "Oblivious Platypus",
+            "Aspiring Platinum Duck"
         );
         $count = count($expectedValues);
 
@@ -70,38 +68,37 @@ class PulseGetColumnsTest extends PulseUnitTest
     {
         $user = new PulseUser($this->userId);
 
-        $this->assertEquals($user, $this->pulses[1]->getPersonColumn('person')->getValue());
+        $this->assertEquals($user, $this->pulses[0]->getPersonColumn('person')->getValue());
     }
 
     public function testGetPersonNullColumn()
     {
-        $this->assertNull($this->pulses[0]->getPersonColumn('person')->getValue());
+        $this->assertNull($this->pulses[1]->getPersonColumn('person')->getValue());
     }
 
     public function testGetDateNullColumn()
     {
-        $this->assertNull($this->pulses[0]->getDateColumn('due_date')->getValue());
+        $this->assertNull($this->pulses[2]->getDateColumn('due_date')->getValue());
     }
 
     public function testGetDateColumnValues()
     {
         $date = array(
-            new \DateTime("2015-10-31"),
-            new \DateTime("2015-12-05"),
-            new \DateTime("2015-11-18")
+            new \DateTime("2017-01-03"),
+            new \DateTime("2016-10-31"),
+            null
         );
 
-        $this->assertEquals($date[0], $this->pulses[1]->getDateColumn('due_date')->getValue());
-        $this->assertEquals($date[1], $this->pulses[2]->getDateColumn('due_date')->getValue());
-        $this->assertEquals($date[2], $this->pulses[3]->getDateColumn('due_date')->getValue());
+        $this->assertEquals($date[0], $this->pulses[0]->getDateColumn('due_date')->getValue());
+        $this->assertEquals($date[1], $this->pulses[1]->getDateColumn('due_date')->getValue());
+        $this->assertEquals($date[2], $this->pulses[2]->getDateColumn('due_date')->getValue());
     }
 
     public function testGetStatusColumnValues()
     {
         $expectedValues = array(
             PulseColumnStatusValue::Orange,
-            PulseColumnStatusValue::Purple,
-            PulseColumnStatusValue::Orange,
+            PulseColumnStatusValue::Red,
             PulseColumnStatusValue::L_Green
         );
         $count = count($expectedValues);

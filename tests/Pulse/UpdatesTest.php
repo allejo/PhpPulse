@@ -17,8 +17,8 @@ class PulseUpdatesTest extends PulseUnitTest
     public static function updateProvider()
     {
         return array(
-            array(303448, "Bacon ipsum dolor amet pork venison ham hock prosciutto pork belly chicken turkey capicola rump leberkas corned beef short ribs tail tongue."),
-            array(303448, "Just another update")
+            array(217784, "Bacon ipsum dolor amet pork venison ham hock prosciutto pork belly chicken turkey capicola rump leberkas corned beef short ribs tail tongue."),
+            array(217784, "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent quis tincidunt arcu, et varius augue. Ut vel erat pretium, fermentum.")
         );
     }
 
@@ -26,13 +26,13 @@ class PulseUpdatesTest extends PulseUnitTest
     {
         parent::setUp();
 
-        $this->board = new PulseBoard(5370166);
-        $this->userId = 303448;
+        $this->board = new PulseBoard(19306968);
+        $this->userId = 217784;
     }
 
     public function testGetNoUpdatesForPulse()
     {
-        $pulse = $this->board->createPulse("Butter and Toast", $this->userId);
+        $pulse = $this->board->createPulse("My Little Mountain Climber Conflict", $this->userId);
 
         $this->assertCountEqual(0, $pulse->getUpdates());
 
@@ -41,7 +41,7 @@ class PulseUpdatesTest extends PulseUnitTest
 
     public function testCreateUpdate()
     {
-        $pulse = $this->board->createPulse("Muffin Button", $this->userId);
+        $pulse = $this->board->createPulse("Neurotic Jackhammer Detective", $this->userId);
 
         $updateContent = self::updateProvider();
 
@@ -69,5 +69,7 @@ class PulseUpdatesTest extends PulseUnitTest
 
         $this->assertEquals($content[1][1], $updates[0]->getBodyText());
         $this->assertEquals($content[0][1], $updates[1]->getBodyText());
+
+        $pulse->deletePulse();
     }
 }

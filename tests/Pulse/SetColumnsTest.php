@@ -34,9 +34,9 @@ class PulseSetColumnsTest extends PulseUnitTest
     {
         parent::setUp();
 
-        $this->userId = 303448;
-        $this->board = new PulseBoard(5370166);
-        $this->pulse = $this->board->createPulse("Dynamic Pulse", $this->userId);
+        $this->userId = 217784;
+        $this->board = new PulseBoard(19306968);
+        $this->pulse = $this->board->createPulse('Flapping Umbrella', $this->userId, 'dynamic_pulses');
     }
 
     public function tearDown ()
@@ -68,7 +68,7 @@ class PulseSetColumnsTest extends PulseUnitTest
 
     public function testSettingTextColumn()
     {
-        $value = "Bacon";
+        $value = "Elastic Water Bottle";
 
         $this->pulse->getTextColumn("text")->updateValue($value);
 

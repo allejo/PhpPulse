@@ -6,6 +6,9 @@ use allejo\DaPulse\Pulse;
 
 class PulseGettersTest extends PulseUnitTest
 {
+    /**
+     * @var int
+     */
     private $id;
 
     /**
@@ -17,13 +20,13 @@ class PulseGettersTest extends PulseUnitTest
     {
         parent::setUp();
 
-        $this->id = 3930967;
+        $this->id = 19306969;
         $this->pulse = new Pulse($this->id);
     }
 
     public function testGetUrl ()
     {
-        $expectedUrl = sprintf("https://phppulse.dapulse.com/projects/%d", $this->pulse->getId());
+        $expectedUrl = sprintf("https://csunas.dapulse.com/projects/%d", $this->pulse->getId());
 
         $this->assertIsString($this->pulse->getUrl());
         $this->assertEquals($expectedUrl, $this->pulse->getUrl());
@@ -38,19 +41,19 @@ class PulseGettersTest extends PulseUnitTest
     public function testGetName ()
     {
         $this->assertIsString($this->pulse->getName());
-        $this->assertEquals("Pulse Name", $this->pulse->getName());
+        $this->assertEquals("Mock Pulse One", $this->pulse->getName());
     }
 
     public function testGetUpdatesCount ()
     {
         $this->assertIsInt($this->pulse->getUpdatesCount());
-        $this->assertEquals(1, $this->pulse->getUpdatesCount());
+        $this->assertEquals(0, $this->pulse->getUpdatesCount());
     }
 
     public function testGetBoardId ()
     {
         $this->assertIsInt($this->pulse->getBoardId());
-        $this->assertEquals(3844236, $this->pulse->getBoardId());
+        $this->assertEquals(19306968, $this->pulse->getBoardId());
     }
 
     public function testGetCreatedAt ()
@@ -65,6 +68,6 @@ class PulseGettersTest extends PulseUnitTest
 
     public function testGetGroupId ()
     {
-        $this->assertEquals("topics", $this->pulse->getGroupId());
+        $this->assertEquals('topics', $this->pulse->getGroupId());
     }
 }
