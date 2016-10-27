@@ -363,8 +363,31 @@ class PulseBoard extends SubscribableObject
         return $pulses;
     }
 
-    public function createPulse ($name, $owner, $groupId = NULL)
+    /**
+     * Create a new Pulse inside of this board
+     *
+     * Using the $updateText and $announceToAll parameters is the equivalent of using Pulse::createUpdate() after a
+     * Pulse has been created but with one less API call.
+     *
+     * @api
+     *
+     * @param string        $name          The name of the Pulse
+     * @param PulseUser|int $owner         The owner of the Pulse, i.e. who created it
+     * @param string|null   $groupId       The group to add this Pulse to
+     * @param string|null   $updateText    The update's text, can contain simple HTML for formatting
+     * @param bool|null     $announceToAll Determines if the update should be sent to everyone's wall
+     *
+     * @since 0.1.0
+     *
+     * @return \allejo\DaPulse\Pulse
+     */
+    public function createPulse ($name, $owner, $groupId = NULL, $updateText = NULL, $announceToAll = NULL)
     {
+        if ($owner instanceof PulseUser)
+        {
+            $owner = $owner->getId();
+        }
+
         $url        = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
         $postParams = array(
             "user_id" => $owner,
@@ -374,6 +397,8 @@ class PulseBoard extends SubscribableObject
         );
 
         self::setIfNotNullOrEmpty($postParams, "group_id", $groupId);
+        self::setIfNotNullOrEmpty($postParams['update'], 'text', $updateText);
+        self::setIfNotNullOrEmpty($postParams['update'], 'announcement', $announceToAll);
 
         $result = self::sendPost($url, $postParams);
         $this->pulseInjection($result);
