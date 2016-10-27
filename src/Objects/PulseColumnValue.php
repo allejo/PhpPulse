@@ -84,7 +84,7 @@ abstract class PulseColumnValue extends ApiObject
      *
      * @throws InvalidObjectException
      *
-     * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnPersonValue|PulseColumnTextValue
+     * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnNumericValue|PulseColumnPersonValue|PulseColumnTextValue
      */
     public static function _createColumnType ($type, $data)
     {
@@ -96,6 +96,9 @@ abstract class PulseColumnValue extends ApiObject
             case "color":
             case PulseColumn::Status:
                 return (new PulseColumnStatusValue($data));
+
+            case PulseColumn::Numeric:
+                return (new PulseColumnNumericValue($data));
 
             case PulseColumn::Person:
                 return (new PulseColumnPersonValue($data));

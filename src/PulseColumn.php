@@ -8,10 +8,11 @@ class PulseColumn extends ApiObject
 {
     const API_PREFIX = "boards";
 
-    const Date   = "date";
-    const Person = "person";
-    const Status = "status";
-    const Text   = "text";
+    const Date    = "date";
+    const Numeric = "numeric";
+    const Person  = "person";
+    const Status  = "status";
+    const Text    = "text";
 
     protected $id;
     protected $title;

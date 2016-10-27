@@ -9,10 +9,12 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\ColumnNotFoundException;
 use allejo\DaPulse\Exceptions\HttpException;
 use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\PulseColumnDateValue;
+use allejo\DaPulse\Objects\PulseColumnNumericValue;
 use allejo\DaPulse\Objects\PulseColumnPersonValue;
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Objects\PulseColumnTextValue;
@@ -385,18 +387,43 @@ class Pulse extends SubscribableObject
      *
      * @api
      *
-     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
-     * @since                         0.1.0
-     * @throws InvalidColumnException The specified column is not a "date" type column
-     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
-     *                                by this library or the DaPulse API.
-     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
+     * @since  0.1.0
+     *
+     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException  The specified column is not a "date" type column
+     * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
+     *                                 by this library or the DaPulse API.
+     *
      * @return PulseColumnDateValue A column object with access to its contents
      */
     public function getDateColumn ($columnId)
     {
         return $this->getColumn($columnId, PulseColumn::Date);
+    }
+
+    /**
+     * Access a date type column value belonging to this pulse in order to read it or modify.
+     *
+     * This function should only be used to access data type values; an exception will be thrown otherwise.
+     *
+     * @api
+     *
+     * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     *
+     * @since  0.2.0
+     *
+     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException  The specified column is not a "numeric" type column
+     * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
+     *                                 by this library or the DaPulse API.
+     *
+     * @return PulseColumnNumericValue A column object with access to its contents
+     */
+    public function getNumericColumn ($columnId)
+    {
+        return $this->getColumn($columnId, PulseColumn::Numeric);
     }
 
     /**
@@ -406,13 +433,15 @@ class Pulse extends SubscribableObject
      *
      * @api
      *
-     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
-     * @since                         0.1.0
-     * @throws InvalidColumnException The specified column is not a "person" type column
-     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
-     *                                by this library or the DaPulse API.
-     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
+     * @since  0.1.0
+     *
+     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException  The specified column is not a "person" type column
+     * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
+     *                                 by this library or the DaPulse API.
+     *
      * @return PulseColumnPersonValue A column object with access to its contents
      */
     public function getPersonColumn ($columnId)
@@ -427,13 +456,15 @@ class Pulse extends SubscribableObject
      *
      * @api
      *
-     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
-     * @since                         0.1.0
-     * @throws InvalidColumnException The specified column is not a "text" type column
-     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
-     *                                by this library or the DaPulse API.
-     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
+     * @since  0.1.0
+
+     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException  The specified column is not a "text" type column
+     * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
+     *                                 by this library or the DaPulse API.
+     *
      * @return PulseColumnTextValue A column object with access to its contents
      */
     public function getTextColumn ($columnId)
@@ -444,16 +475,16 @@ class Pulse extends SubscribableObject
     /**
      * Build a pulse's column object if it doesn't exist or return the existing column.
      *
-     * @param string $columnId   The ID of the column to access. This is typically a slugified version of the column
-     *                           title
-     * @param string $columnType The type of column being accessed: 'text', 'color', 'person', or 'date'
+     * @param  string $columnId   The ID of the column to access. This is typically a slugified version of the column
+     *                            title
+     * @param  string $columnType The type of column being accessed: 'text', 'color', 'person', 'numeric', or 'date'
      *
-     * @since 0.1.0
+     * @since  0.1.0
      *
-     * @throws InvalidColumnException The specified column is not the same type as specified in `$columnType`
-     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
-     *                                by this library or the DaPulse API.
-     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
+     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException  The specified column is not the same type as specified in `$columnType`
+     * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
+     *                                 by this library or the DaPulse API.
      *
      * @return PulseColumnValue The returned object will be a child of this abstract class.
      */
@@ -480,7 +511,7 @@ class Pulse extends SubscribableObject
                 }
                 catch (HttpException $e)
                 {
-                    throw new InvalidColumnException("The '$columnId' column could not be found");
+                    throw new ColumnNotFoundException("The '$columnId' column could not be found");
                 }
 
                 // Store our value inside of jsonResponse so all of the respective objects can treat the data the same

@@ -221,10 +221,11 @@ class PulseBoard extends SubscribableObject
      * @param array  $labels If the column type will be "status," then this array will be the values for each of the
      *                       colors.
      *
-     * @see   PulseColumn::Date   PulseColumn::Date
-     * @see   PulseColumn::Person PulseColumn::Person
-     * @see   PulseColumn::Status PulseColumn::Status
-     * @see   PulseColumn::Text   PulseColumn::Text
+     * @see   PulseColumn::Date    PulseColumn::Date
+     * @see   PulseColumn::Person  PulseColumn::Person
+     * @see   PulseColumn::Numeric PulseColumn::Numeric
+     * @see   PulseColumn::Status  PulseColumn::Status
+     * @see   PulseColumn::Text    PulseColumn::Text
      * @see   PulseColumnStatusValue::Orange  PulseColumnStatusValue::Orange
      * @see   PulseColumnStatusValue::L_Green PulseColumnStatusValue::L_Green
      * @see   PulseColumnStatusValue::Red     PulseColumnStatusValue::Red
