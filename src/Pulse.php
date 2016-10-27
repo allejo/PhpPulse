@@ -319,47 +319,6 @@ class Pulse extends SubscribableObject
     // ================================================================================================================
 
     /**
-     * Access a pulse's specific column to either access their value or to modify the value.
-     *
-     * See the related functions to see the appropriate replacements.
-     *
-     * @todo       This function only exists for legacy applications. Remove in 0.1.1
-     *
-     * @api
-     * @deprecated 0.0.1 This function will be removed by 0.2.0. New stricter functions are available
-     *
-     * @param string $columnId The ID of the column to access. It's typically a slugified version of the column title
-     *
-     * @see        Pulse::getStatusColumn()  getColorColumn()
-     * @see        Pulse::getDateColumn()   getDateColumn()
-     * @see        Pulse::getPersonColumn() getPersonColumn()
-     * @see        Pulse::getTextColumn()   getTextColumn()
-     * @since      0.1.0
-     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
-     *                                by this library or the DaPulse API.
-     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
-     * @return PulseColumnValue The returned object will be a child of this abstract class.
-     */
-    public function getColumnValue ($columnId)
-    {
-        if (!isset($this->column_values) || !array_key_exists($columnId, $this->column_values))
-        {
-            $key = ArrayUtilities::array_search_column($this->raw_column_values, 'cid', $columnId);
-
-            $data = $this->raw_column_values[$key];
-            $type = $this->column_structure[$key]->getType();
-
-            $data['column_id'] = $data['cid'];
-            $data['board_id']  = $this->getBoardId();
-            $data['pulse_id']  = $this->getId();
-
-            $this->column_values[$columnId] = PulseColumnValue::_createColumnType($type, $data);
-        }
-
-        return $this->column_values[$columnId];
-    }
-
-    /**
      * Access a color type column value belonging to this pulse in order to read it or modify.
      *
      * This function should only be used to access color type values; an exception will be thrown otherwise.
