@@ -87,6 +87,11 @@ abstract class SubscribableObject extends ApiObject
         $newSubscriber = self::sendPut($url, $params);
 
         // Save the user to the local cache
+        if (is_null($this->subscribers))
+        {
+            $this->getSubscribers();
+        }
+
         $this->subscribers[] = new PulseUser($newSubscriber);
     }
 
@@ -111,6 +116,11 @@ abstract class SubscribableObject extends ApiObject
         self::sendDelete($url);
 
         // Remove the user from the local cache
+        if (is_null($this->subscribers))
+        {
+            $this->getSubscribers();
+        }
+
         foreach ($this->subscribers as $key => $subscriber)
         {
             if ($subscriber->getId() == $userId)
