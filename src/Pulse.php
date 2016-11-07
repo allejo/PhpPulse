@@ -325,13 +325,15 @@ class Pulse extends SubscribableObject
      *
      * @api
      *
-     * @param string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
-     * @since 0.1.0
-     * @throws InvalidColumnException The specified column is not a "color" type column
-     * @throws InvalidObjectException The specified column exists but modification of its value is unsupported either
-     *                                by this library or the DaPulse API.
-     * @throws InvalidColumnException   The specified column ID does not exist for this Pulse
+     * @since  0.1.0
+     *
+     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException  The specified column is not a "color" type column
+     * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
+     *                                 by this library or the DaPulse API.
+     *
      * @return PulseColumnStatusValue A column object with access to its contents
      */
     public function getStatusColumn ($columnId)

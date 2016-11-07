@@ -19,7 +19,7 @@ use allejo\DaPulse\Utilities\UrlQuery;
  * @package allejo\DaPulse\Objects
  * @since   0.1.0
  */
-abstract class ApiObject
+abstract class ApiObject implements \JsonSerializable
 {
     /**
      * The namespace used for all main PhpPulse objects. This is value is prepended before PhpPulse objects when being
@@ -125,6 +125,14 @@ abstract class ApiObject
         $this->assignResults();
     }
 
+    /**
+     * {@inheritdoc}
+     */
+    public function jsonSerialize()
+    {
+        return $this->jsonResponse;
+    }
+
     // ================================================================================================================
     //   Getter functions
     // ================================================================================================================
@@ -132,13 +140,15 @@ abstract class ApiObject
     /**
      * Access the JSON response from DaPulse directly
      *
+     * @api
+     * @deprecated 0.3.0 Feed this object to json_encode() to get the JSON representation of this object instead
      * @since  0.1.0
-     *
+     * @todo   Remove this in the next major release
      * @return array
      */
     final public function getJson ()
     {
-        return $this->jsonResponse;
+        return $this->jsonSerialize();
     }
 
     // ================================================================================================================
