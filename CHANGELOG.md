@@ -1,5 +1,11 @@
 # Changelog
 
+### 0.2.0 Beta 1
+
+- Added support for new Numeric column
+- Added support for new update values at `PulseBoard::createPulse`
+- Fixed crash bug when DaPulse's API change returns an invalid user instead of NULL
+
 ### 0.1.0
 
 The first stable release of the wrapper with full support for Version 1 of DaPulse's API. A handful of bugs have been
