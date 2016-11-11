@@ -78,7 +78,11 @@ class PulseColumnStatusValue extends PulseColumnValue
     {
         if (!isset($this->column_value))
         {
-            $this->column_value = $this->jsonResponse["value"]["index"];
+            $value = &$this->jsonResponse['value'];
+
+            // If the status column is set to 'Grey' or the default 'Just Assigned' value, DaPulse will evidently
+            // return null... So let's set it to the Grey value to not confuse people
+            $this->column_value = (is_array($value) && array_key_exists('index', $value)) ? $this->jsonResponse["value"]["index"] : self::Grey;
         }
 
         return $this->column_value;
