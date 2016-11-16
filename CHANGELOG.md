@@ -1,5 +1,12 @@
 # Changelog
 
+### 0.2.0
+
+- All ApiObjects now extend JsonSerializable so they can be fed through `json_encode()`
+- The `getJson()` function has been deprecated in favor of using `json_encode()`
+- Fixed status columns returning NULL when the column had the default value
+- Fixed 500 error received when calling `PulseBoard::createPulse()` with the default values for update related parameters
+
 ### 0.2.0 Beta 1
 
 - Added support for new Numeric column
