@@ -297,7 +297,11 @@ class UrlQuery
 
         foreach ($params as $key => $value)
         {
-            if (is_bool($value))
+            if (is_null($value))
+            {
+                continue;
+            }
+            else if (is_bool($value))
             {
                 $value = StringUtilities::booleanLiteral($value);
             }
