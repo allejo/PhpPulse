@@ -365,7 +365,7 @@ class Pulse extends SubscribableObject
     }
 
     /**
-     * Access a date type column value belonging to this pulse in order to read it or modify.
+     * Access a numeric type column value belonging to this pulse in order to read it or modify.
      *
      * This function should only be used to access data type values; an exception will be thrown otherwise.
      *
