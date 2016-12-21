@@ -2,16 +2,17 @@
 
 ### 0.2.0
 
-- All ApiObjects now extend JsonSerializable so they can be fed through `json_encode()`
-- The `getJson()` function has been deprecated in favor of using `json_encode()`
+Fix breaking changes caused by API changes and inconsistencies
+
+- All ApiObjects now extend JsonSerializable so they can be fed through `json_encode()` and the `getJson()` function has been deprecated in favor of using `json_encode()`
 - Fixed status columns returning NULL when the column had the default value
-- Fixed 500 error received when calling `PulseBoard::createPulse()` with the default values for update related parameters
+- Fixed 500 error received when calling `PulseBoard::createPulse()` with the default values for update related parameters (#9)
 
 ### 0.2.0 Beta 1
 
-- Added support for new Numeric column
-- Added support for new update values at `PulseBoard::createPulse`
-- Fixed crash bug when DaPulse's API change returns an invalid user instead of NULL
+- Added support for Numeric column (#8)
+- Added support for new update values at `PulseBoard::createPulse()` (#6)
+- Don't fail when DaPulse's API change returns an invalid user instead of a NULL value
 
 ### 0.1.0
 
@@ -38,8 +39,6 @@ fixed since the last alpha release.
 
 ### 0.1.0 Alpha 1
 
-This release supports everything in version 1 of the DaPulse API
-
 - Added complete support for the following objects:
     - Pulse (DaPulse calls this a "project")
     - PulseBoard
@@ -57,8 +56,6 @@ This release supports everything in version 1 of the DaPulse API
 - More PhpDoc has been added
 
 ### 0.0.1
-
-An initial release with limited functionality
 
 - Support for accessing, creating/building, and editing boards
 - Create and access projects (pulses) inside boards

@@ -15,6 +15,9 @@
             <option name="USE_RELATIVE_INDENTS" value="false" />
           </value>
         </option>
+        <MarkdownNavigatorCodeStyleSettings>
+          <option name="RIGHT_MARGIN" value="-1" />
+        </MarkdownNavigatorCodeStyleSettings>
         <PHPCodeStyleSettings>
           <option name="ALIGN_KEY_VALUE_PAIRS" value="true" />
           <option name="ALIGN_PHPDOC_PARAM_NAMES" value="true" />
