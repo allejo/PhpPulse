@@ -11,7 +11,7 @@
   "require-dev": {
     "php": ">=5.6.0",
     "phpunit/phpunit": "^4.8.31",
-    "apigen/apigen": "^4.1.2"
+    "apigen/apigen": "dev-master"
   },
   "autoload": {
     "classmap": [

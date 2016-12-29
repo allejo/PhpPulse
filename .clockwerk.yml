@@ -1,0 +1,6 @@
+deployments:
+  - name: docs
+    localized: true
+    deploy: api
+    commands:
+      - composer docs
