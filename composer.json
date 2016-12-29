@@ -39,7 +39,7 @@
     ],
     "docs": [
       "composer install",
-      "vendor/bin/apigen generate --source src/ --destination api/ --internal --template-theme bootstrap --access-levels public --debug"
+      "vendor/bin/apigen generate"
     ]
   }
 }
