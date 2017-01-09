@@ -11,7 +11,7 @@ namespace allejo\DaPulse\Objects;
 class PulseColumnNumericValue extends PulseColumnValue
 {
     /**
-     * Get a text column's content
+     * Get a numeric column's content
      *
      * @api
      *
@@ -30,7 +30,7 @@ class PulseColumnNumericValue extends PulseColumnValue
     }
 
     /**
-     * Update the text of a text column
+     * Update the value of a numeric column
      *
      * @api
      *

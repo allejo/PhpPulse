@@ -18,6 +18,7 @@ use allejo\DaPulse\Objects\PulseColumnNumericValue;
 use allejo\DaPulse\Objects\PulseColumnPersonValue;
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Objects\PulseColumnTextValue;
+use allejo\DaPulse\Objects\PulseColumnTimelineValue;
 use allejo\DaPulse\Objects\PulseColumnValue;
 use allejo\DaPulse\Objects\SubscribableObject;
 use allejo\DaPulse\Utilities\ArrayUtilities;
@@ -431,6 +432,29 @@ class Pulse extends SubscribableObject
     public function getTextColumn ($columnId)
     {
         return $this->getColumn($columnId, PulseColumn::Text);
+    }
+
+    /**
+     * Access a timeline type column value belonging to this pulse in order to read it or modify.
+     *
+     * This function should only be used to access data type values; an exception will be thrown otherwise.
+     *
+     * @api
+     *
+     * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
+     *
+     * @since  0.2.1
+     *
+     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     * @throws InvalidColumnException  The specified column is not a "numeric" type column
+     * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
+     *                                 by this library or the DaPulse API.
+     *
+     * @return PulseColumnTimelineValue A column object with access to its contents
+     */
+    public function getTimelineColumn ($columnId)
+    {
+        return $this->getColumn($columnId, PulseColumn::Timeline);
     }
 
     /**

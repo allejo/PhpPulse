@@ -109,6 +109,19 @@ class PulseGetColumnsTest extends PulseUnitTest
         }
     }
 
+    public function testGetNumericColumnValue()
+    {
+        $this->assertEquals(100.5, $this->pulses[0]->getNumericColumn('numbers')->getValue());
+    }
+
+    public function testGetTimelineColumnValue()
+    {
+        $this->assertEquals([
+            'from' => new \DateTime('2017-01-09'),
+            'to'   => new \DateTime('2017-01-15')
+        ], $this->pulses[0]->getTimelineColumn('timeline')->getValue());
+    }
+
     public function testGetBadColumnType()
     {
         $this->setExpectedException('allejo\DaPulse\Exceptions\InvalidObjectException');
@@ -118,7 +131,7 @@ class PulseGetColumnsTest extends PulseUnitTest
 
     public function testGetNonExistentColumn()
     {
-        $this->setExpectedException('allejo\DaPulse\Exceptions\InvalidColumnException');
+        $this->setExpectedException('allejo\DaPulse\Exceptions\ColumnNotFoundException');
 
         $this->pulses[1]->getDateColumn("non-existent");
     }
