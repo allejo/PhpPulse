@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.2.1
+
+- Implement new [Timeline column](https://support.dapulse.com/hc/en-us/articles/213491229-What-is-the-Timeline-)
+- Fix some PhpDoc errors
+
 ### 0.2.0
 
 Fix breaking changes caused by API changes and inconsistencies
