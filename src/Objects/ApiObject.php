@@ -289,6 +289,8 @@ abstract class ApiObject implements \JsonSerializable
      */
     final protected static function lazyCastNeededOnArray ($objectType, $array)
     {
+        if (is_array($array) && count($array) == 0) { return false; }
+
         $firstItem = $array[0];
 
         return self::lazyCastNeeded($firstItem, $objectType);
