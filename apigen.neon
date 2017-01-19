@@ -3,5 +3,6 @@ source:
 destination: api
 templateTheme: bootstrap
 internal: true
+googleAnalytics: UA-59480871-3
 accessLevels:
     - public
