@@ -1,5 +1,10 @@
 # Changelog
 
+### 0.2.2 (In Development)
+
+- Fix fatal error when `PulseUpdate::getReplies()` was called when it had no replies
+- `Pulse::createUpdate()` now returns the PulseUpdate object that was created
+
 ### 0.2.1
 
 - Implement new [Timeline column](https://support.dapulse.com/hc/en-us/articles/213491229-What-is-the-Timeline-)

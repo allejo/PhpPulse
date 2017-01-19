@@ -603,15 +603,18 @@ class Pulse extends SubscribableObject
      *
      * @api
      *
-     * @param int|PulseUser $user
-     * @param string        $text
-     * @param null|bool     $announceToAll
+     * @param  int|PulseUser $user
+     * @param  string        $text
+     * @param  null|bool     $announceToAll
      *
-     * @since 0.1.0
+     * @since  0.2.2 A PulseUpdate object is returned containing the information of the newly created Update
+     * @since  0.1.0
+     *
+     * @return PulseUpdate
      */
     public function createUpdate ($user, $text, $announceToAll = NULL)
     {
-        PulseUpdate::createUpdate($user, $this->getId(), $text, $announceToAll);
+        return PulseUpdate::createUpdate($user, $this->getId(), $text, $announceToAll);
     }
 
     // ================================================================================================================
