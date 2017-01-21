@@ -506,3 +506,31 @@
             Content-Length: '689'
             Connection: keep-alive
         body: '{"url":"https://phppulse.dapulse.com/projects/27157096","id":27157096,"name":"Mock Pulse One","subscribers":[{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-21T05:01:27Z"}],"updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:14:34Z","updated_at":"2017-01-20T23:18:22Z"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/pulses/27168882/updates.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 09:45:44 GMT'
+            ETag: '"3cc579acbbbcee5d8285bb7ee87b3907"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 6dc56e1d666f752da54ed694c840b4f7
+            X-Runtime: '0.044663'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '3313'
+            Connection: keep-alive
+        body: '[{"user_id":303448,"user":{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-21T09:43:52Z"},"url":"https://phppulse.dapulse.com/posts/23611892","id":23611892,"body":"\u003Cp\u003EA completely mindless update solely for content\u003C/p\u003E","kind":"update","has_assets":false,"assets":[],"body_text":"A completely mindless update solely for content","replies":[{"user_id":303448,"user":{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-21T09:43:52Z"},"url":"https://phppulse.dapulse.com/posts/23611892","id":23611894,"body":"\u003Cp\u003EThis update has a comment\u003C/p\u003E","kind":"update","has_assets":false,"assets":[],"body_text":"This update has a comment","created_at":"2017-01-21T09:26:07Z","updated_at":"2017-01-21T09:26:07Z"}],"created_at":"2017-01-21T09:25:54Z","updated_at":"2017-01-21T09:26:07Z","pulse_id":27168882},{"user_id":303448,"user":{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-21T09:43:52Z"},"url":"https://phppulse.dapulse.com/posts/23611844","id":23611844,"body":"\u003Cp\u003E \u003Cbr\u003E \u003Cimg src=\"https://phppulse.dapulse.com/protected_static/115448/resources/2401793/big-sample.png\" data-asset_id=\"2401793\" alt=\"\"\u003E \u003Cspan\u003E\u00a0\u003C/span\u003E \u003Cbr\u003E\nAdding the word \"\u003Cem\u003Eviolently\u003C/em\u003E\" before any action violently improves its meaning\u003C/p\u003E","kind":"update","has_assets":true,"assets":[{"account_id":115448,"big_geometry":"250x250","created_at":"2017-01-21T09:45:28Z","crocodoc_status":null,"crocodoc_uuid":null,"crocodoc_viewable":true,"desc":null,"holder_id":23611844,"holder_type":"Post","id":2401793,"large_geometry":"250x250","metadata":{},"original_geometry":"250x250","resource_content_type":"image/png","resource_file_name":"sample.png","resource_file_size":6077,"thumb_big_geometry":"250x250","thumb_geometry":"150x150","updated_at":"2017-01-21T09:45:32Z","uploaded_by_id":303448}],"body_text":"Adding the word \"violently\" before any action violently improves its meaning","replies":[],"created_at":"2017-01-21T09:20:52Z","updated_at":"2017-01-21T09:45:32Z","pulse_id":27168882}]'

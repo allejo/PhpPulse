@@ -44,6 +44,11 @@ abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
         $this->assertTrue(is_string($expected), $message);
     }
 
+    protected function assertIsArray($expected, $message = "")
+    {
+        $this->assertTrue(is_array($expected), $message);
+    }
+
     protected function assertCountEqual($expected, $actual, $message = "")
     {
         $this->assertEquals($expected, count($actual), $message);
