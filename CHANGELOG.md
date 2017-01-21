@@ -1,9 +1,12 @@
 # Changelog
 
-### 0.2.2 (In Development)
+### 0.3.0 (In Development)
 
 - Fix fatal error when `PulseUpdate::getReplies()` was called when it had no replies
 - `Pulse::createUpdate()` now returns the PulseUpdate object that was created
+- Added stricter type checking for `updateValue()` functions for PulseColumns; these functions may now throw an InvalidArgumentException
+- All `getValue()` functions for PulseColumns will now return NULL if there is no value set; except `PulseColumnStatusValue`, which will return `PulseColumnStatusValue::Grey`
+- `PulseColumnStatusValue::Gray` is an alias for `PulseColumnStatusValue::Grey`
 
 ### 0.2.1
 

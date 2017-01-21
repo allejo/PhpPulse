@@ -15,9 +15,6 @@ class PulseColumnPersonValue extends PulseColumnValue
     /**
      * Get the person assigned listed in the person column
      *
-     * **Warning** This function may return a null value so ensure the returned value is not null before calling any
-     * functions that belong to a PulseUser object.
-     *
      * @api
      *
      * @since  0.1.0
@@ -42,16 +39,22 @@ class PulseColumnPersonValue extends PulseColumnValue
     /**
      * Update the person in a person column
      *
-     * **Warning** Currently, there is no way of removing a person from a column; only replacing them.
-     *
      * @api
      *
      * @param int|PulseUser $user The new user that will be assigned to the person column
      *
+     * @since 0.3.0 \InvalidArgumentException is now thrown
      * @since 0.1.0
+     *
+     * @throws \InvalidArgumentException if $user is not an integer, is not positive, or is not a PulseUser object
      */
     public function updateValue ($user)
     {
+        if (!is_int($user) || (is_int($user) && $user < 1) || !($user instanceof PulseUser))
+        {
+            throw new \InvalidArgumentException('$user is expected to be a positive integer or a PulseUser object');
+        }
+
         $user       = ($user instanceof PulseUser) ? $user->getId() : $user;
         $url        = sprintf("%s/%d/columns/%s/person.json", self::apiEndpoint(), $this->board_id, $this->column_id);
         $postParams = array(

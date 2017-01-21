@@ -15,12 +15,18 @@ class PulseColumnNumericValue extends PulseColumnValue
      *
      * @api
      *
+     * @since  0.3.0 Docs correctly specify a numeric return type
      * @since  0.2.0
      *
-     * @return string The column's content
+     * @return int|double|null Null is returned if there is no value set for this column
      */
     public function getValue ()
     {
+        if ($this->isNullValue())
+        {
+            return null;
+        }
+
         if (!isset($this->column_value))
         {
             $this->column_value = $this->jsonResponse["value"];
@@ -34,20 +40,28 @@ class PulseColumnNumericValue extends PulseColumnValue
      *
      * @api
      *
-     * @param int|double $text
+     * @param int|double $number
      *
+     * @since 0.3.0 \InvalidArgumentException is now thrown
      * @since 0.2.0
+     *
+     * @throws \InvalidArgumentException if $number is not a numeric value
      */
-    public function updateValue ($text)
+    public function updateValue ($number)
     {
+        if (!is_numeric($number))
+        {
+            throw new \InvalidArgumentException('$number is expected to be a numeric type');
+        }
+
         $url        = sprintf("%s/%d/columns/%s/numeric.json", self::apiEndpoint(), $this->board_id, $this->column_id);
         $postParams = array(
             "pulse_id" => $this->pulse_id,
-            "value"    => $text
+            "value"    => $number
         );
 
         self::sendPut($url, $postParams);
 
-        $this->column_value = $text;
+        $this->column_value = $number;
     }
 }

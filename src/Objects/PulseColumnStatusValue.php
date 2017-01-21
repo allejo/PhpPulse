@@ -39,6 +39,7 @@ class PulseColumnStatusValue extends PulseColumnValue
      * The index of the grey status
      */
     const Grey = 5;
+    const Gray = self::Grey; // just an alias
 
     /**
      * The index of the green status
@@ -76,6 +77,11 @@ class PulseColumnStatusValue extends PulseColumnValue
      */
     public function getValue ()
     {
+        if ($this->isNullValue())
+        {
+            return self::Grey; // The default color for DaPulse columns
+        }
+
         if (!isset($this->column_value))
         {
             $value = &$this->jsonResponse['value'];
@@ -111,6 +117,8 @@ class PulseColumnStatusValue extends PulseColumnValue
      * @see   PulseColumnStatusValue::Black   PulseColumnStatusValue::Black
      *
      * @since 0.1.0
+     *
+     * @throws \InvalidArgumentException if the $color is not an int or is not between 0-10
      */
     public function updateValue ($color)
     {

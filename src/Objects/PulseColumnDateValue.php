@@ -13,14 +13,11 @@ class PulseColumnDateValue extends PulseColumnValue
     /**
      * Get the date listed in the date column
      *
-     * **Warning** This function may return a null value so ensure the returned value is not null before calling any
-     * functions that belong to a DateTime object.
-     *
      * @api
      *
      * @since  0.1.0
      *
-     * @return \DateTime|null Null is returned when no date is listed in this date column
+     * @return \DateTime|null Null is returned if there is no value set for this column
      */
     public function getValue ()
     {
@@ -44,10 +41,18 @@ class PulseColumnDateValue extends PulseColumnValue
      *
      * @param \DateTime $dateTime The new date
      *
+     * @since 0.3.0 \InvalidArgumentException is now thrown
      * @since 0.1.0
+     *
+     * @throws \InvalidArgumentException if $dateTime is not a \DateTime
      */
     public function updateValue ($dateTime)
     {
+        if (!($dateTime instanceof \DateTime))
+        {
+            throw new \InvalidArgumentException('$dateTime is expected to be of type \\DateTime');
+        }
+
         $url        = sprintf("%s/%d/columns/%s/date.json", self::apiEndpoint(), $this->board_id, $this->column_id);
         $postParams = array(
             "pulse_id" => $this->pulse_id,
