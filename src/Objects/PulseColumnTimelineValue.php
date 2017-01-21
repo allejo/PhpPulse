@@ -33,10 +33,7 @@ class PulseColumnTimelineValue extends PulseColumnValue
 
         if (!isset($this->column_value))
         {
-            $this->column_value = [
-                'from' => new \DateTime($this->jsonResponse["value"]["from"]),
-                'to'   => new \DateTime($this->jsonResponse["value"]["to"])
-            ];
+            $this->setValue($this->jsonResponse);
         }
 
         return $this->column_value;
@@ -69,11 +66,15 @@ class PulseColumnTimelineValue extends PulseColumnValue
             "to"       => $to->format('Y-m-d')
         ];
 
-        self::sendPut($url, $postParams);
+        $result = self::sendPut($url, $postParams);
+        $this->setValue($result);
+    }
 
+    protected function setValue ($response)
+    {
         $this->column_value = [
-            'from' => $from,
-            'to'   => $to
+            'from' => new \DateTime($response["value"]["from"]),
+            'to'   => new \DateTime($response["value"]["to"])
         ];
     }
 }

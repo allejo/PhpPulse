@@ -28,14 +28,16 @@ class PulseColumnDateValue extends PulseColumnValue
 
         if (!isset($this->column_value))
         {
-            $this->column_value = new \DateTime($this->jsonResponse["value"]);
+            $this->setValue($this->jsonResponse);
         }
 
         return $this->column_value;
     }
 
     /**
-     * Update the date of the date column. The specific time of the DateTime object will be ignored.
+     * Update the date of the date column.
+     *
+     * The specific time of the DateTime object will be ignored.
      *
      * @api
      *
@@ -59,8 +61,20 @@ class PulseColumnDateValue extends PulseColumnValue
             "date_str" => date_format($dateTime, "Y-m-d")
         );
 
-        self::sendPut($url, $postParams);
+        $result = self::sendPut($url, $postParams);
+        $this->setValue($result);
+    }
 
-        $this->column_value = $dateTime;
+    protected function setValue ($response)
+    {
+        // Another DaPulse API inconsistency. The data returned from a PUT request has the date in an array instead of
+        // of a string.
+        if (is_array($response['value']) && isset($response['value']['date']))
+        {
+            $this->column_value = new \DateTime($response['value']['date']);
+            return;
+        }
+
+        $this->column_value = new \DateTime($response['value']);
     }
 }

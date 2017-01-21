@@ -124,4 +124,11 @@ abstract class PulseColumnValue extends ApiObject
     }
 
     abstract public function getValue ();
+
+    /**
+     * Cast and set the appropriate value for this column
+     *
+     * @param $response
+     */
+    abstract protected function setValue ($response);
 }

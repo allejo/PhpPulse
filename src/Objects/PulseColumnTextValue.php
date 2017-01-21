@@ -28,7 +28,7 @@ class PulseColumnTextValue extends PulseColumnValue
 
         if (!isset($this->column_value))
         {
-            $this->column_value = $this->jsonResponse["value"];
+            $this->setValue($this->jsonResponse);
         }
 
         return $this->column_value;
@@ -59,8 +59,12 @@ class PulseColumnTextValue extends PulseColumnValue
             "text"     => (string)$text
         );
 
-        self::sendPut($url, $postParams);
+        $result = self::sendPut($url, $postParams);
+        $this->setValue($result);
+    }
 
-        $this->column_value = $text;
+    protected function setValue ($response)
+    {
+        $this->column_value = $response["value"];
     }
 }

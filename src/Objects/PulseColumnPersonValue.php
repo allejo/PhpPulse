@@ -30,7 +30,7 @@ class PulseColumnPersonValue extends PulseColumnValue
 
         if (!isset($this->column_value))
         {
-            $this->column_value = new PulseUser($this->jsonResponse["value"]["id"]);
+            $this->setValue($this->jsonResponse);
         }
 
         return $this->column_value;
@@ -62,9 +62,8 @@ class PulseColumnPersonValue extends PulseColumnValue
             "user_id"  => $user
         );
 
-        self::sendPut($url, $postParams);
-
-        $this->column_value = new PulseUser($user);
+        $result = self::sendPut($url, $postParams);
+        $this->setValue($result);
     }
 
     /**
@@ -81,5 +80,10 @@ class PulseColumnPersonValue extends PulseColumnValue
                 is_array($this->jsonResponse['value']) &&
                 array_key_exists('id', $this->jsonResponse['value']) &&
                 $this->jsonResponse['value']['id'] === 0);
+    }
+
+    protected function setValue ($response)
+    {
+        $this->column_value = new PulseUser($response["value"]["id"]);
     }
 }

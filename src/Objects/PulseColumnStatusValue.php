@@ -84,11 +84,7 @@ class PulseColumnStatusValue extends PulseColumnValue
 
         if (!isset($this->column_value))
         {
-            $value = &$this->jsonResponse['value'];
-
-            // If the status column is set to 'Grey' or the default 'Just Assigned' value, DaPulse will evidently
-            // return null... So let's set it to the Grey value to not confuse people
-            $this->column_value = (is_array($value) && array_key_exists('index', $value)) ? $this->jsonResponse["value"]["index"] : self::Grey;
+            $this->setValue($this->jsonResponse);
         }
 
         return $this->column_value;
@@ -133,9 +129,8 @@ class PulseColumnStatusValue extends PulseColumnValue
             "color_index" => $color
         );
 
-        self::sendPut($url, $postParams);
-
-        $this->column_value = $color;
+        $result = self::sendPut($url, $postParams);
+        $this->setValue($result);
     }
 
     /**
@@ -166,5 +161,14 @@ class PulseColumnStatusValue extends PulseColumnValue
         );
 
         return $colorArray[$numericalValue];
+    }
+
+    protected function setValue ($response)
+    {
+        $value = $response['value'];
+
+        // If the status column is set to 'Grey' or the default 'Just Assigned' value, DaPulse will evidently
+        // return null... So let's set it to the Grey value to not confuse people
+        $this->column_value = (is_array($value) && array_key_exists('index', $value)) ? $response["value"]["index"] : self::Grey;
     }
 }
