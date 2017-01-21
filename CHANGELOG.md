@@ -7,6 +7,9 @@
 - Added stricter type checking for `updateValue()` functions for PulseColumns; these functions may now throw an InvalidArgumentException
 - All `getValue()` functions for PulseColumns will now return NULL if there is no value set; except `PulseColumnStatusValue`, which will return `PulseColumnStatusValue::Grey`
 - `PulseColumnStatusValue::Gray` is an alias for `PulseColumnStatusValue::Grey`
+- `PulseUpdate::getHasAssets()` has been deprecated and been replaced with `PulseUpdate::hasAssets()`; yay, grammar.
+- `PulseUpdate::getWatches()` is no longer available in the DaPulse API, therefore it has been marked as deprecated and to be removed in the next breaking release
+- Return type for `PulseUpdate::getAssets()` has been corrected in the documentation; it should return an array
 
 ### 0.2.1
 

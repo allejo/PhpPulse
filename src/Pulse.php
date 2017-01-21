@@ -585,10 +585,12 @@ class Pulse extends SubscribableObject
     // ================================================================================================================
 
     /**
-     * Get all of the updates that belong this Pulse in reverse chronological order
+     * Get all of the updates that belong to this Pulse in reverse chronological order
      *
      * @api
+     *
      * @since 0.1.0
+     *
      * @return PulseUpdate[]
      */
     public function getUpdates ()

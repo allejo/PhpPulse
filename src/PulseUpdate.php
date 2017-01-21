@@ -68,16 +68,9 @@ class PulseUpdate extends ApiObject
     /**
      * The update's assets.
      *
-     * @var string
-     */
-    protected $assets;
-
-    /**
-     * The users who watch this update.
-     *
      * @var array
      */
-    protected $watched;
+    protected $assets;
 
     /**
      * Creation time.
@@ -198,23 +191,57 @@ class PulseUpdate extends ApiObject
     }
 
     /**
-     * The update's has_assets.
+     * Retrieve whether or not this update has any attachments
      *
      * @api
+     * @todo Remove at 0.4.0 or next major release
+     * @deprecated 0.3.0 Use PulseUpdate::hasAssets(). To be removed in 0.4.0
      * @since  0.1.0
      * @return string
      */
     public function getHasAssets ()
     {
-        return $this->has_assets;
+        return $this->hasAssets();
     }
 
     /**
-     * The update's assets.
+     * Get an array of this update's assets
+     *
+     * Sample array structure of assets
+     *
+     * ```
+     * array(
+     *   0 => array(
+     *     'account_id' => 115448
+     *     'big_geometry' => '250x250'
+     *     'created_at' => '2017-01-21T09:45:28Z'
+     *     'crocodoc_status' => null
+     *     'crocodoc_uuid' => null
+     *     'crocodoc_viewable' => true
+     *     'desc' => null
+     *     'holder_id' => 23611844
+     *     'holder_type' => 'Post'
+     *     'id' => 2401793
+     *     'large_geometry' => '250x250'
+     *     'metadata' => Array ()
+     *     'original_geometry' => '250x250'
+     *     'resource_content_type' => 'image/png'
+     *     'resource_file_name' => 'sample.png'
+     *     'resource_file_size' => 6077
+     *     'thumb_big_geometry' => '250x250'
+     *     'thumb_geometry' => '150x150'
+     *     'updated_at' => '2017-01-21T09:45:32Z'
+     *     'uploaded_by_id' => 303448
+     *   )
+     * )
+     * ```
      *
      * @api
+     *
+     * @since  0.3.0 Documentation has been corrected; this returns an array
      * @since  0.1.0
-     * @return string
+     *
+     * @return array
      */
     public function getAssets ()
     {
@@ -253,14 +280,29 @@ class PulseUpdate extends ApiObject
      * Get the users watching this update
      *
      * @api
+     * @todo Remove at 0.4.0 or next major release
+     * @deprecated 0.3.0 This data is no longer provided by the DaPulse API; this function will be removed in the next
+     *                   major release with planned replacement
      * @since  0.1.0
      * @return PulseUser[]
      */
     public function getWatchers ()
     {
-        self::lazyCastAll($this->watched, "PulseUser");
+        return [];
+    }
 
-        return $this->watched;
+    /**
+     * Retrieve whether or not this update has any attachments
+     *
+     * @api
+     *
+     * @since  0.3.0 Previously was available as 'getHasAssets()'
+     *
+     * @return bool
+     */
+    public function hasAssets ()
+    {
+        return $this->has_assets;
     }
 
     // =================================================================================================================
