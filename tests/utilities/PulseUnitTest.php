@@ -19,8 +19,10 @@ abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
 
         PulseBoard::setApiKey($authClient->getApiToken());
 
+        $cassette = (getenv('TRAVIS')) ? 'PhpPulseVCR-Sanitized' : 'PhpPulseVCR';
+
         VCR::turnOn();
-        VCR::insertCassette('PhpPulseVCR');
+        VCR::insertCassette($cassette);
     }
 
     public function tearDown ()

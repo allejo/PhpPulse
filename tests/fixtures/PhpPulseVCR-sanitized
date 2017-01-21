@@ -1,0 +1,508 @@
+
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/3844236.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Fri, 20 Jan 2017 23:42:55 GMT'
+            ETag: '"e0d8a94115ab9de7d450b95bea2d9fb8"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 91880c51a884a09633daa97615db2969
+            X-Runtime: '0.021202'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '1172'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.dapulse.com/boards/3844236","id":3844236,"name":"API Mocks","description":"A DaPulse board used for unit testing and providing mocks for the PhpPulse library we use and maintain","columns":[{"id":"name","title":"Name","type":"name"},{"title":"Person","type":"person","id":"person"},{"title":"Status","type":"color","labels":{"0":"Working on it","1":"Done","2":"Need Client Input","3":"Met with Client","5":"Just Assigned","6":"Ordered"},"id":"status","labels_positions":{"0":0,"1":1,"2":2,"3":3,"4":4,"5":10,"6":7,"7":6,"8":5,"9":8,"10":9}},{"title":"Text","type":"text","id":"text"},{"title":"Due date","type":"date","id":"due_date"},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"},{"title":"Numbers","type":"numeric","id":"numbers"},{"title":"Timeline","type":"timerange","id":"timeline"}],"groups":[{"title":"Group One","id":"topics","color":"#037f4c","board_id":3844236},{"title":"Group Two","color":"#e2445c","id":"group_two","board_id":3844236},{"title":"Dynamic Pulses","color":"#fdab3d","id":"dynamic_pulses","board_id":3844236}],"created_at":"2015-10-28T15:23:31Z","updated_at":"2017-01-20T23:37:04Z"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/3844236/pulses.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Fri, 20 Jan 2017 23:42:56 GMT'
+            ETag: '"4941040a5e49fd7305578b9d21dfb931"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: f4b65dac76f2d3985068318dd38c4eba
+            X-Runtime: '0.024698'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '3251'
+            Connection: keep-alive
+        body: '[{"pulse":{"url":"https://phppulse.dapulse.com/projects/27157096","id":27157096,"name":"Mock Pulse One","updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:14:34Z","updated_at":"2017-01-20T23:18:22Z"},"board_meta":{"position":131072.0,"group_id":"topics"},"column_values":[{"cid":"name","title":"Name","name":"Mock Pulse One"},{"cid":"person","title":"Person","value":{"name":"Vladimir Jimenez","id":303448,"photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","is_guest":false}},{"cid":"status","title":"Status","value":{"index":0,"update_id":null}},{"cid":"text","title":"Text","value":"Silver Pet Rock"},{"cid":"due_date","title":"Due date","value":"2017-01-03"},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":"100.5"},{"cid":"timeline","title":"Timeline","value":{"from":"2017-01-09","to":"2017-01-15"}}]},{"pulse":{"url":"https://phppulse.dapulse.com/projects/27157134","id":27157134,"name":"Mock Pulse Two","updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:16:18Z","updated_at":"2017-01-20T23:16:49Z"},"board_meta":{"position":196608.0,"group_id":"topics"},"column_values":[{"cid":"name","title":"Name","name":"Mock Pulse Two"},{"cid":"person","title":"Person","value":null},{"cid":"status","title":"Status","value":{"index":2,"update_id":null}},{"cid":"text","title":"Text","value":"Oblivious Platypus"},{"cid":"due_date","title":"Due date","value":"2016-10-31"},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":"50"},{"cid":"timeline","title":"Timeline","value":null}]},{"pulse":{"url":"https://phppulse.dapulse.com/projects/27157219","id":27157219,"name":"Mockery Onion","updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:18:17Z","updated_at":"2017-01-20T23:18:48Z"},"board_meta":{"position":131072.0,"group_id":"group_two"},"column_values":[{"cid":"name","title":"Name","name":"Mockery Onion"},{"cid":"person","title":"Person","value":{"name":"PhpPulse Roomba","id":361981,"photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/361981/thumb_small/361981-dapulse_other_blue.png?1452304450","is_guest":false}},{"cid":"status","title":"Status","value":{"index":1,"update_id":null}},{"cid":"text","title":"Text","value":"Aspiring Platinum Duck"},{"cid":"due_date","title":"Due date","value":null},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":null},{"cid":"timeline","title":"Timeline","value":null}]},{"pulse":{"url":"https://phppulse.dapulse.com/projects/27158019","id":27158019,"name":"Jar of Jam","updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:37:04Z","updated_at":"2017-01-20T23:37:04Z"},"board_meta":{"position":196608.0,"group_id":"group_two"},"column_values":[{"cid":"name","title":"Name","name":"Jar of Jam"},{"cid":"person","title":"Person","value":null},{"cid":"status","title":"Status","value":null},{"cid":"text","title":"Text","value":null},{"cid":"due_date","title":"Due date","value":null},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":null},{"cid":"timeline","title":"Timeline","value":null}]}]'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/users/303448.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Fri, 20 Jan 2017 23:42:56 GMT'
+            ETag: '"810aa85f8a2ca69eeafe11a28b4655f0"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: f3d36ba4ed3bf664db7df894c9b6cf41
+            X-Runtime: '0.015231'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '469'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-20T23:32:54Z"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/3844236/columns/non-existent/value.json?pulse_id=27157134&api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '404'
+            message: 'Not Found'
+        headers:
+            Cache-Control: no-cache
+            Content-Type: application/json
+            Date: 'Fri, 20 Jan 2017 23:42:57 GMT'
+            Server: 'UDI 0.13.36'
+            Status: '404 Not Found'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 0b12145622adff0a9704be61aa7d54e6
+            X-Runtime: '0.023922'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            Content-Length: '38'
+            Connection: keep-alive
+        body: '{"error":"Invalid column identifier."}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/pulses/27168882.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:02 GMT'
+            ETag: '"09aea3beccb1e4f65e10852b727b104e"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: a4f36ca0b6a3ff89d6b680a90d57b635
+            X-Runtime: '0.028696'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '682'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.dapulse.com/projects/27168882","id":27168882,"name":"Task 1","subscribers":[{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-21T04:25:19Z"}],"updates_count":0,"board_id":27168881,"created_at":"2017-01-21T04:21:36Z","updated_at":"2017-01-21T04:21:36Z"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/status/value.json?pulse_id=27168882&api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:03 GMT'
+            ETag: '"c162f2d25ac389347b422d15da5601d2"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: dc568de55a6c470cdb819fa94f2f0365
+            X-Runtime: '0.027021'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '55'
+            Connection: keep-alive
+        body: '{"column_id":"status","pulse_id":27168882,"value":null}'
+-
+    request:
+        method: PUT
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/status/status.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'pulse_id=27168882&color_index=8'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:04 GMT'
+            ETag: '"7307ec4291cf7b43c8c515d189ea56fc"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 80062bdeaf4007ddbbb5e63e6a132b0a
+            X-Runtime: '0.043620'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '77'
+            Connection: keep-alive
+        body: '{"column_id":"status","pulse_id":27168882,"value":{"index":8,"post_id":null}}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/text/value.json?pulse_id=27168882&api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:05 GMT'
+            ETag: '"621f86868afd4d3bf1f9eb3830805fd9"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 8a62fd7e881635de1ccd29bd7f644201
+            X-Runtime: '0.019437'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '53'
+            Connection: keep-alive
+        body: '{"column_id":"text","pulse_id":27168882,"value":null}'
+-
+    request:
+        method: PUT
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/text/text.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'pulse_id=27168882&text=Elastic%20Water%20Bottle'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:05 GMT'
+            ETag: '"69c8b14dbbea7f4edba8a638c4cdd92c"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 84ec31a3d52e9d618b9eeccb700aef06
+            X-Runtime: '0.047615'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '71'
+            Connection: keep-alive
+        body: '{"column_id":"text","pulse_id":27168882,"value":"Elastic Water Bottle"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/due_date/value.json?pulse_id=27168882&api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:06 GMT'
+            ETag: '"f9e6a1980d81defe73b6b307da6d46e1"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: cad428af910dd7b30830831988f60516
+            X-Runtime: '0.020213'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '57'
+            Connection: keep-alive
+        body: '{"column_id":"due_date","pulse_id":27168882,"value":null}'
+-
+    request:
+        method: PUT
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/due_date/date.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'pulse_id=27168882&date_str=2017-02-01'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:07 GMT'
+            ETag: '"ff10b626aeb18f5f172462c7a68f03a4"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 35c05390eb6dc612771470d177d55cca
+            X-Runtime: '0.043873'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '84'
+            Connection: keep-alive
+        body: '{"column_id":"due_date","pulse_id":27168882,"value":{"date":"2017-02-01","icon":""}}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/person/value.json?pulse_id=27168882&api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:08 GMT'
+            ETag: '"072b614ee3006a76d6ffccb82e54701a"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 8da39ef5d8a634764b87074946890016
+            X-Runtime: '0.029671'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '55'
+            Connection: keep-alive
+        body: '{"column_id":"person","pulse_id":27168882,"value":null}'
+-
+    request:
+        method: PUT
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/person/person.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'pulse_id=27168882&user_id=303448'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:38:32 GMT'
+            ETag: '"5d5dca92d062a2391b55fa0a07ecb512"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 161603aa9cb33600616b626c4406221f
+            X-Runtime: '0.064517'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '207'
+            Connection: keep-alive
+        body: '{"column_id":"person","pulse_id":27168882,"value":{"name":"Vladimir Jimenez","id":303448,"photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306"}}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/numbers/value.json?pulse_id=27168882&api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:43:34 GMT'
+            ETag: '"2bf4fde30c27de8786cd6c71c64a329d"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: cb3ef64f8bb210f921cddf78c3e37675
+            X-Runtime: '0.025940'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '54'
+            Connection: keep-alive
+        body: '{"column_id":"numbers","pulse_id":27168882,"value":""}'
+-
+    request:
+        method: PUT
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/numbers/numeric.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'pulse_id=27168882&value=25'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:43:34 GMT'
+            ETag: '"6a37a466506d4c40cf4cb98ecbc962ab"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 7850fdc2268cd94b07667031cffca0e4
+            X-Runtime: '0.041242'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '56'
+            Connection: keep-alive
+        body: '{"column_id":"numbers","pulse_id":27168882,"value":"25"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/timeline/value.json?pulse_id=27168882&api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:43:35 GMT'
+            ETag: '"eb4c0c61b9293cd441b7d3deca1e2f2e"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 687390bfe15cbdd950d7b75c6c411100
+            X-Runtime: '0.026727'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '57'
+            Connection: keep-alive
+        body: '{"column_id":"timeline","pulse_id":27168882,"value":null}'
+-
+    request:
+        method: PUT
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns/timeline/timeline.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'pulse_id=27168882&from=2016-01-01&to=2016-01-26'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:43:36 GMT'
+            ETag: '"30da1ad5c7c5d7744382645dec1b364d"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 702e26faeeef94c9e4f60c16d782a43d
+            X-Runtime: '0.048381'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '92'
+            Connection: keep-alive
+        body: '{"column_id":"timeline","pulse_id":27168882,"value":{"from":"2016-01-01","to":"2016-01-26"}}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/pulses/27157096.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 05:02:51 GMT'
+            ETag: '"5c0cc25ffe1cc4831debde49fff48726"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 4546c3d61e58cd3db629609bf55c868b
+            X-Runtime: '0.026507'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '689'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.dapulse.com/projects/27157096","id":27157096,"name":"Mock Pulse One","subscribers":[{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-21T05:01:27Z"}],"updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:14:34Z","updated_at":"2017-01-20T23:18:22Z"}'

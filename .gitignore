@@ -122,3 +122,5 @@ node_modules/
 
 ### Project Files ###
 phpunit-auth.json
+tests/sanitize-values.json
+tests/fixtures/PhpPulseVCR
