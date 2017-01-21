@@ -1,15 +1,19 @@
 # PhpPulse
 
-[![Stable Release](https://img.shields.io/packagist/v/allejo/php-pulse.svg)](https://packagist.org/packages/allejo/php-pulse) [![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=master)](https://travis-ci.org/allejo/PhpPulse)
+[![Stable Release](https://img.shields.io/packagist/v/allejo/php-pulse.svg)](https://packagist.org/packages/allejo/php-pulse)
+[![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=master)](https://travis-ci.org/allejo/PhpPulse)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
 [![Coverage Status](https://coveralls.io/repos/allejo/PhpPulse/badge.svg?branch=master&service=github)](https://coveralls.io/github/allejo/PhpPulse?branch=master)
-[![Join the chat at https://gitter.im/allejo/PhpPulse](https://badges.gitter.im/allejo/PhpPulse.svg)](https://gitter.im/allejo/PhpPulse?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 
 A PHP wrapper for working with the [DaPulse API](https://developers.dapulse.com/).
 
 ## Requirements
 
-- PHP 5.3+
+PHP 5.5+
+
+- This library may work with with PHP 5.4, however it's no longer supported
+- If you need PHP 5.3 or 5.4 support, your best bet is using the 0.2.x branch, however it's no longer supported
+
 
 ## Usage
 
@@ -42,7 +46,7 @@ To report a bug or request a feature, please submit an issue.
 
 ### Documentation
 
-I am in the process of writing extensive documentation on how to use this library, so please bear with me. If you would like to contribute, reach out to me.
+I've done my best to document this project and the [generated phpDoc is available](http://docs.allejo.io/PhpPulse/). If you'd like to help with writing documentation or tutorials, I gladly welcome contributions to [this project's wiki](https://github.com/allejo/PhpPulse/wiki).
 
 ### IRC
 

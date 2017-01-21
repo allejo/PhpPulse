@@ -20,6 +20,8 @@ The actual library is housed in the `src/` folder. All of the public classes are
 
 The unit tests are located in the `tests/` directory. All contributions should have the appropriate tests written and/or modified to reflect the changes made. In addition to unit tests, we have documentation provided for our classes so any changes made should also be reflected appropriately in the documentation.
 
+Unit tests use [php-vcr](https://github.com/php-vcr/php-vcr) to record all API calls to DaPulse and keeps a record of the expected results.
+
 ### What needs to be done?
 
 Looking at our [**issue tracker**](https://github.com/allejo/PhpPulse/issues?state=open) is the quickest way to see what needs to get done.
@@ -88,19 +90,6 @@ Some things that will increase the chance that your pull request is accepted.
 
 - Follows the [specified coding style](#coding-style) properly
 - Update the documentation, the surrounding comments/docs, examples elsewhere, guides, whatever is affected by your contribution
-
-## Contributor License Agreement
-
-By committing to a source code repository or submitting a patch/pull request, you the developer are assigning copyright of the submission to the project maintainer, and his successors.
-
-### Grant of Copyright Assignment
-
-Each Contributor hereby assign to the project maintainer all right, title, and interest worldwide in all Copyright covering the Contribution.
-
-All submissions are subject to these terms.
-
-### Notes
-You may not place any restrictions on how the project maintainer maintains or handles your submitted works. Works that are derivations of existing works in the project are subject to the current project license and any other licenses the project may be released under. Authors that submit works must have the legal right to agree to these terms, either as original author or authorized licensee of derived works. Minors must have a parent or guardian sign the acceptance form for them.
 
 ## Acknowledgements
 
