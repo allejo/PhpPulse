@@ -13,6 +13,8 @@ class PulseBoardCreationDeletionTest extends PulseUnitTest
 
     public function setUp()
     {
+        $this->markTestIncomplete();
+
         parent::setUp();
 
         $this->userID = 303448;

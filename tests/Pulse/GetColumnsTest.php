@@ -28,8 +28,9 @@ class PulseGetColumnsTest extends PulseUnitTest
     {
         parent::setUp();
 
-        $this->id = 19306968;
-        $this->userId = 217784;
+        $this->id = self::BoardId; // Board ID
+        $this->userId = self::MainUser; // Main User Account
+
         $this->board = new PulseBoard($this->id);
         $this->pulses = $this->board->getPulses();
     }
@@ -39,7 +40,8 @@ class PulseGetColumnsTest extends PulseUnitTest
         $expectedValues = array(
             "Mock Pulse One",
             "Mock Pulse Two",
-            "Mockery Onion"
+            "Mockery Onion",
+            "Jar of Jam"
         );
         $count = count($expectedValues);
 
@@ -54,7 +56,8 @@ class PulseGetColumnsTest extends PulseUnitTest
         $expectedValues = array(
             "Silver Pet Rock",
             "Oblivious Platypus",
-            "Aspiring Platinum Duck"
+            "Aspiring Platinum Duck",
+            null
         );
         $count = count($expectedValues);
 
@@ -99,7 +102,8 @@ class PulseGetColumnsTest extends PulseUnitTest
         $expectedValues = array(
             PulseColumnStatusValue::Orange,
             PulseColumnStatusValue::Red,
-            PulseColumnStatusValue::L_Green
+            PulseColumnStatusValue::L_Green,
+            PulseColumnStatusValue::Grey
         );
         $count = count($expectedValues);
 
@@ -112,6 +116,12 @@ class PulseGetColumnsTest extends PulseUnitTest
     public function testGetNumericColumnValue()
     {
         $this->assertEquals(100.5, $this->pulses[0]->getNumericColumn('numbers')->getValue());
+        $this->assertEquals(50, $this->pulses[1]->getNumericColumn('numbers')->getValue());
+    }
+
+    public function testGetNumericColumnNullValue()
+    {
+        $this->assertNull($this->pulses[2]->getNumericColumn('numbers')->getValue());
     }
 
     public function testGetTimelineColumnValue()
@@ -120,6 +130,11 @@ class PulseGetColumnsTest extends PulseUnitTest
             'from' => new \DateTime('2017-01-09'),
             'to'   => new \DateTime('2017-01-15')
         ], $this->pulses[0]->getTimelineColumn('timeline')->getValue());
+    }
+
+    public function testGetTimelineColumnNullValue()
+    {
+        $this->assertNull($this->pulses[1]->getTimelineColumn('timeline')->getValue());
     }
 
     public function testGetBadColumnType()

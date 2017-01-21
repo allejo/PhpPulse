@@ -12,6 +12,8 @@ class PulseSubscribersTest extends PulseUnitTest
 
     public function setUp ()
     {
+        $this->markTestIncomplete();
+
         parent::setUp();
 
         $this->user1 = 217784;

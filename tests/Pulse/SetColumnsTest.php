@@ -4,17 +4,11 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Pulse;
-use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseUser;
 
 class PulseSetColumnsTest extends PulseUnitTest
 {
     private $userId;
-
-    /**
-     * @var PulseBoard
-     */
-    private $board;
 
     /**
      * @var Pulse
@@ -26,7 +20,8 @@ class PulseSetColumnsTest extends PulseUnitTest
         return array(
             array(-1),
             array(11),
-            array(9.8)
+            array(9.8),
+            array('hello world')
         );
     }
 
@@ -34,26 +29,17 @@ class PulseSetColumnsTest extends PulseUnitTest
     {
         parent::setUp();
 
-        $this->userId = 217784;
-        $this->board = new PulseBoard(19306968);
-        $this->pulse = $this->board->createPulse('Flapping Umbrella', $this->userId, 'dynamic_pulses');
-    }
-
-    public function tearDown ()
-    {
-        $this->pulse->deletePulse();
+        $this->userId = self::MainUser;
+        $this->pulse = new Pulse(27168882);
     }
 
     public function testSettingStatusColumn()
     {
         $value = PulseColumnStatusValue::Gold;
+        $column = $this->pulse->getStatusColumn('status');
+        $column->updateValue($value);
 
-        $this->pulse->getStatusColumn("status")->updateValue($value);
-
-        $pulse = new Pulse($this->pulse->getId());
-
-        $this->assertEquals($value, $pulse->getStatusColumn("status")->getValue());
-        $this->assertEquals($value, $this->pulse->getStatusColumn("status")->getValue());
+        $this->assertEquals($value, $column->getValue());
     }
 
     /**
@@ -63,31 +49,44 @@ class PulseSetColumnsTest extends PulseUnitTest
     {
         $this->setExpectedException('\InvalidArgumentException');
 
-        $this->pulse->getStatusColumn("status")->updateValue($color);
+        $this->pulse->getStatusColumn('status')->updateValue($color);
     }
 
     public function testSettingTextColumn()
     {
-        $value = "Elastic Water Bottle";
+        $value = 'Elastic Water Bottle';
+        $column = $this->pulse->getTextColumn('text');
+        $column->updateValue($value);
 
-        $this->pulse->getTextColumn("text")->updateValue($value);
+        $this->assertEquals($value, $column->getValue());
+    }
 
-        $pulse = new Pulse($this->pulse->getId());
+    public function testSettingNumericColumn()
+    {
+        $value = 25;
+        $column = $this->pulse->getNumericColumn('numbers');
+        $column->updateValue($value);
 
-        $this->assertEquals($value, $pulse->getTextColumn("text")->getValue());
-        $this->assertEquals($value, $this->pulse->getTextColumn("text")->getValue());
+        $this->assertEquals($value, $column->getValue());
     }
 
     public function testSettingDateColumn()
     {
-        $value = new \DateTime("2017-02-01");
+        $value = new \DateTime('2017-02-01');
+        $column = $this->pulse->getDateColumn('due_date');
+        $column->updateValue($value);
 
-        $this->pulse->getDateColumn("due_date")->updateValue($value);
+        $this->assertEquals($value, $column->getValue());
+    }
 
-        $pulse = new Pulse($this->pulse->getId());
+    public function testSettingTimelineColumn()
+    {
+        $from = new \DateTime('2016-01-01');
+        $to   = new \DateTime('2016-01-26');
+        $column = $this->pulse->getTimelineColumn('timeline');
+        $column->updateValue($from, $to);
 
-        $this->assertEquals($value, $pulse->getDateColumn("due_date")->getValue());
-        $this->assertEquals($value, $this->pulse->getDateColumn("due_date")->getValue());
+        $this->assertEquals(['from' => $from, 'to' => $to], $column->getValue());
     }
 
     public function testSettingPersonColumnFromInt()
@@ -102,7 +101,6 @@ class PulseSetColumnsTest extends PulseUnitTest
     {
         $user = new PulseUser($this->userId);
         $column = $this->pulse->getPersonColumn('person');
-
         $column->updateValue($user);
 
         $this->assertEquals($user, $column->getValue());

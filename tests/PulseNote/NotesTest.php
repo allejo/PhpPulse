@@ -18,6 +18,8 @@ class PulseNotesTest extends PulseUnitTest
 
     public function setUp ()
     {
+        $this->markTestIncomplete();
+
         parent::setUp();
 
         $this->pulse = new Pulse(5523969);

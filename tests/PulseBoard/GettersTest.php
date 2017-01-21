@@ -23,6 +23,8 @@ class PulseBoardGettersTest extends PulseUnitTest
 
     public function setUp()
     {
+        $this->markTestIncomplete();
+
         parent::setUp();
 
         $this->id = 3844236;

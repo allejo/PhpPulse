@@ -20,13 +20,13 @@ class PulseGettersTest extends PulseUnitTest
     {
         parent::setUp();
 
-        $this->id = 19306969;
+        $this->id = 27157096;
         $this->pulse = new Pulse($this->id);
     }
 
     public function testGetUrl ()
     {
-        $expectedUrl = sprintf("https://csunas.dapulse.com/projects/%d", $this->pulse->getId());
+        $expectedUrl = sprintf("https://phppulse.dapulse.com/projects/%d", $this->pulse->getId());
 
         $this->assertIsString($this->pulse->getUrl());
         $this->assertEquals($expectedUrl, $this->pulse->getUrl());
@@ -41,7 +41,7 @@ class PulseGettersTest extends PulseUnitTest
     public function testGetName ()
     {
         $this->assertIsString($this->pulse->getName());
-        $this->assertEquals("Mock Pulse One", $this->pulse->getName());
+        $this->assertEquals('Mock Pulse One', $this->pulse->getName());
     }
 
     public function testGetUpdatesCount ()
@@ -53,7 +53,7 @@ class PulseGettersTest extends PulseUnitTest
     public function testGetBoardId ()
     {
         $this->assertIsInt($this->pulse->getBoardId());
-        $this->assertEquals(19306968, $this->pulse->getBoardId());
+        $this->assertEquals(3844236, $this->pulse->getBoardId());
     }
 
     public function testGetCreatedAt ()

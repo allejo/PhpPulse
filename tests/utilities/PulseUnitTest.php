@@ -8,6 +8,9 @@ use VCR\VCR;
 
 abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
 {
+    const MainUser = 303448;
+    const BoardId = 3844236;
+
     public function setUp()
     {
         $authClient = new AuthenticatedClient("phpunit-auth.json");
@@ -19,7 +22,7 @@ abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
 
         PulseBoard::setApiKey($authClient->getApiToken());
 
-        $cassette = (getenv('TRAVIS')) ? 'PhpPulseVCR-Sanitized' : 'PhpPulseVCR';
+        $cassette = (getenv('TRAVIS') == 'true') ? 'PhpPulseVCR-sanitized' : 'PhpPulseVCR';
 
         VCR::turnOn();
         VCR::insertCassette($cassette);

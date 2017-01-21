@@ -6,10 +6,9 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": ">=5.3.0"
+    "php": ">=5.4.0"
   },
   "require-dev": {
-    "php": ">=5.6.0",
     "phpunit/phpunit": "^4.8.31",
     "apigen/apigen": "dev-master",
     "php-vcr/php-vcr": "^1.3"

@@ -31,6 +31,8 @@ class PulseBoardModificationTest extends PulseUnitTest
 
     public function setUp()
     {
+        $this->markTestIncomplete();
+
         parent::setUp();
 
         $this->userID = 303448;
@@ -41,7 +43,7 @@ class PulseBoardModificationTest extends PulseUnitTest
 
     public function tearDown()
     {
-        $this->pulseBoard->archiveBoard();
+        //$this->pulseBoard->archiveBoard();
     }
 
     public function columnTypeProvider()

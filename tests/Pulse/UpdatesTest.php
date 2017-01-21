@@ -24,6 +24,8 @@ class PulseUpdatesTest extends PulseUnitTest
 
     public function setUp ()
     {
+        $this->markTestIncomplete();
+
         parent::setUp();
 
         $this->board = new PulseBoard(19306968);
