@@ -50,7 +50,7 @@ class PulseColumnPersonValue extends PulseColumnValue
      */
     public function updateValue ($user)
     {
-        if (!is_int($user) || (is_int($user) && $user < 1) || !($user instanceof PulseUser))
+        if ((!is_int($user) || (is_int($user) && $user < 1)) && !($user instanceof PulseUser))
         {
             throw new \InvalidArgumentException('$user is expected to be a positive integer or a PulseUser object');
         }
