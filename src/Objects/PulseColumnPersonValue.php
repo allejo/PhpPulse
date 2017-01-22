@@ -50,10 +50,7 @@ class PulseColumnPersonValue extends PulseColumnValue
      */
     public function updateValue ($user)
     {
-        if ((!is_int($user) || (is_int($user) && $user < 1)) && !($user instanceof PulseUser))
-        {
-            throw new \InvalidArgumentException('$user is expected to be a positive integer or a PulseUser object');
-        }
+        PulseUser::_isCastable($user);
 
         $user       = ($user instanceof PulseUser) ? $user->getId() : $user;
         $url        = sprintf("%s/%d/columns/%s/person.json", self::apiEndpoint(), $this->board_id, $this->column_id);

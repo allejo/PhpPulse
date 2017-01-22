@@ -316,7 +316,7 @@ class PulseUpdate extends ApiObject
      *
      * @since  0.1.0
      *
-     * @throws InvalidObjectException This PulseUpdate as already been deleted
+     * @throws InvalidObjectException if this PulseUpdate has already been deleted
      */
     public function deleteUpdate ()
     {
@@ -340,10 +340,14 @@ class PulseUpdate extends ApiObject
      * @param int|PulseUser $user The user that will be liking/un-liking the update
      *
      * @since 0.1.0
+     *
+     * @throws \InvalidArgumentException if $user is not an integer, is not positive, or is not a PulseUser object
+     *
+     * @return bool Returns true on success
      */
     public function likeUpdate ($user)
     {
-        $this->likeUnlikeUpdate($user, true);
+        return $this->likeUnlikeUpdate($user, true);
     }
 
     /**
@@ -354,10 +358,14 @@ class PulseUpdate extends ApiObject
      * @param int|PulseUser $user The user that will be liking/un-liking the update
      *
      * @since 0.1.0
+     *
+     * @throws \InvalidArgumentException if $user is not an integer, is not positive, or is not a PulseUser object
+     *
+     * @return bool Returns true on success
      */
     public function unlikeUpdate ($user)
     {
-        $this->likeUnlikeUpdate($user, false);
+        return $this->likeUnlikeUpdate($user, false);
     }
 
     /**
@@ -365,20 +373,22 @@ class PulseUpdate extends ApiObject
      *
      * @param int|PulseUser $user The user that will be liking/un-liking the update
      * @param bool          $like True to like the update, false to unlike
+     *
+     * @throws \InvalidArgumentException if $user is not an integer, is not positive, or is not a PulseUser object
+     *
+     * @return bool Returns true on success
      */
     private function likeUnlikeUpdate ($user, $like)
     {
-        if ($user instanceof PulseUser)
-        {
-            $user = $user->getId();
-        }
+        PulseUser::_isCastable($user);
 
+        $user   = ($user instanceof PulseUser) ? $user->getId() : $user;
         $url    = sprintf("%s/%d/%s.json", self::apiEndpoint(), $this->getId(), (($like) ? "like" : "unlike"));
         $params = array(
             "user" => $user
         );
 
-        self::sendPost($url, $params);
+        return self::sendPost($url, $params);
     }
 
     // =================================================================================================================

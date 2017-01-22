@@ -382,4 +382,27 @@ class PulseUser extends ApiObject
 
         return parent::fetchAndCastToObjectArray($url, "PulseUser", $params);
     }
+
+    // =================================================================================================================
+    //   Convenience functions
+    // =================================================================================================================
+
+    /**
+     * Check whether a given value can be casted or used to get a user ID
+     *
+     * @internal
+     *
+     * @param int|PulseUser $user
+     *
+     * @since 0.3.0
+     *
+     * @throws \InvalidArgumentException if $user is not an integer, is not positive, or is not a PulseUser object
+     */
+    public static function _isCastable ($user)
+    {
+        if ((!is_int($user) || (is_int($user) && $user < 1)) && !($user instanceof PulseUser))
+        {
+            throw new \InvalidArgumentException('$user is expected to be a positive integer or a PulseUser object');
+        }
+    }
 }

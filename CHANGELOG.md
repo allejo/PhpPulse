@@ -12,6 +12,7 @@
 - Return type for `PulseUpdate::getAssets()` has been corrected in the documentation; it should return an array
 - `PulseUpdate::getUpdates()` now correctly returns an array of PulseUpdate objects
 - `PulseUpdate::getUpdates()` now checks it's parameters and attempts to automatically convert them to a format DaPulse will accept
+- `PulseUpdate::likeUpdate()` and `PulseUpdate::unlikeUpdate()` now returns boolean values on whether it was successful or not; it also throws an InvalidArgumentException when the given parameter is not a valid user
 
 ### 0.2.1
 
