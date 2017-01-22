@@ -9,6 +9,7 @@ use VCR\VCR;
 abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
 {
     const MainUser = 303448;
+    const SecondUser = 361981;
     const BoardId = 3844236;
 
     public function setUp()

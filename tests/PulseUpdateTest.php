@@ -104,4 +104,75 @@ class PulseUpdatesTest extends PulseUnitTest
         $this->assertCount(1, $replies);
         $this->assertInstanceOf(PulseUpdate::class, $replies[0]);
     }
+
+    public function testUpdateLiking ()
+    {
+        $result = $this->updates[0]->likeUpdate(self::MainUser);
+
+        $this->assertTrue($result);
+    }
+
+    public function testUpdateUnlikingFromUserWhoLikedUpdated ()
+    {
+        $result = $this->updates[0]->unlikeUpdate(self::MainUser);
+
+        $this->assertTrue($result);
+    }
+
+    public function testUpdateUnlikingFromUserWhoDidntLikeUpdate ()
+    {
+        $result = $this->updates[0]->unlikeUpdate(self::SecondUser);
+
+        $this->assertTrue($result);
+    }
+
+    public function testGetAllUpdates ()
+    {
+        $updates = PulseUpdate::getUpdates();
+
+        $this->assertGreaterThanOrEqual(2, $updates);
+    }
+
+    public function testGetAllUpdatesSinceFromDateTime ()
+    {
+        $updates = PulseUpdate::getUpdates([
+            'since' => new \DateTime('2017-01-01')
+        ]);
+
+        $this->assertCount(2, $updates);
+    }
+
+    public function testGetAllUpdatesSinceFromUnixTimestamp ()
+    {
+        $updates = PulseUpdate::getUpdates([
+            'since' => '1483228800' // 2017-01-01 as a Unix timestamp
+        ]);
+
+        $this->assertCount(2, $updates);
+    }
+
+    public function testGetAllUpdatesSinceFromStringTimestamp ()
+    {
+        $updates = PulseUpdate::getUpdates([
+            'since' => '2017-01-01'
+        ]);
+
+        $this->assertCount(2, $updates);
+    }
+
+    public function testGetAllUpdatesUntil ()
+    {
+        $this->markTestSkipped('DaPulse API requests are limiting a return of 25 updates only...?');
+
+        $timeSplit     = new \DateTime('2017-01-01');
+        $allUpdates    = PulseUpdate::getUpdates();
+        $recentUpdates = PulseUpdate::getUpdates([
+            'since' => $timeSplit
+        ]);
+        $oldUpdates    = PulseUpdate::getUpdates([
+            'until' => $timeSplit
+        ]);
+
+        $this->assertEquals(count($allUpdates), count($recentUpdates) + count($oldUpdates));
+    }
 }
