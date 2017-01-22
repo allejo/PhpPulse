@@ -19,7 +19,6 @@
     - `PulseUpdate::getWatches()` is no longer available in the DaPulse API; unless the API changes this will be removed in the next breaking release
 
 - Following deprecated functions have been removed:
-
     - `PulseUpdate::getUser()` replaced by `PulseUpdate::getAuthor()`
 
 ### 0.2.1
