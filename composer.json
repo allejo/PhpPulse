@@ -40,6 +40,9 @@
     "docs": [
       "composer install",
       "vendor/bin/apigen generate"
+    ],
+    "test": [
+      "./vendor/bin/phpunit"
     ]
   }
 }
