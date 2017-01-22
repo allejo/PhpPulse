@@ -93,18 +93,6 @@ class PulseUpdate extends ApiObject
     /**
      * User who wrote the update.
      *
-     * @deprecated 0.1.0 This function will be removed by 0.2.0. Use of PulseUpdate->getAuthor() instead.
-     *
-     * @return     PulseUser
-     */
-    public function getUser ()
-    {
-        return $this->getAuthor();
-    }
-
-    /**
-     * User who wrote the update.
-     *
      * @api
      * @since  0.1.0
      * @return PulseUser
@@ -398,10 +386,12 @@ class PulseUpdate extends ApiObject
     /**
      * Get all of the account's updates (ordered from newest to oldest)
      *
-     * array['since']         \DateTime Get updates from a specific date
-     *      ['until']         \DateTime Get updates until a specific date
-     *      ['updated_since'] \DateTime Get updates that were edited or replied to after a specific date
-     *      ['updated_until'] \DateTime Get updates that were edited or replied to before a specific date
+     * ```
+     * array['since']         \DateTime - Get updates from a specific date
+     *      ['until']         \DateTime - Get updates until a specific date
+     *      ['updated_since'] \DateTime - Get updates that were edited or replied to after a specific date
+     *      ['updated_until'] \DateTime - Get updates that were edited or replied to before a specific date
+     * ```
      *
      * If you do not pass \DateTime objects, they should be strings of dates in the format, YYYY-mm-dd, or a unix timestamp
      *

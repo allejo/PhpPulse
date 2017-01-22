@@ -141,9 +141,10 @@ abstract class ApiObject implements \JsonSerializable
      * Access the JSON response from DaPulse directly
      *
      * @api
-     * @deprecated 0.3.0 Feed this object to json_encode() to get the JSON representation of this object instead
+     * @deprecated 0.3.0 Feed this object to json_encode() to get the JSON representation of this object instead or call
+     *                   `jsonSerialize()`
      * @since  0.1.0
-     * @todo   Remove this in the next major release
+     * @todo   Remove at 0.4.0 or next breaking release
      * @return array
      */
     final public function getJson ()
