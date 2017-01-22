@@ -10,6 +10,8 @@
 - `PulseUpdate::getHasAssets()` has been deprecated and been replaced with `PulseUpdate::hasAssets()`; yay, grammar.
 - `PulseUpdate::getWatches()` is no longer available in the DaPulse API, therefore it has been marked as deprecated and to be removed in the next breaking release
 - Return type for `PulseUpdate::getAssets()` has been corrected in the documentation; it should return an array
+- `PulseUpdate::getUpdates()` now correctly returns an array of PulseUpdate objects
+- `PulseUpdate::getUpdates()` now checks it's parameters and attempts to automatically convert them to a format DaPulse will accept
 
 ### 0.2.1
 

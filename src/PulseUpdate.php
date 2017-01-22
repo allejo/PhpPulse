@@ -386,21 +386,46 @@ class PulseUpdate extends ApiObject
     // =================================================================================================================
 
     /**
-     * Get all of the account's updates (ordered from new to old)
+     * Get all of the account's updates (ordered from newest to oldest)
+     *
+     * array['since']         \DateTime Get updates from a specific date
+     *      ['until']         \DateTime Get updates until a specific date
+     *      ['updated_since'] \DateTime Get updates that were edited or replied to after a specific date
+     *      ['updated_until'] \DateTime Get updates that were edited or replied to before a specific date
+     *
+     * If you do not pass \DateTime objects, they should be strings of dates in the format, YYYY-mm-dd, or a unix timestamp
      *
      * @api
      *
-     * @param  array $params GET parameters passed to the URL
+     * @param  array $params GET parameters passed to the URL (see above)
      *
+     * @since  0.3.0 $params now accepts \DateTime objects and will be converted automatically. Strings will also try to
+     *               be converted to Unix timestamps
      * @since  0.1.0
      *
      * @return PulseUpdate[]
      */
-    public static function getUpdates ($params = array())
+    public static function getUpdates ($params = [])
     {
         $url = sprintf("%s.json", self::apiEndpoint());
+        $dateKeys = ['since', 'until', 'updated_since', 'updated_until'];
 
-        return self::sendGet($url, $params);
+        foreach ($params as $key => &$value)
+        {
+            if (in_array($key, $dateKeys))
+            {
+                if ($value instanceof \DateTime)
+                {
+                    $value = date_format($value, 'U'); // A unix timestamp will allow for hours & minutes
+                }
+                else if (($unix = strtotime($value)))
+                {
+                    $value = $unix;
+                }
+            }
+        }
+
+        return self::fetchAndCastToObjectArray($url, 'PulseUpdate', $params);
     }
 
     /**
