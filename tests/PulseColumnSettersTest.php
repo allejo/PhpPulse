@@ -64,6 +64,14 @@ class PulseColumnSettersTest extends PulseUnitTest
         ];
     }
 
+    public static function invalidTimelineProvider()
+    {
+        return [
+            [new \DateTime('2017-01-01'), null],
+            [null, new \DateTime('2017-01-01')]
+        ];
+    }
+
     public function setUp()
     {
         parent::setUp();
@@ -156,6 +164,16 @@ class PulseColumnSettersTest extends PulseUnitTest
         $column->updateValue($from, $to);
 
         $this->assertEquals(['from' => $from, 'to' => $to], $column->getValue());
+    }
+
+    /**
+     * @dataProvider invalidTimelineProvider
+     */
+    public function testSettingTimelineColumnWithWrongTypes($dateOne, $dateTwo)
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $this->pulse->getTimelineColumn('timeline')->updateValue($dateOne, $dateTwo);
     }
 
     public function testSettingPersonColumnFromInt()
