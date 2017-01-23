@@ -6,7 +6,7 @@ use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseUser;
 
-class PulseSetColumnsTest extends PulseUnitTest
+class PulseColumnSettersTest extends PulseUnitTest
 {
     private $userId;
 
@@ -15,7 +15,7 @@ class PulseSetColumnsTest extends PulseUnitTest
      */
     private $pulse;
 
-    public static function invalidColorValues()
+    public static function invalidColorValueProvider()
     {
         return array(
             array(-1),
@@ -23,6 +23,45 @@ class PulseSetColumnsTest extends PulseUnitTest
             array(9.8),
             array('hello world')
         );
+    }
+
+    public static function invalidTextProvider()
+    {
+        return [
+            [new \stdClass()],
+            [null]
+        ];
+    }
+
+    public static function invalidNumericProvider()
+    {
+        return [
+            ['hello'],
+            [true],
+            [new \stdClass()],
+            [null]
+        ];
+    }
+
+    public static function invalidDateTimeProvider()
+    {
+        return [
+            [1483228800],
+            ['2017-01-01'],
+            [new \stdClass()],
+            [null]
+        ];
+    }
+
+    public static function invalidPersonProvider()
+    {
+        return [
+            [130.4],
+            [-1200],
+            ['qwerty'],
+            [new \stdClass()],
+            [null]
+        ];
     }
 
     public function setUp()
@@ -43,9 +82,9 @@ class PulseSetColumnsTest extends PulseUnitTest
     }
 
     /**
-     * @dataProvider invalidColorValues
+     * @dataProvider invalidColorValueProvider
      */
-    public function testSettingInvalidStatusColumn($color)
+    public function testSettingStatusColumnWithWrongTypes($color)
     {
         $this->setExpectedException('\InvalidArgumentException');
 
@@ -61,6 +100,16 @@ class PulseSetColumnsTest extends PulseUnitTest
         $this->assertEquals($value, $column->getValue());
     }
 
+    /**
+     * @dataProvider invalidTextProvider
+     */
+    public function testSettingTextColumnWithWrongTypes($value)
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $this->pulse->getTextColumn('text')->updateValue($value);
+    }
+
     public function testSettingNumericColumn()
     {
         $value = 25;
@@ -70,6 +119,16 @@ class PulseSetColumnsTest extends PulseUnitTest
         $this->assertEquals($value, $column->getValue());
     }
 
+    /**
+     * @dataProvider invalidNumericProvider
+     */
+    public function testSettingNumericColumnWithWrongTypes($value)
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $this->pulse->getNumericColumn('numbers')->updateValue($value);
+    }
+
     public function testSettingDateColumn()
     {
         $value = new \DateTime('2017-02-01');
@@ -77,6 +136,16 @@ class PulseSetColumnsTest extends PulseUnitTest
         $column->updateValue($value);
 
         $this->assertEquals($value, $column->getValue());
+    }
+
+    /**
+     * @dataProvider invalidDateTimeProvider
+     */
+    public function testSettingDateColumnWithWrongTypes($value)
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $this->pulse->getDateColumn('due_date')->updateValue($value);
     }
 
     public function testSettingTimelineColumn()
@@ -104,5 +173,15 @@ class PulseSetColumnsTest extends PulseUnitTest
         $column->updateValue($user);
 
         $this->assertEquals($user, $column->getValue());
+    }
+
+    /**
+     * @dataProvider invalidPersonProvider
+     */
+    public function testSettingPersonColumnWithWrongTypes($value)
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $this->pulse->getPersonColumn('person')->updateValue($value);
     }
 }

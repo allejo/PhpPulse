@@ -8,7 +8,7 @@ use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseUser;
 
-class PulseGetColumnsTest extends PulseUnitTest
+class PulseColumnGettersTest extends PulseUnitTest
 {
     private $id;
 
