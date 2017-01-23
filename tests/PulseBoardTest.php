@@ -4,12 +4,12 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
+use allejo\DaPulse\PulseColumn;
+use allejo\DaPulse\PulseGroup;
 
-class PulseBoardGettersTest extends PulseUnitTest
+class PulseBoardTest extends PulseUnitTest
 {
     private $id;
-
-    private $userId;
 
     /**
      * @var PulseBoard
@@ -23,19 +23,11 @@ class PulseBoardGettersTest extends PulseUnitTest
 
     public function setUp()
     {
-        $this->markTestIncomplete();
-
         parent::setUp();
 
         $this->id = 3844236;
-        $this->userId = 303448;
         $this->board = new PulseBoard($this->id);
         $this->pulses = $this->board->getPulses();
-    }
-
-    public function testGetBoardObjectNotNull()
-    {
-        $this->assertNotNull($this->board);
     }
 
     public function testGetBoardUrl()
@@ -51,19 +43,14 @@ class PulseBoardGettersTest extends PulseUnitTest
 
     public function testGetBoardName()
     {
-        $expectedValue = "Static Pulse Board";
+        $expectedValue = "API Mocks";
         $this->assertEquals($expectedValue, $this->board->getName());
     }
 
     public function testGetBoardDescription()
     {
-        $expectedValue = "This is a static PulseBoard that PhpPulse will look for in its unit tests but will NOT modify.";
+        $expectedValue = "A DaPulse board used for unit testing and providing mocks for the PhpPulse library we use and maintain";
         $this->assertEquals($expectedValue, $this->board->getDescription());
-    }
-
-    public function testGetBoardColumnsNotNull()
-    {
-        $this->assertNotNull($this->board->getColumns());
     }
 
     public function testGetBoardColumnsCount()
@@ -75,29 +62,24 @@ class PulseBoardGettersTest extends PulseUnitTest
     {
         $column = $this->board->getColumns();
 
-        $this->assertPulseObjectType("PulseColumn", $column[0]);
-    }
-
-    public function testGetBoardGroupsNotNull()
-    {
-        $this->assertNotNull($this->board->getGroups());
+        $this->assertInstanceOf(PulseColumn::class, $column[0]);
     }
 
     public function testGetBoardGroupType()
     {
         $group = $this->board->getGroups();
 
-        $this->assertPulseObjectType("PulseGroup", $group[0]);
+        $this->assertInstanceOf(PulseGroup::class, $group[0]);
     }
 
     public function testGetBoardCreatedAt()
     {
-        $this->assertInstanceOf("DateTime", $this->board->getCreatedAt());
+        $this->assertInstanceOf(\DateTime::class, $this->board->getCreatedAt());
     }
 
     public function testGetBoardUpdatedAt()
     {
-        $this->assertInstanceOf("DateTime", $this->board->getUpdatedAt());
+        $this->assertInstanceOf(\DateTime::class, $this->board->getUpdatedAt());
     }
 
     public function testGetPulses()
@@ -107,8 +89,8 @@ class PulseBoardGettersTest extends PulseUnitTest
 
     public function testGroupOfPulseWithApiCall()
     {
-        $newPulse = new Pulse(3930967);
+        $newPulse = new Pulse(27157096);
 
-        $this->assertEquals("topics", $newPulse->getGroupId());
+        $this->assertEquals('topics', $newPulse->getGroupId());
     }
 }
