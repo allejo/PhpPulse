@@ -70,4 +70,49 @@ class PulseGettersTest extends PulseUnitTest
     {
         $this->assertEquals('topics', $this->pulse->getGroupId());
     }
+
+    public function testEditNameThroughStaticCall ()
+    {
+        $pulseID = 27345095;
+        $original = new Pulse($pulseID);
+
+        $this->assertEquals('Pulse to rename', $original->getName());
+
+        $value = 'Violent toast';
+        $pulse = Pulse::editPulseName(27345095, $value);
+
+        $this->assertEquals($value, $pulse->getName());
+    }
+
+    public function testEditNameThroughInstance ()
+    {
+        $pulse = new Pulse(27345095);
+
+        $this->assertEquals('Pulse to rename', $pulse->getName());
+
+        $newValue = 'Violent toast';
+        $pulse->editName($newValue);
+
+        $this->assertEquals($newValue, $pulse->getName());
+    }
+
+    public function testArchivePulse ()
+    {
+        $this->markTestIncomplete("DaPulse doesn't return a success status, so gotta figure something out to test");
+
+        $pulse = new Pulse(27345279);
+        $result = $pulse->archivePulse();
+
+        $this->assertTrue($result);
+    }
+
+    public function testDeletePulse ()
+    {
+        $this->markTestIncomplete("DaPulse doesn't return a success status, so gotta figure something out to test");
+
+        $pulse = new Pulse(27345578);
+        $result = $pulse->deletePulse();
+
+        $this->assertTrue($result);
+    }
 }

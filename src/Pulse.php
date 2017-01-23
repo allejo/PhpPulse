@@ -233,8 +233,41 @@ class Pulse extends SubscribableObject
     //   Pulse functions
     // ================================================================================================================
 
+    private static function editPulseNameCall ($pulseID, $newName)
+    {
+        $editUrl    = sprintf("%s/%d.json", self::apiEndpoint(), $pulseID);
+        $postParams = array(
+            'name' => $newName
+        );
+
+        return self::sendPut($editUrl, $postParams);
+    }
+
+    /**
+     * Edit the name of a Pulse
+     *
+     * **Tip:** If you do not already have a Pulse object created or given to you, calling this function makes one less
+     * API call than creating a Pulse object and then calling `editName()` on that instance.
+     *
+     * @param  int    $pulseID
+     * @param  string $newName
+     *
+     * @since  0.3.0
+     *
+     * @return Pulse
+     */
+    public static function editPulseName ($pulseID, $newName)
+    {
+        $result = self::editPulseNameCall($pulseID, $newName);
+
+        return (new Pulse($result));
+    }
+
     /**
      * Edit the name of the pulse
+     *
+     * **Tip:** Calling `Pulse::editPulseName()` makes one less API call than creating a Pulse object. You should only
+     * call this function if you already have a Pulse instance created for other purposes or it has been given to you.
      *
      * @api
      * @param string $title
@@ -242,12 +275,7 @@ class Pulse extends SubscribableObject
      */
     public function editName($title)
     {
-        $editUrl    = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
-        $postParams = array(
-            'name' => $title
-        );
-
-        $this->jsonResponse = self::sendPut($editUrl, $postParams);
+        $this->jsonResponse = self::editPulseNameCall($this->getId(), $title);
         $this->assignResults();
     }
 
@@ -266,7 +294,8 @@ class Pulse extends SubscribableObject
             'archive' => true
         );
 
-        self::sendDelete($archiveURL, $getParams);
+        $this->jsonResponse = self::sendDelete($archiveURL, $getParams);
+        $this->assignResults();
     }
 
     /**
