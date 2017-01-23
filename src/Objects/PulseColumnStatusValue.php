@@ -10,6 +10,8 @@ namespace allejo\DaPulse\Objects;
  */
 class PulseColumnStatusValue extends PulseColumnValue
 {
+    const DEFAULT_VALUE = self::Grey; // The default color for DaPulse columns
+
     /**
      * The index of the orange status
      */
@@ -77,17 +79,7 @@ class PulseColumnStatusValue extends PulseColumnValue
      */
     public function getValue ()
     {
-        if ($this->isNullValue())
-        {
-            return self::Grey; // The default color for DaPulse columns
-        }
-
-        if (!isset($this->column_value))
-        {
-            $this->setValue($this->jsonResponse);
-        }
-
-        return $this->column_value;
+        return parent::getValue();
     }
 
     /**

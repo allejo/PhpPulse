@@ -26,17 +26,7 @@ class PulseColumnTimelineValue extends PulseColumnValue
      */
     public function getValue ()
     {
-        if ($this->isNullValue())
-        {
-            return null;
-        }
-
-        if (!isset($this->column_value))
-        {
-            $this->setValue($this->jsonResponse);
-        }
-
-        return $this->column_value;
+        return parent::getValue();
     }
 
     /**

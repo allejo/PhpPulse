@@ -24,6 +24,13 @@ abstract class PulseColumnValue extends ApiObject
     const API_PREFIX = "boards";
 
     /**
+     * The default return value for getValue()
+     *
+     * @internal
+     */
+    const DEFAULT_VALUE = null;
+
+    /**
      * The ID of the parent board that this column's Pulse belongs to.
      *
      * @var int
@@ -68,6 +75,25 @@ abstract class PulseColumnValue extends ApiObject
         $this->arrayConstructionOnly = true;
 
         parent::__construct($array);
+    }
+
+    /**
+     * This function must be overloaded by child classes solely calling this function to allow each implementation to
+     * have its own phpDocs.
+     */
+    public function getValue ()
+    {
+        if ($this->isNullValue())
+        {
+            return static::DEFAULT_VALUE;
+        }
+
+        if (!isset($this->column_value))
+        {
+            $this->setValue($this->jsonResponse);
+        }
+
+        return $this->column_value;
     }
 
     /**
@@ -122,8 +148,6 @@ abstract class PulseColumnValue extends ApiObject
     {
         return (is_null($this->jsonResponse["value"]) && !isset($this->column_value));
     }
-
-    abstract public function getValue ();
 
     /**
      * Cast and set the appropriate value for this column
