@@ -19,13 +19,6 @@ use allejo\DaPulse\PulseUser;
 abstract class SubscribableObject extends ApiObject
 {
     /**
-     * The objects's unique identifier.
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
      * @var PulseUser[]
      */
     protected $subscribers;

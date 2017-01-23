@@ -14,7 +14,6 @@ class PulseGroup extends ApiObject
 {
     const API_PREFIX = "boards";
 
-    protected $id;
     protected $pos;
     protected $title;
     protected $color;

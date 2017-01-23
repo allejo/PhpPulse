@@ -11,10 +11,7 @@
 - `PulseUpdate::getUpdates()` now correctly returns an array of PulseUpdate objects
 - `PulseUpdate::getUpdates()` now checks it's parameters and attempts to automatically convert them to a format DaPulse will accept
 - `PulseUpdate::likeUpdate()` and `PulseUpdate::unlikeUpdate()` now returns boolean values on whether it was successful or not; it also throws an InvalidArgumentException when the given parameter is not a valid user
-- Added new functions to edit a Pulse without creating a Pulse object. If a Pulse object is not needed or is not already given, then these calls would be faster.
-    - `Pulse::editPulseNameByID()` = `Pulse::editName()`
-    - `Pulse::archivePulseByID()` = `Pulse::archivePulse()`
-    - `Pulse::deletePulseByID()` = `Pulse::deletePulse()`
+- All constructors now support lazy loading as a parameter to the constructor. When an object is lazily created, an API call will be only be made when the information is needed.
 
 #### Deprecations
 
@@ -24,6 +21,7 @@
 
 - Following deprecated functions have been removed:
     - `PulseUpdate::getUser()` replaced by `PulseUpdate::getAuthor()`
+    - `PulseUser::getMembership()` has been removed
 
 ### 0.2.1
 

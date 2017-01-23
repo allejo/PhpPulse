@@ -71,19 +71,6 @@ class PulseGettersTest extends PulseUnitTest
         $this->assertEquals('topics', $this->pulse->getGroupId());
     }
 
-    public function testEditNameThroughStaticCall ()
-    {
-        $pulseID = 27345095;
-        $original = new Pulse($pulseID);
-
-        $this->assertEquals('Pulse to rename', $original->getName());
-
-        $value = 'Violent toast';
-        $pulse = Pulse::editPulseNameByID(27345095, $value);
-
-        $this->assertEquals($value, $pulse->getName());
-    }
-
     public function testEditNameThroughInstance ()
     {
         $pulse = new Pulse(27345095);
@@ -96,16 +83,6 @@ class PulseGettersTest extends PulseUnitTest
         $this->assertEquals($newValue, $pulse->getName());
     }
 
-    public function testArchivePulseThroughStaticCall ()
-    {
-        $pulseID = 27345279;
-        $pulse = new Pulse($pulseID);
-
-        $newPulse = Pulse::archivePulseByID($pulseID);
-
-        $this->assertGreaterThan($pulse->getUpdatedAt(), $newPulse->getUpdatedAt());
-    }
-
     public function testArchivePulseThroughInstance ()
     {
         $pulse = new Pulse(27345279);
@@ -113,16 +90,6 @@ class PulseGettersTest extends PulseUnitTest
         $pulse->archivePulse();
 
         $this->assertGreaterThanOrEqual($orig, $pulse->getUpdatedAt());
-    }
-
-    public function testDeletePulseThroughStaticCall ()
-    {
-        $pulseID = 27345578;
-        $pulse = new Pulse($pulseID);
-
-        $newPulse = Pulse::deletePulseByID($pulseID);
-
-        $this->assertGreaterThan($pulse->getUpdatedAt(), $newPulse->getUpdatedAt());
     }
 
     public function testDeletePulseThroughInstance ()

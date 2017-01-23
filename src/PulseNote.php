@@ -26,13 +26,6 @@ class PulseNote extends ApiObject
     protected $type;
 
     /**
-     * The note's id.
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
      * The note's title.
      *
      * @var string

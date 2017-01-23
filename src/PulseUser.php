@@ -30,13 +30,6 @@ class PulseUser extends ApiObject
     protected $url;
 
     /**
-     * The user's unique identifier.
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
      * The user's name.
      *
      * @var string
@@ -153,6 +146,8 @@ class PulseUser extends ApiObject
      */
     public function getUrl ()
     {
+        $this->lazyLoad();
+
         return $this->url;
     }
 
@@ -173,6 +168,8 @@ class PulseUser extends ApiObject
      */
     public function getName ()
     {
+        $this->lazyLoad();
+
         return $this->name;
     }
 
@@ -183,6 +180,8 @@ class PulseUser extends ApiObject
      */
     public function getEmail ()
     {
+        $this->lazyLoad();
+
         return $this->email;
     }
 
@@ -193,6 +192,8 @@ class PulseUser extends ApiObject
      */
     public function getPhotoUrl ()
     {
+        $this->lazyLoad();
+
         return $this->photo_url;
     }
 
@@ -203,6 +204,8 @@ class PulseUser extends ApiObject
      */
     public function getTitle ()
     {
+        $this->lazyLoad();
+
         return $this->title;
     }
 
@@ -213,6 +216,8 @@ class PulseUser extends ApiObject
      */
     public function getPosition ()
     {
+        $this->lazyLoad();
+
         return $this->position;
     }
 
@@ -223,6 +228,8 @@ class PulseUser extends ApiObject
      */
     public function getPhone ()
     {
+        $this->lazyLoad();
+
         return $this->phone;
     }
 
@@ -233,6 +240,8 @@ class PulseUser extends ApiObject
      */
     public function getLocation ()
     {
+        $this->lazyLoad();
+
         return $this->location;
     }
 
@@ -243,6 +252,8 @@ class PulseUser extends ApiObject
      */
     public function getStatus ()
     {
+        $this->lazyLoad();
+
         return $this->status;
     }
 
@@ -253,6 +264,8 @@ class PulseUser extends ApiObject
      */
     public function getBirthday ()
     {
+        $this->lazyLoad();
+
         return $this->birthday;
     }
 
@@ -263,6 +276,8 @@ class PulseUser extends ApiObject
      */
     public function getIsGuest ()
     {
+        $this->lazyLoad();
+
         return $this->is_guest;
     }
 
@@ -273,6 +288,8 @@ class PulseUser extends ApiObject
      */
     public function getSkills ()
     {
+        $this->lazyLoad();
+
         return $this->skills;
     }
 
@@ -283,6 +300,7 @@ class PulseUser extends ApiObject
      */
     public function getCreatedAt ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->created_at, '\DateTime');
 
         return $this->created_at;
@@ -295,26 +313,10 @@ class PulseUser extends ApiObject
      */
     public function getUpdatedAt ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
-    }
-
-    /**
-     * This function is now a placeholder until it can be removed since the DaPulse API no longer supports this
-     * functionality
-     *
-     * @api
-     *
-     * @deprecated 0.2.0
-     *
-     * @since   0.1.0
-     *
-     * @returns string An empty string
-     */
-    public function getMembership ()
-    {
-        return "";
     }
 
     /**

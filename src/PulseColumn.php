@@ -20,7 +20,6 @@ class PulseColumn extends ApiObject
     const Text     = "text";
     const Timeline = "timerange";
 
-    protected $id;
     protected $title;
     protected $type;
     protected $empty_text;
@@ -34,11 +33,15 @@ class PulseColumn extends ApiObject
 
     public function getTitle ()
     {
+        $this->lazyLoad();
+
         return $this->title;
     }
 
     public function getType ()
     {
+        $this->lazyLoad();
+
         // @todo Workaround due to a bug in DaPulse's API see: https://github.com/allejo/PhpPulse/issues/5
         if ($this->type === "color")
         {
@@ -50,16 +53,22 @@ class PulseColumn extends ApiObject
 
     public function getEmptyText ()
     {
+        $this->lazyLoad();
+
         return $this->empty_text;
     }
 
     public function getLabels ()
     {
+        $this->lazyLoad();
+
         return $this->labels;
     }
 
     public function getBoardId ()
     {
+        $this->lazyLoad();
+
         return $this->board_id;
     }
 

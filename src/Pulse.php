@@ -136,6 +136,8 @@ class Pulse extends SubscribableObject
      */
     public function getUrl ()
     {
+        $this->lazyLoad();
+
         return $this->url;
     }
 
@@ -146,6 +148,8 @@ class Pulse extends SubscribableObject
      */
     public function getName ()
     {
+        $this->lazyLoad();
+
         return $this->name;
     }
 
@@ -156,6 +160,8 @@ class Pulse extends SubscribableObject
      */
     public function getUpdatesCount ()
     {
+        $this->lazyLoad();
+
         return $this->updates_count;
     }
 
@@ -166,6 +172,8 @@ class Pulse extends SubscribableObject
      */
     public function getBoardId ()
     {
+        $this->lazyLoad();
+
         return $this->board_id;
     }
 
@@ -176,6 +184,7 @@ class Pulse extends SubscribableObject
      */
     public function getCreatedAt ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->created_at, '\DateTime');
 
         return $this->created_at;
@@ -188,6 +197,7 @@ class Pulse extends SubscribableObject
      */
     public function getUpdatedAt ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
@@ -209,9 +219,11 @@ class Pulse extends SubscribableObject
      */
     public function getGroupId ($forceFetch = false)
     {
+        $this->lazyLoad();
+
         if (empty($this->group_id) || $forceFetch)
         {
-            $parentBoard = new PulseBoard($this->board_id);
+            $parentBoard = new PulseBoard($this->board_id, true);
             $pulses      = $parentBoard->getPulses();
 
             foreach ($pulses as $pulse)
@@ -231,42 +243,8 @@ class Pulse extends SubscribableObject
     //   Pulse functions
     // ================================================================================================================
 
-    private static function editPulseNameCall ($pulseID, $newName)
-    {
-        $editUrl    = sprintf("%s/%d.json", self::apiEndpoint(), $pulseID);
-        $postParams = array(
-            'name' => $newName
-        );
-
-        return self::sendPut($editUrl, $postParams);
-    }
-
-    /**
-     * Edit the name of a Pulse
-     *
-     * **Tip:** If you do not already have a Pulse object created or given to you, calling this function makes one less
-     * API call than creating a Pulse object and then calling `editName()` on that instance.
-     *
-     * @param  int    $pulseID
-     * @param  string $newName
-     *
-     * @since  0.3.0
-     *
-     * @return Pulse
-     */
-    public static function editPulseNameByID ($pulseID, $newName)
-    {
-        $result = self::editPulseNameCall($pulseID, $newName);
-
-        return (new Pulse($result));
-    }
-
     /**
      * Edit the name of the pulse
-     *
-     * **Tip:** Calling `Pulse::editPulseNameByID()` makes one less API call than creating a Pulse object. You should
-     * only call this function if you already have a Pulse instance created for other purposes or it has been given to
-     * you.
      *
      * @api
      * @param string $title
@@ -274,33 +252,13 @@ class Pulse extends SubscribableObject
      */
     public function editName($title)
     {
-        $this->jsonResponse = self::editPulseNameCall($this->getId(), $title);
-        $this->assignResults();
-    }
-
-    private static function archivePulseCall ($pulseID)
-    {
-        $archiveURL = sprintf("%s/%d.json", self::apiEndpoint(), $pulseID);
-        $getParams  = array(
-            'archive' => true
+        $editUrl    = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
+        $postParams = array(
+            'name' => $title
         );
 
-        return self::sendDelete($archiveURL, $getParams);
-    }
-
-    /**
-     * Archive a pulse by its ID
-     *
-     * @api
-     * @param  int   $pulseID
-     * @since  0.3.0
-     * @return Pulse The pulse that was deleted
-     */
-    public static function archivePulseByID ($pulseID)
-    {
-        $result = self::archivePulseCall($pulseID);
-
-        return (new Pulse($result));
+        $this->jsonResponse = self::sendPut($editUrl, $postParams);
+        $this->assignResults();
     }
 
     /**
@@ -309,49 +267,32 @@ class Pulse extends SubscribableObject
      * This is the equivalent of a soft delete and can be restored from the DaPulse website.
      *
      * @api
-     * @since 0.3.0
+     * @since 0.1.0
      */
     public function archivePulse ()
     {
-        $this->jsonResponse = self::archivePulseCall($this->getId());
+        $archiveURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
+        $getParams  = array(
+            'archive' => true
+        );
+
+        $this->jsonResponse = self::sendDelete($archiveURL, $getParams);
         $this->assignResults();
-    }
-
-    private static function deletePulseCall ($pulseID)
-    {
-        $deleteURL = sprintf("%s/%d.json", self::apiEndpoint(), $pulseID);
-
-        return self::sendDelete($deleteURL);
-    }
-
-    /**
-     * Delete a Pulse by its ID
-     *
-     * @api
-     * @param  int $pulseID
-     * @since  0.3.0
-     * @return Pulse
-     */
-    public static function deletePulseByID ($pulseID)
-    {
-        $result = self::deletePulseCall($pulseID);
-        $pulse = new Pulse($result);
-        $pulse->_markInvalid();
-
-        return $pulse;
     }
 
     /**
      * Delete the current Pulse
      *
      * @api
+     * @since 0.1.0
      * @throws \allejo\DaPulse\Exceptions\InvalidObjectException
      */
     public function deletePulse ()
     {
         $this->checkInvalid();
 
-        $this->jsonResponse = self::deletePulseCall($this->getId());
+        $deleteURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
+        $this->jsonResponse = self::sendDelete($deleteURL);
         $this->assignResults();
 
         $this->deletedObject = true;

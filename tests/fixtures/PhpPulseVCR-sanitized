@@ -991,3 +991,31 @@
             Content-Length: '445'
             Connection: keep-alive
         body: '{"url":"https://phppulse.dapulse.com/users/361981-phppulse-roomba","id":361981,"name":"PhpPulse Roomba","email":"vladimir.jimenez.102@my.csun.edu","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/361981/thumb_small/361981-dapulse_other_blue.png?1452304450","title":null,"position":null,"phone":"","location":null,"status":null,"birthday":null,"is_guest":false,"created_at":"2016-01-09T01:52:45Z","updated_at":"2016-02-04T07:37:20Z"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/3844236/groups.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Mon, 23 Jan 2017 20:13:10 GMT'
+            ETag: '"4b9e43e161ec287a98233bb82b1c3174"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: f21167af57bf5ef6767fe5ab13c6f141
+            X-Runtime: '0.021649'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '216'
+            Connection: keep-alive
+        body: '[{"title":"Group One","id":"topics","color":"#037f4c","pos":65536},{"title":"Group Two","pos":98304,"color":"#e2445c","id":"group_two"},{"title":"Dynamic Pulses","pos":131072,"color":"#fdab3d","id":"dynamic_pulses"}]'

@@ -85,42 +85,67 @@ abstract class ApiObject implements \JsonSerializable
      */
     protected $jsonResponse;
 
+    protected $urlEndPoint;
+
+    /**
+     * The ID for the object we're handling
+     *
+     * @var int
+     */
+    protected $id;
+
     /**
      * Create an object from an API call
      *
      * @param int|array $idOrArray Either the numerical ID of an object or an associative array representing a JSON
      *                             response from an API call
+     * @param bool      $lazyLoad  When set to true, an initial API call will not be made. An API call will be made when
+     *                             the information is requested
      *
      * @throw \InvalidArgumentException The specified object cannot be created directly from an API call but instead
      *                                  requires an associative array of information gathered from other API calls.
      *
      * @since 0.1.0
      */
-    public function __construct ($idOrArray)
+    public function __construct ($idOrArray, $lazyLoad = false)
     {
-        $urlEndPoint = "";
         $staticClass = explode("\\", get_called_class());
         $staticClass = end($staticClass);
 
         if (is_null($idOrArray))
         {
-            throw new \InvalidArgumentException("You may not initialize " . $staticClass . " with null.");
+            throw new \InvalidArgumentException("You may not initialize $staticClass with null.");
         }
 
         if (!is_array($idOrArray))
         {
-            $urlEndPoint = sprintf("%s/%d.json", self::apiEndpoint(), $idOrArray);
+            $this->urlEndPoint = sprintf("%s/%d.json", self::apiEndpoint(), $idOrArray);
         }
 
         if ($this->arrayConstructionOnly && !is_array($idOrArray))
         {
-            throw new \InvalidArgumentException("A " . $staticClass . " cannot be fetched from an ID.");
+            throw new \InvalidArgumentException("A $staticClass cannot be fetched from an ID.");
         }
 
-        $this->jsonResponse = (is_array($idOrArray)) ? $idOrArray : $this::sendGet($urlEndPoint);
-
         $this->initializeValues();
-        $this->assignResults();
+
+        if (is_array($idOrArray))
+        {
+            $this->jsonResponse = $idOrArray;
+            $this->assignResults();
+        }
+        else
+        {
+            if ($lazyLoad)
+            {
+                $this->id = $idOrArray;
+                $this->jsonResponse = [];
+            }
+            else
+            {
+                $this->lazyLoad();
+            }
+        }
     }
 
     /**
@@ -129,6 +154,15 @@ abstract class ApiObject implements \JsonSerializable
     public function jsonSerialize()
     {
         return $this->jsonResponse;
+    }
+
+    protected function lazyLoad()
+    {
+        if (empty($this->jsonResponse))
+        {
+            $this->jsonResponse = $this::sendGet($this->urlEndPoint);
+            $this->assignResults();
+        }
     }
 
     // ================================================================================================================

@@ -29,13 +29,6 @@ class PulseUpdate extends ApiObject
     protected $url;
 
     /**
-     * The update's id.
-     *
-     * @var string
-     */
-    protected $id;
-
-    /**
      * The update's body.
      *
      * @var string
@@ -104,6 +97,7 @@ class PulseUpdate extends ApiObject
      */
     public function getAuthor ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->user, "PulseUser");
 
         return $this->user;
@@ -118,6 +112,8 @@ class PulseUpdate extends ApiObject
      */
     public function getUrl ()
     {
+        $this->lazyLoad();
+
         return $this->url;
     }
 
@@ -142,6 +138,8 @@ class PulseUpdate extends ApiObject
      */
     public function getBody ()
     {
+        $this->lazyLoad();
+
         return $this->body;
     }
 
@@ -154,6 +152,8 @@ class PulseUpdate extends ApiObject
      */
     public function getBodyText ()
     {
+        $this->lazyLoad();
+
         return $this->body_text;
     }
 
@@ -166,6 +166,7 @@ class PulseUpdate extends ApiObject
      */
     public function getReplies ()
     {
+        $this->lazyLoad();
         self::lazyCastAll($this->replies, "PulseUpdate");
 
         return $this->replies;
@@ -180,6 +181,8 @@ class PulseUpdate extends ApiObject
      */
     public function getKind ()
     {
+        $this->lazyLoad();
+
         return $this->kind;
     }
 
@@ -238,6 +241,8 @@ class PulseUpdate extends ApiObject
      */
     public function getAssets ()
     {
+        $this->lazyLoad();
+
         return $this->assets;
     }
 
@@ -250,6 +255,7 @@ class PulseUpdate extends ApiObject
      */
     public function getCreatedAt ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->created_at, '\DateTime');
 
         return $this->created_at;
@@ -264,6 +270,7 @@ class PulseUpdate extends ApiObject
      */
     public function getUpdatedAt ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
@@ -295,6 +302,8 @@ class PulseUpdate extends ApiObject
      */
     public function hasAssets ()
     {
+        $this->lazyLoad();
+
         return $this->has_assets;
     }
 

@@ -39,13 +39,6 @@ class PulseBoard extends SubscribableObject
     protected $url;
 
     /**
-     * The board's unique identifier.
-     *
-     * @var int
-     */
-    protected $id;
-
-    /**
      * The board's name.
      *
      * @var string
@@ -95,6 +88,8 @@ class PulseBoard extends SubscribableObject
      */
     public function getUrl ()
     {
+        $this->lazyLoad();
+
         return $this->url;
     }
 
@@ -123,6 +118,8 @@ class PulseBoard extends SubscribableObject
      */
     public function getName ()
     {
+        $this->lazyLoad();
+
         return $this->name;
     }
 
@@ -137,6 +134,8 @@ class PulseBoard extends SubscribableObject
      */
     public function getDescription ()
     {
+        $this->lazyLoad();
+
         return $this->description;
     }
 
@@ -151,6 +150,7 @@ class PulseBoard extends SubscribableObject
      */
     public function getCreatedAt ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->created_at, '\DateTime');
 
         return $this->created_at;
@@ -167,6 +167,7 @@ class PulseBoard extends SubscribableObject
      */
     public function getUpdatedAt ()
     {
+        $this->lazyLoad();
         self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
@@ -187,9 +188,11 @@ class PulseBoard extends SubscribableObject
      */
     public function getColumns ()
     {
-        self::lazyInject($this->columns, array(
+        $this->lazyLoad();
+
+        self::lazyInject($this->columns, [
             "board_id" => $this->getId()
-        ));
+        ]);
         self::lazyCastAll($this->columns, "PulseColumn");
 
         return $this->columns;
