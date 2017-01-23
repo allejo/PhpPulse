@@ -43,9 +43,15 @@ abstract class SubscribableObject extends ApiObject
     /**
      * Get the users who are subscribed to this object
      *
+     * ```
+     * array['page']     int - Page offset to fetch
+     *      ['per_page'] int - Number of results to return per page
+     *      ['offset']   int - Pad a number of results
+     * ```
+     *
      * @api
      *
-     * @param  array $params
+     * @param  array $params     GET parameters passed to the URL (see above)
      * @param  bool  $forceFetch When set to true, this will force an API call to retrieve the subscribers. Otherwise,
      *                           this'll return the cached subscribers.
      *
@@ -71,18 +77,17 @@ abstract class SubscribableObject extends ApiObject
      *
      * @api
      *
-     * @param int|PulseUser $userId  The user that will be subscribed to the board
-     * @param bool|null     $asAdmin Set to true if the user will be an admin of the board
+     * @param  int|PulseUser $userId  The user that will be subscribed to the board
+     * @param  bool|null     $asAdmin Set to true if the user will be an admin of the board
      *
-     * @since 0.1.0
+     * @since  0.3.0 A PulseUser object of the newly added subscriber is returned
+     * @since  0.1.0
+     *
+     * @return PulseUser
      */
     public function addSubscriber ($userId, $asAdmin = NULL)
     {
-        if ($userId instanceof PulseUser)
-        {
-            $userId = $userId->getId();
-        }
-
+        $userId = ($userId instanceof PulseUser) ? $userId->getId() : $userId;
         $url    = sprintf("%s/%d/subscribers.json", self::apiEndpoint(), $this->getId());
         $params = array(
             "user_id" => $userId
@@ -97,7 +102,10 @@ abstract class SubscribableObject extends ApiObject
             $this->getSubscribers();
         }
 
-        $this->subscribers[] = new PulseUser($newSubscriber);
+        $user = new PulseUser($newSubscriber);
+        $this->subscribers[] = $user;
+
+        return $user;
     }
 
     /**
@@ -105,20 +113,18 @@ abstract class SubscribableObject extends ApiObject
      *
      * @api
      *
-     * @param int|PulseUser $userId The user that will be unsubscribed from the board
+     * @param  int|PulseUser $userId The user that will be unsubscribed from the board
      *
-     * @since 0.1.0
+     * @since  0.3.0 A PulseUser object of the removed subscriber is returned
+     * @since  0.1.0
+     *
+     * @return PulseUser
      */
     public function removeSubscriber ($userId)
     {
-        if ($userId instanceof PulseUser)
-        {
-            $userId = $userId->getId();
-        }
-
-        $url = sprintf("%s/%d/subscribers/%d.json", self::apiEndpoint(), $this->getId(), $userId);
-
-        self::sendDelete($url);
+        $userId = ($userId instanceof PulseUser) ? $userId->getId() : $userId;
+        $url    = sprintf("%s/%d/subscribers/%d.json", self::apiEndpoint(), $this->getId(), $userId);
+        $result = self::sendDelete($url);
 
         // Remove the user from the local cache
         if (is_null($this->subscribers))
@@ -128,10 +134,12 @@ abstract class SubscribableObject extends ApiObject
 
         foreach ($this->subscribers as $key => $subscriber)
         {
-            if ($subscriber->getId() == $userId)
+            if ($subscriber->getId() == $result['id'])
             {
                 unset($this->subscribers[$key]);
             }
         }
+
+        return (new PulseUser($result));
     }
 }

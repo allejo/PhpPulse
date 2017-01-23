@@ -96,6 +96,16 @@ class PulseGettersTest extends PulseUnitTest
         $this->assertEquals($newValue, $pulse->getName());
     }
 
+    public function testArchivePulseThroughStaticCall ()
+    {
+        $pulseID = 27345279;
+        $pulse = new Pulse($pulseID);
+
+        $newPulse = Pulse::archivePulseByID($pulseID);
+
+        $this->assertGreaterThan($pulse->getUpdatedAt(), $newPulse->getUpdatedAt());
+    }
+
     public function testArchivePulseThroughInstance ()
     {
         $pulse = new Pulse(27345279);
@@ -103,6 +113,16 @@ class PulseGettersTest extends PulseUnitTest
         $pulse->archivePulse();
 
         $this->assertGreaterThanOrEqual($orig, $pulse->getUpdatedAt());
+    }
+
+    public function testDeletePulseThroughStaticCall ()
+    {
+        $pulseID = 27345578;
+        $pulse = new Pulse($pulseID);
+
+        $newPulse = Pulse::deletePulseByID($pulseID);
+
+        $this->assertGreaterThan($pulse->getUpdatedAt(), $newPulse->getUpdatedAt());
     }
 
     public function testDeletePulseThroughInstance ()
