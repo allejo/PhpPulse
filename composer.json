@@ -1,7 +1,7 @@
 {
   "name": "allejo/php-pulse",
   "keywords": ["dapulse", "api"],
-  "homepage": "http://phppulse.readthedocs.org/en/latest/",
+  "homepage": "http://docs.allejo.io/PhpPulse/",
   "description": "A wrapper for working with the DaPulse API",
   "type": "library",
   "license": "MIT",
@@ -44,5 +44,10 @@
     "test": [
       "./vendor/bin/phpunit"
     ]
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "0.3-dev"
+    }
   }
 }
