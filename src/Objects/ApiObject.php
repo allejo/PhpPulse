@@ -186,6 +186,16 @@ abstract class ApiObject implements \JsonSerializable
     }
 
     /**
+     * Mark an object as deleted
+     *
+     * @internal
+     */
+    final public function _markInvalid ()
+    {
+        $this->deletedObject = true;
+    }
+
+    /**
      * Store the value in an array if the value is not null. This function is a shortcut of setting values in an array
      * only if they are not null, if not leave them unset; used ideally for PUT requests.
      *

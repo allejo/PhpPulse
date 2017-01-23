@@ -79,7 +79,7 @@ class PulseGettersTest extends PulseUnitTest
         $this->assertEquals('Pulse to rename', $original->getName());
 
         $value = 'Violent toast';
-        $pulse = Pulse::editPulseName(27345095, $value);
+        $pulse = Pulse::editPulseNameByID(27345095, $value);
 
         $this->assertEquals($value, $pulse->getName());
     }
@@ -96,23 +96,21 @@ class PulseGettersTest extends PulseUnitTest
         $this->assertEquals($newValue, $pulse->getName());
     }
 
-    public function testArchivePulse ()
+    public function testArchivePulseThroughInstance ()
     {
-        $this->markTestIncomplete("DaPulse doesn't return a success status, so gotta figure something out to test");
-
         $pulse = new Pulse(27345279);
-        $result = $pulse->archivePulse();
+        $orig = $pulse->getUpdatedAt();
+        $pulse->archivePulse();
 
-        $this->assertTrue($result);
+        $this->assertGreaterThanOrEqual($orig, $pulse->getUpdatedAt());
     }
 
-    public function testDeletePulse ()
+    public function testDeletePulseThroughInstance ()
     {
-        $this->markTestIncomplete("DaPulse doesn't return a success status, so gotta figure something out to test");
-
         $pulse = new Pulse(27345578);
-        $result = $pulse->deletePulse();
+        $orig = $pulse->getUpdatedAt();
+        $pulse->deletePulse();
 
-        $this->assertTrue($result);
+        $this->assertGreaterThan($orig, $pulse->getUpdatedAt());
     }
 }

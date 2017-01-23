@@ -256,7 +256,7 @@ class Pulse extends SubscribableObject
      *
      * @return Pulse
      */
-    public static function editPulseName ($pulseID, $newName)
+    public static function editPulseNameByID ($pulseID, $newName)
     {
         $result = self::editPulseNameCall($pulseID, $newName);
 
@@ -266,8 +266,9 @@ class Pulse extends SubscribableObject
     /**
      * Edit the name of the pulse
      *
-     * **Tip:** Calling `Pulse::editPulseName()` makes one less API call than creating a Pulse object. You should only
-     * call this function if you already have a Pulse instance created for other purposes or it has been given to you.
+     * **Tip:** Calling `Pulse::editPulseNameByID()` makes one less API call than creating a Pulse object. You should
+     * only call this function if you already have a Pulse instance created for other purposes or it has been given to
+     * you.
      *
      * @api
      * @param string $title
@@ -279,23 +280,67 @@ class Pulse extends SubscribableObject
         $this->assignResults();
     }
 
-    /**
-     * Archive the current pulse.
-     *
-     * This is the equivalent of a soft delete and can be restored from the DaPulse website.
-     *
-     * @api
-     * @since 0.1.0
-     */
-    public function archivePulse()
+    private static function archivePulseCall ($pulseID)
     {
-        $archiveURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
+        $archiveURL = sprintf("%s/%d.json", self::apiEndpoint(), $pulseID);
         $getParams  = array(
             'archive' => true
         );
 
-        $this->jsonResponse = self::sendDelete($archiveURL, $getParams);
+        return self::sendDelete($archiveURL, $getParams);
+    }
+
+    /**
+     * Archive a pulse by its ID
+     *
+     * @api
+     * @param  int   $pulseID
+     * @since  0.3.0
+     * @return Pulse The pulse that was deleted
+     */
+    public static function archivePulseByID ($pulseID)
+    {
+        $result = self::archivePulseCall($pulseID);
+
+        return (new Pulse($result));
+    }
+
+    /**
+     * Archive the current pulse
+     *
+     * This is the equivalent of a soft delete and can be restored from the DaPulse website.
+     *
+     * @api
+     * @since 0.3.0
+     */
+    public function archivePulse ()
+    {
+        $this->jsonResponse = self::archivePulseCall($this->getId());
         $this->assignResults();
+    }
+
+    private static function deletePulseCall ($pulseID)
+    {
+        $deleteURL = sprintf("%s/%d.json", self::apiEndpoint(), $pulseID);
+
+        return self::sendDelete($deleteURL);
+    }
+
+    /**
+     * Delete a Pulse by its ID
+     *
+     * @api
+     * @param  int $pulseID
+     * @since  0.3.0
+     * @return Pulse
+     */
+    public static function deletePulseByID ($pulseID)
+    {
+        $result = self::deletePulseCall($pulseID);
+        $pulse = new Pulse($result);
+        $pulse->_markInvalid();
+
+        return $pulse;
     }
 
     /**
@@ -308,9 +353,8 @@ class Pulse extends SubscribableObject
     {
         $this->checkInvalid();
 
-        $deleteURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
-
-        self::sendDelete($deleteURL);
+        $this->jsonResponse = self::deletePulseCall($this->getId());
+        $this->assignResults();
 
         $this->deletedObject = true;
     }
