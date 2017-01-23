@@ -1,9 +1,7 @@
 <?php
 
 /**
- * This file contains the ArrayUtilities class
- *
- * @copyright 2015 Vladimir Jimenez
+ * @copyright 2017 Vladimir Jimenez
  * @license   https://github.com/allejo/PhpPulse/blob/master/LICENSE.md MIT
  */
 
