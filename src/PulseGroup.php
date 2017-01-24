@@ -50,12 +50,12 @@ class PulseGroup extends ApiObject
 
     public function isArchived ()
     {
-        return $this->archived;
+        return (bool)$this->archived;
     }
 
     public function isDeleted ()
     {
-        return $this->deleted;
+        return (bool)$this->deleted;
     }
 
     /**
