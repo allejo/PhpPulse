@@ -339,13 +339,22 @@ class PulseBoard extends SubscribableObject
      *
      * @param string $groupId The group ID to be deleted
      *
+     * @since 0.3.0 An array of PulseGroup objects representing the current groups in this board and their states
      * @since 0.1.0
+     *
+     * @return PulseGroup[]
      */
     public function deleteGroup ($groupId)
     {
         $url = sprintf("%s/%d/groups/%s.json", self::apiEndpoint(), $this->getId(), $groupId);
+        $result = self::sendDelete($url);
 
-        self::sendDelete($url);
+        self::lazyInject($result, [
+            'board_id' => $this->getId()
+        ]);
+        self::lazyCastAll($result, 'PulseGroup');
+
+        return $result;
     }
 
     // =================================================================================================================
@@ -387,7 +396,7 @@ class PulseBoard extends SubscribableObject
      *
      * @since 0.1.0
      *
-     * @return \allejo\DaPulse\Pulse
+     * @return Pulse
      */
     public function createPulse ($name, $owner, $groupId = NULL, $updateText = NULL, $announceToAll = NULL)
     {
