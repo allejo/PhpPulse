@@ -2,6 +2,9 @@
 
 namespace allejo\DaPulse\Tests;
 
+use allejo\DaPulse\Exceptions\ArgumentMismatchException;
+use allejo\DaPulse\Exceptions\InvalidArraySizeException;
+use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseColumn;
@@ -92,5 +95,101 @@ class PulseBoardTest extends PulseUnitTest
         $newPulse = new Pulse(27157096);
 
         $this->assertEquals('topics', $newPulse->getGroupId());
+    }
+
+    public function testGetBoardColumns()
+    {
+        $columns = $this->board->getColumns();
+
+        $this->assertIsArray($columns);
+        $this->assertCount(8, $columns); // 6 custom columns + "name" + "last update"
+        $this->assertInstanceOf(PulseColumn::class, $columns[0]);
+    }
+
+    public function testGetBoardGroups()
+    {
+        $groups = $this->board->getGroups();
+
+        $this->assertIsArray($groups);
+        $this->assertCount(2, $groups);
+        $this->assertInstanceOf(PulseGroup::class, $groups[0]);
+
+        $group_one = $groups[0];
+        $this->assertEquals('#037f4c', $group_one->getColor());
+        $this->assertEquals('Group One', $group_one->getTitle());
+        $this->assertEquals($this->board->getId(), $group_one->getBoardId());
+    }
+
+    public function testGetBoardGroupsIncludingArchived()
+    {
+        $groups = $this->board->getGroups(true);
+
+        $this->assertIsArray($groups);
+        $this->assertCount(3, $groups);
+        $this->assertInstanceOf(PulseGroup::class, $groups[0]);
+        $this->assertTrue($groups[2]->isArchived());
+    }
+
+    public function testBoardCreateStatusColumn()
+    {
+        $board = new PulseBoard(27168881, true);
+        $board->createColumn('Overall Status', PulseColumn::Status, [
+            PulseColumnStatusValue::Gold  => 'Warning',
+            PulseColumnStatusValue::Green => 'Success'
+        ]);
+
+        $columns = $board->getColumns();
+        $this->assertCount(9, $columns);
+    }
+
+    public function testBoardCreateTextColumnWithLabelsThrowsException()
+    {
+        $this->setExpectedException(ArgumentMismatchException::class);
+
+        $board = new PulseBoard(27168881, true);
+        $board->createColumn('Super Toast', PulseColumn::Text, [
+            'toaster'
+        ]);
+    }
+
+    public function testBoardCreateStatusColumnWithInvalidColumns()
+    {
+        $this->setExpectedException(InvalidArraySizeException::class);
+
+        $board = new PulseBoard(27168881, true);
+        $board->createColumn('Project Status', PulseColumn::Status, [
+            0  => 'Success!',
+            11 => 'Crashed and burned'
+        ]);
+    }
+
+    public function testBoardCreateGroup()
+    {
+        $boardID = 27168881;
+        $title = 'My new group';
+        $board = new PulseBoard($boardID, true);
+        $group = $board->createGroup($title);
+
+        $this->assertInstanceOf(PulseGroup::class, $group);
+        $this->assertEquals($title, $group->getTitle());
+        $this->assertEquals($boardID, $group->getBoardId());
+        $this->assertFalse($group->isArchived());
+        $this->assertFalse($group->isDeleted());
+    }
+
+    public function testBoardDeleteGroup()
+    {
+        $groupID = 'my_new_group';
+        $board = new PulseBoard(27168881, true);
+        $groups = $board->deleteGroup($groupID);
+
+        foreach ($groups as $group)
+        {
+            if ($group->getId() == $groupID)
+            {
+                $this->assertTrue($group->isArchived());
+                break;
+            }
+        }
     }
 }

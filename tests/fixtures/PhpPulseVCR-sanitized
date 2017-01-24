@@ -994,7 +994,7 @@
 -
     request:
         method: GET
-        url: 'https://api.dapulse.com/v1/boards/3844236/groups.json?api_key=YourApiKeyHere'
+        url: 'https://api.dapulse.com/v1/boards/3844236/groups.json?show_archived=true&api_key=YourApiKeyHere'
         headers:
             Host: api.dapulse.com
     response:
@@ -1006,16 +1006,130 @@
             Cache-Control: 'max-age=0, private, must-revalidate'
             Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
             Content-Type: application/json
-            Date: 'Mon, 23 Jan 2017 20:13:10 GMT'
-            ETag: '"4b9e43e161ec287a98233bb82b1c3174"'
+            Date: 'Tue, 24 Jan 2017 16:02:05 GMT'
+            ETag: '"263b63b2b1daebcfb49787b9b240b1e2"'
             Server: 'UDI 0.13.36'
             Status: '200 OK'
             Strict-Transport-Security: max-age=31536000
             X-Rack-Cache: miss
-            X-Request-Id: f21167af57bf5ef6767fe5ab13c6f141
-            X-Runtime: '0.021649'
+            X-Request-Id: 377f25c4d19295434b73b979b59e01f6
+            X-Runtime: '0.020292'
             X-UA-Compatible: 'IE=Edge,chrome=1'
             X-XSS-Protection: '1; mode=block'
-            Content-Length: '216'
+            Content-Length: '248'
             Connection: keep-alive
-        body: '[{"title":"Group One","id":"topics","color":"#037f4c","pos":65536},{"title":"Group Two","pos":98304,"color":"#e2445c","id":"group_two"},{"title":"Dynamic Pulses","pos":131072,"color":"#fdab3d","id":"dynamic_pulses"}]'
+        body: '[{"title":"Group One","id":"topics","color":"#037f4c","pos":65536},{"title":"Group Two","pos":98304,"color":"#e2445c","id":"group_two"},{"title":"Dynamic Pulses","pos":131072,"color":"#fdab3d","id":"dynamic_pulses","archived":true,"deleted":false}]'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/3844236/groups.json?show_archived=false&api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Tue, 24 Jan 2017 16:05:02 GMT'
+            ETag: '"4cc2548bf615113d03f4e9cff5ef3258"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 25d6692104bf69b416ff5810d0d80610
+            X-Runtime: '0.021496'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '136'
+            Connection: keep-alive
+        body: '[{"title":"Group One","id":"topics","color":"#037f4c","pos":65536},{"title":"Group Two","pos":98304,"color":"#e2445c","id":"group_two"}]'
+-
+    request:
+        method: POST
+        url: 'https://api.dapulse.com/v1/boards/27168881/columns.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'title=Overall%20Status&type=status&labels%5B8%5D=Warning&labels%5B6%5D=Success'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Tue, 24 Jan 2017 16:10:52 GMT'
+            ETag: '"6fba3110ae2f39b05ea9b69be056abf5"'
+            Server: 'UDI 0.13.36'
+            Status: '201 Created'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 50efaacf628647cb582ff15b20eb7c51
+            X-Runtime: '0.035402'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '853'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.dapulse.com/boards/27168881","id":27168881,"name":"Dynamic Board","description":null,"columns":[{"id":"name","title":"Name","type":"name"},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"},{"title":"Person","type":"person","id":"person"},{"title":"Status","type":"color","labels":{"0":"Working on it","1":"Done"},"id":"status"},{"title":"Text","type":"text","id":"text"},{"title":"Numbers","type":"numeric","id":"numbers"},{"title":"Due date","type":"date","id":"due_date"},{"title":"Timeline","type":"timerange","id":"timeline"},{"title":"Overall Status","type":"color","labels":{"8":"Warning","6":"Success"},"id":"overall_status"}],"groups":[{"title":"Group Title","id":"topics","color":"#037f4c","board_id":27168881}],"created_at":"2017-01-21T04:21:36Z","updated_at":"2017-01-24T16:10:52Z"}'
+-
+    request:
+        method: POST
+        url: 'https://api.dapulse.com/v1/boards/27168881/groups.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: title=My%20new%20group
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Tue, 24 Jan 2017 16:18:44 GMT'
+            ETag: '"3d96d07f55d1d9f99fc457d8bfeca8f7"'
+            Server: 'UDI 0.13.36'
+            Status: '201 Created'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 94064a8b591ac09aa28c555b1ae4427e
+            X-Runtime: '0.071716'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '70'
+            Connection: keep-alive
+        body: '{"pos":0,"title":"My new group","color":"#fdab3d","id":"my_new_group"}'
+-
+    request:
+        method: DELETE
+        url: 'https://api.dapulse.com/v1/boards/27168881/groups/my_new_group.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Tue, 24 Jan 2017 16:23:07 GMT'
+            ETag: '"ae184335608d95ac5364637b4dd4f05b"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 0b67aeedf18131485fa117c143f4b038
+            X-Runtime: '0.092675'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '177'
+            Connection: keep-alive
+        body: '[{"title":"Group Title","id":"topics","color":"#037f4c","pos":65536},{"pos":200000,"title":"My new group","color":"#fdab3d","id":"my_new_group","archived":true,"deleted":false}]'
