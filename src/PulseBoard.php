@@ -10,6 +10,7 @@ namespace allejo\DaPulse;
 use allejo\DaPulse\Exceptions\ArgumentMismatchException;
 use allejo\DaPulse\Exceptions\InvalidArraySizeException;
 use allejo\DaPulse\Objects\SubscribableObject;
+use allejo\DaPulse\Utilities\StringUtilities;
 
 /**
  * This class contains all of the respective functionality for working a board on DaPulse
@@ -292,14 +293,20 @@ class PulseBoard extends SubscribableObject
      *
      * @return PulseGroup[]
      */
-    public function getGroups ($showArchived = NULL)
+    public function getGroups ($showArchived = false)
     {
         $url    = sprintf("%s/%d/groups.json", self::apiEndpoint(), $this->getId());
-        $params = array();
+        $params = [
+            'show_archived' => StringUtilities::booleanLiteral($showArchived)
+        ];
+        $result = self::sendGet($url, $params);
 
-        self::setIfNotNullOrEmpty($params, "show_archived", $showArchived);
+        self::lazyInject($result, [
+            'board_id' => $this->getId()
+        ]);
+        self::lazyCastAll($result, 'PulseGroup');
 
-        return self::fetchAndCastToObjectArray($url, "PulseGroup", $params);
+        return $result;
     }
 
     /**
