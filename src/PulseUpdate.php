@@ -382,9 +382,7 @@ class PulseUpdate extends ApiObject
      */
     private function likeUnlikeUpdate ($user, $like)
     {
-        PulseUser::_isCastable($user);
-
-        $user   = ($user instanceof PulseUser) ? $user->getId() : $user;
+        $user   = PulseUser::_castToInt($user);
         $url    = sprintf("%s/%d/%s.json", self::apiEndpoint(), $this->getId(), (($like) ? "like" : "unlike"));
         $params = array(
             "user" => $user

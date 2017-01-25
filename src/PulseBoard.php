@@ -9,6 +9,7 @@ namespace allejo\DaPulse;
 
 use allejo\DaPulse\Exceptions\ArgumentMismatchException;
 use allejo\DaPulse\Exceptions\InvalidArraySizeException;
+use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\SubscribableObject;
 use allejo\DaPulse\Utilities\StringUtilities;
 
@@ -389,25 +390,24 @@ class PulseBoard extends SubscribableObject
      * @api
      *
      * @param string        $name          The name of the Pulse
-     * @param PulseUser|int $owner         The owner of the Pulse, i.e. who created it
+     * @param PulseUser|int $user          The owner of the Pulse, i.e. who created it
      * @param string|null   $groupId       The group to add this Pulse to
      * @param string|null   $updateText    The update's text, can contain simple HTML for formatting
      * @param bool|null     $announceToAll Determines if the update should be sent to everyone's wall
      *
+     * @throws \InvalidArgumentException if $user is not a valid user by definition
+     *
+     * @since 0.3.0 An \InvalidArgumentException may be thrown
      * @since 0.1.0
      *
      * @return Pulse
      */
-    public function createPulse ($name, $owner, $groupId = NULL, $updateText = NULL, $announceToAll = NULL)
+    public function createPulse ($name, $user, $groupId = NULL, $updateText = NULL, $announceToAll = NULL)
     {
-        if ($owner instanceof PulseUser)
-        {
-            $owner = $owner->getId();
-        }
-
+        $user       = PulseUser::_castToInt($user);
         $url        = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
         $postParams = array(
-            "user_id" => $owner,
+            "user_id" => $user,
             "pulse"   => array(
                 "name" => $name
             )
@@ -435,6 +435,13 @@ class PulseBoard extends SubscribableObject
     //   Board functions
     // =================================================================================================================
 
+    /**
+     * Archive this board
+     *
+     * @since 0.1.0
+     *
+     * @throws InvalidObjectException if the object has already been deleted
+     */
     public function archiveBoard ()
     {
         $this->checkInvalid();
@@ -445,11 +452,26 @@ class PulseBoard extends SubscribableObject
         $this->deletedObject = true;
     }
 
-    public static function createBoard ($name, $userId, $description = NULL)
+    /**
+     * Create a new board
+     *
+     * @param  string        $name        The name of the board
+     * @param  int|PulseUser $user        The owner of the board
+     * @param  string|null   $description A description of the board
+     *
+     * @since  0.3.0 $userId may be a PulseUser object and \InvalidArgumentException is now thrown
+     * @since  0.1.0
+     *
+     * @throws \InvalidArgumentException if $user is not a valid user by definition
+     *
+     * @return PulseBoard
+     */
+    public static function createBoard ($name, $user, $description = NULL)
     {
+        $user       = PulseUser::_castToInt($user);
         $url        = sprintf("%s.json", self::apiEndpoint());
         $postParams = array(
-            "user_id" => $userId,
+            "user_id" => $user,
             "name"    => $name
         );
 
@@ -460,6 +482,23 @@ class PulseBoard extends SubscribableObject
         return (new PulseBoard($boardResult));
     }
 
+    /**
+     * Get all the account's boards
+     *
+     * ```
+     * array['page']            int  - Page offset to fetch
+     *      ['per_page']        int  - Number of results to return per page
+     *      ['offset']          int  - Pad a number of results
+     *      ['only_globals']    bool - Return only global boards
+     *      ['order_by_latest'] bool - Order by newest boards
+     * ```
+     *
+     * @param  array $params Parameters to filter the boards (see above)
+     *
+     * @since  0.1.0
+     *
+     * @return PulseBoard[]
+     */
     public static function getBoards ($params = array())
     {
         $url = sprintf("%s.json", self::apiEndpoint());

@@ -45,9 +45,7 @@ class PulseColumnPersonValue extends PulseColumnValue
      */
     public function updateValue ($user)
     {
-        PulseUser::_isCastable($user);
-
-        $user       = ($user instanceof PulseUser) ? $user->getId() : $user;
+        $user       = PulseUser::_castToInt($user);
         $url        = sprintf("%s/%d/columns/%s/person.json", self::apiEndpoint(), $this->board_id, $this->column_id);
         $postParams = array(
             "pulse_id" => $this->pulse_id,

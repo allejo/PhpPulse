@@ -405,4 +405,20 @@ class PulseUser extends ApiObject
             throw new \InvalidArgumentException('$user is expected to be a positive integer or a PulseUser object');
         }
     }
+
+    /**
+     * @internal
+     *
+     * @param  int|PulseUser $user
+     *
+     * @since  0.3.0
+     *
+     * @return int
+     */
+    public static function _castToInt ($user)
+    {
+        self::_isCastable($user);
+
+        return ($user instanceof PulseUser) ? $user->getId() : $user;
+    }
 }
