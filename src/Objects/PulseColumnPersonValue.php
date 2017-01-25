@@ -47,10 +47,10 @@ class PulseColumnPersonValue extends PulseColumnValue
     {
         $user       = PulseUser::_castToInt($user);
         $url        = sprintf("%s/%d/columns/%s/person.json", self::apiEndpoint(), $this->board_id, $this->column_id);
-        $postParams = array(
+        $postParams = [
             "pulse_id" => $this->pulse_id,
             "user_id"  => $user
-        );
+        ];
 
         $result = self::sendPut($url, $postParams);
         $this->setValue($result);
@@ -66,10 +66,8 @@ class PulseColumnPersonValue extends PulseColumnValue
 
         return parent::isNullValue() ||
                (is_array($this->jsonResponse) &&
-                array_key_exists('value', $this->jsonResponse) &&
-                is_array($this->jsonResponse['value']) &&
-                array_key_exists('id', $this->jsonResponse['value']) &&
-                $this->jsonResponse['value']['id'] === 0);
+                isset($this->jsonResponse['value']) && is_array($this->jsonResponse['value']) &&
+                isset($this->jsonResponse['value']['id']) && $this->jsonResponse['value']['id'] === 0);
     }
 
     protected function setValue ($response)

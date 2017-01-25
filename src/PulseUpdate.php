@@ -10,6 +10,13 @@ namespace allejo\DaPulse;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\ApiObject;
 
+/**
+ * Class PulseUpdate
+ *
+ * @api
+ * @package allejo\DaPulse
+ * @since   0.1.0
+ */
 class PulseUpdate extends ApiObject
 {
     const API_PREFIX = "updates";
@@ -92,7 +99,9 @@ class PulseUpdate extends ApiObject
      * User who wrote the update.
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return PulseUser
      */
     public function getAuthor ()
@@ -107,7 +116,9 @@ class PulseUpdate extends ApiObject
      * The resource's URL.
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return string
      */
     public function getUrl ()
@@ -121,7 +132,9 @@ class PulseUpdate extends ApiObject
      * The update's id.
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return string
      */
     public function getId ()
@@ -133,7 +146,9 @@ class PulseUpdate extends ApiObject
      * The update's body.
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return string
      */
     public function getBody ()
@@ -147,7 +162,9 @@ class PulseUpdate extends ApiObject
      * The update's body in plain text
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return string
      */
     public function getBodyText ()
@@ -161,7 +178,9 @@ class PulseUpdate extends ApiObject
      * The replies made to this update.
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return static[]
      */
     public function getReplies ()
@@ -176,7 +195,9 @@ class PulseUpdate extends ApiObject
      * The update's kind.
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return string
      */
     public function getKind ()
@@ -190,9 +211,9 @@ class PulseUpdate extends ApiObject
      * Retrieve whether or not this update has any attachments
      *
      * @api
-     * @todo Remove at 0.4.0 or next major release
+     * @todo       Remove at 0.4.0 or next major release
      * @deprecated 0.3.0 Use PulseUpdate::hasAssets(). To be removed in 0.4.0
-     * @since  0.1.0
+     * @since      0.1.0
      * @return string
      */
     public function getHasAssets ()
@@ -250,7 +271,9 @@ class PulseUpdate extends ApiObject
      * Creation time.
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return \DateTime
      */
     public function getCreatedAt ()
@@ -265,7 +288,9 @@ class PulseUpdate extends ApiObject
      * Last update time.
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return \DateTime
      */
     public function getUpdatedAt ()
@@ -280,10 +305,10 @@ class PulseUpdate extends ApiObject
      * Get the users watching this update
      *
      * @api
-     * @todo Remove at 0.4.0 or next major release
+     * @todo       Remove at 0.4.0 or next major release
      * @deprecated 0.3.0 This data is no longer provided by the DaPulse API; this function will be removed in the next
      *                   major release with planned replacement
-     * @since  0.1.0
+     * @since      0.1.0
      * @return PulseUser[]
      */
     public function getWatchers ()
@@ -384,9 +409,9 @@ class PulseUpdate extends ApiObject
     {
         $user   = PulseUser::_castToInt($user);
         $url    = sprintf("%s/%d/%s.json", self::apiEndpoint(), $this->getId(), (($like) ? "like" : "unlike"));
-        $params = array(
+        $params = [
             "user" => $user
-        );
+        ];
 
         return self::sendPost($url, $params);
     }
@@ -405,22 +430,28 @@ class PulseUpdate extends ApiObject
      *      ['updated_until'] \DateTime - Get updates that were edited or replied to before a specific date
      * ```
      *
-     * If you do not pass \DateTime objects, they should be strings of dates in the format, YYYY-mm-dd, or a unix timestamp
+     * If you do not pass \DateTime objects, they should be strings of dates in the format, YYYY-mm-dd, or a unix
+     * timestamp
      *
      * @api
      *
      * @param  array $params GET parameters passed to the URL (see above)
      *
-     * @since  0.3.0 $params now accepts \DateTime objects and will be converted automatically. Strings will also try to
-     *               be converted to Unix timestamps
+     * @since  0.3.0 $params now accepts \DateTime objects and will be converted automatically. Strings will also try
+     *               to be converted to Unix timestamps
      * @since  0.1.0
      *
      * @return PulseUpdate[]
      */
     public static function getUpdates ($params = [])
     {
-        $url = sprintf("%s.json", self::apiEndpoint());
-        $dateKeys = ['since', 'until', 'updated_since', 'updated_until'];
+        $url      = sprintf("%s.json", self::apiEndpoint());
+        $dateKeys = [
+            'since',
+            'until',
+            'updated_since',
+            'updated_until'
+        ];
 
         foreach ($params as $key => &$value)
         {
@@ -454,7 +485,7 @@ class PulseUpdate extends ApiObject
      *
      * @return PulseUpdate
      */
-    public static function createUpdate ($user, $pulse, $text, $announceToAll = NULL)
+    public static function createUpdate ($user, $pulse, $text, $announceToAll = null)
     {
         if ($user instanceof PulseUser)
         {
@@ -467,11 +498,11 @@ class PulseUpdate extends ApiObject
         }
 
         $url    = sprintf("%s.json", self::apiEndpoint());
-        $params = array(
+        $params = [
             "user"        => $user,
             "pulse"       => $pulse,
             "update_text" => $text
-        );
+        ];
 
         self::setIfNotNullOrEmpty($params, "announcement", $announceToAll);
 

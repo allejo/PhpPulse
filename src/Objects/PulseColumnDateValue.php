@@ -51,10 +51,10 @@ class PulseColumnDateValue extends PulseColumnValue
         }
 
         $url        = sprintf("%s/%d/columns/%s/date.json", self::apiEndpoint(), $this->board_id, $this->column_id);
-        $postParams = array(
+        $postParams = [
             "pulse_id" => $this->pulse_id,
             "date_str" => date_format($dateTime, "Y-m-d")
-        );
+        ];
 
         $result = self::sendPut($url, $postParams);
         $this->setValue($result);
@@ -67,6 +67,7 @@ class PulseColumnDateValue extends PulseColumnValue
         if (is_array($response['value']) && isset($response['value']['date']))
         {
             $this->column_value = new \DateTime($response['value']['date']);
+
             return;
         }
 

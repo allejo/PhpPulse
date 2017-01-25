@@ -9,6 +9,13 @@ namespace allejo\DaPulse;
 
 use allejo\DaPulse\Objects\ApiObject;
 
+/**
+ * Class PulseColumn
+ *
+ * @api
+ * @package allejo\DaPulse
+ * @since   0.1.0
+ */
 class PulseColumn extends ApiObject
 {
     const API_PREFIX = "boards";
@@ -95,9 +102,9 @@ class PulseColumn extends ApiObject
     {
         $this->checkInvalid();
 
-        $postParams = array(
+        $postParams = [
             $field => $value
-        );
+        ];
 
         self::sendPut($this->getColumnsUrl(), $postParams);
 

@@ -10,6 +10,13 @@ namespace allejo\DaPulse;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\ApiObject;
 
+/**
+ * Class PulseNote
+ *
+ * @api
+ * @package allejo\DaPulse
+ * @since   0.1.0
+ */
 class PulseNote extends ApiObject
 {
     const API_PREFIX = "pulses";
@@ -81,6 +88,10 @@ class PulseNote extends ApiObject
     /**
      * The collaboration box type (rich_text, file_list, faq_list).
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getType ()
@@ -90,6 +101,10 @@ class PulseNote extends ApiObject
 
     /**
      * The note's id.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string
      */
@@ -101,6 +116,10 @@ class PulseNote extends ApiObject
     /**
      * The note's title.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getTitle ()
@@ -110,6 +129,10 @@ class PulseNote extends ApiObject
 
     /**
      * The note's project_id.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string
      */
@@ -121,6 +144,10 @@ class PulseNote extends ApiObject
     /**
      * Describes who can edit this note. Can be either 'everyone' or 'owners'.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getPermissions ()
@@ -131,6 +158,10 @@ class PulseNote extends ApiObject
     /**
      * The note's body.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getContent ()
@@ -140,6 +171,10 @@ class PulseNote extends ApiObject
 
     /**
      * Creation time.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return \DateTime
      */
@@ -152,6 +187,10 @@ class PulseNote extends ApiObject
 
     /**
      * Last update time.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return \DateTime
      */
@@ -173,7 +212,7 @@ class PulseNote extends ApiObject
      *
      * @param  null|string        $title        The new title of the note
      * @param  null|string        $content      The new content of the note
-     * @param  null|int|PulseUser $userId       The new author of the note
+     * @param  null|int|PulseUser $user         The new author of the note
      * @param  null|bool          $createUpdate Whether to create an update or not
      *
      * @since  0.1.0
@@ -183,29 +222,29 @@ class PulseNote extends ApiObject
      *
      * @return $this
      */
-    public function editNote ($title = NULL, $content = NULL, $userId = NULL, $createUpdate = NULL)
+    public function editNote ($title = null, $content = null, $user = null, $createUpdate = null)
     {
         $this->checkInvalid();
 
-        if ($userId instanceof PulseUser)
+        if (!is_null($user))
         {
-            $userId = $userId->getId();
+            $user = PulseUser::_castToInt($user);
         }
 
         $url        = $this->getNotesUrl();
-        $postParams = array(
+        $postParams = [
             "id"      => $this->getPulseId(),
             "note_id" => $this->getId()
-        );
+        ];
 
         self::setIfNotNullOrEmpty($postParams, "title", $title);
         self::setIfNotNullOrEmpty($postParams, "content", $content);
-        self::setIfNotNullOrEmpty($postParams, "user_id", $userId);
+        self::setIfNotNullOrEmpty($postParams, "user_id", $user);
         self::setIfNotNullOrEmpty($postParams, "create_update", $createUpdate);
 
-        if ($createUpdate && is_null($userId))
+        if ($createUpdate && is_null($user))
         {
-            throw new \InvalidArgumentException("The user_id value must be set if an update is to be created");
+            throw new \InvalidArgumentException('The $user value must be set if an update is to be created');
         }
 
         $this->jsonResponse = self::sendPut($url, $postParams);
@@ -251,7 +290,7 @@ class PulseNote extends ApiObject
      */
     public function editContent ($content)
     {
-        return $this->editNote(NULL, $content);
+        return $this->editNote(null, $content);
     }
 
     /**
@@ -271,7 +310,7 @@ class PulseNote extends ApiObject
      */
     public function editAuthor ($userId)
     {
-        return $this->editNote(NULL, NULL, $userId);
+        return $this->editNote(null, null, $userId);
     }
 
     /**

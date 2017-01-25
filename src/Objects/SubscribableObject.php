@@ -52,11 +52,11 @@ abstract class SubscribableObject extends ApiObject
      *
      * @return PulseUser[]
      */
-    public function getSubscribers ($params = array(), $forceFetch = false)
+    public function getSubscribers ($params = [], $forceFetch = false)
     {
         if (is_null($this->subscribers) || $forceFetch)
         {
-            $url = sprintf("%s/%d/subscribers.json", $this::apiEndpoint(), $this->getId());
+            $url               = sprintf("%s/%d/subscribers.json", $this::apiEndpoint(), $this->getId());
             $this->subscribers = self::fetchAndCastToObjectArray($url, "PulseUser", $params);
         }
 
@@ -78,13 +78,13 @@ abstract class SubscribableObject extends ApiObject
      *
      * @return PulseUser
      */
-    public function addSubscriber ($userId, $asAdmin = NULL)
+    public function addSubscriber ($userId, $asAdmin = null)
     {
         $userId = ($userId instanceof PulseUser) ? $userId->getId() : $userId;
         $url    = sprintf("%s/%d/subscribers.json", self::apiEndpoint(), $this->getId());
-        $params = array(
+        $params = [
             "user_id" => $userId
-        );
+        ];
 
         self::setIfNotNullOrEmpty($params, "as_admin", $asAdmin);
         $newSubscriber = self::sendPut($url, $params);
@@ -95,7 +95,7 @@ abstract class SubscribableObject extends ApiObject
             $this->getSubscribers();
         }
 
-        $user = new PulseUser($newSubscriber);
+        $user                = new PulseUser($newSubscriber);
         $this->subscribers[] = $user;
 
         return $user;

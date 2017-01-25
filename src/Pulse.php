@@ -120,9 +120,9 @@ class Pulse extends SubscribableObject
 
     protected function initializeValues ()
     {
-        $this->column_values     = array();
-        $this->column_structure  = array();
-        $this->raw_column_values = array();
+        $this->column_values     = [];
+        $this->column_structure  = [];
+        $this->raw_column_values = [];
     }
 
     // ================================================================================================================
@@ -131,6 +131,10 @@ class Pulse extends SubscribableObject
 
     /**
      * The resource's URL.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string
      */
@@ -144,6 +148,10 @@ class Pulse extends SubscribableObject
     /**
      * The pulse's name.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getName ()
@@ -155,6 +163,10 @@ class Pulse extends SubscribableObject
 
     /**
      * The amount of updates a pulse has.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return int
      */
@@ -168,6 +180,10 @@ class Pulse extends SubscribableObject
     /**
      * The ID of the parent board.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return int
      */
     public function getBoardId ()
@@ -179,6 +195,10 @@ class Pulse extends SubscribableObject
 
     /**
      * Creation time.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return \DateTime
      */
@@ -192,6 +212,10 @@ class Pulse extends SubscribableObject
 
     /**
      * Last update time.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return \DateTime
      */
@@ -212,9 +236,12 @@ class Pulse extends SubscribableObject
      *
      * **Warning** An API call is always slower than using the cached value.
      *
+     * @api
+     *
      * @param bool $forceFetch Force an API call to get an updated group ID if it has been changed
      *
      * @since 0.1.0
+     *
      * @return string
      */
     public function getGroupId ($forceFetch = false)
@@ -247,15 +274,17 @@ class Pulse extends SubscribableObject
      * Edit the name of the pulse
      *
      * @api
+     *
      * @param string $title
+     *
      * @since 0.1.0
      */
-    public function editName($title)
+    public function editName ($title)
     {
         $editUrl    = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
-        $postParams = array(
+        $postParams = [
             'name' => $title
-        );
+        ];
 
         $this->jsonResponse = self::sendPut($editUrl, $postParams);
         $this->assignResults();
@@ -267,14 +296,15 @@ class Pulse extends SubscribableObject
      * This is the equivalent of a soft delete and can be restored from the DaPulse website.
      *
      * @api
+     *
      * @since 0.1.0
      */
     public function archivePulse ()
     {
         $archiveURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
-        $getParams  = array(
+        $getParams  = [
             'archive' => true
-        );
+        ];
 
         $this->jsonResponse = self::sendDelete($archiveURL, $getParams);
         $this->assignResults();
@@ -284,24 +314,26 @@ class Pulse extends SubscribableObject
      * Delete the current Pulse
      *
      * @api
+     *
      * @since 0.1.0
-     * @throws \allejo\DaPulse\Exceptions\InvalidObjectException
+     *
+     * @throws InvalidObjectException
      */
     public function deletePulse ()
     {
         $this->checkInvalid();
 
-        $deleteURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
+        $deleteURL          = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
         $this->jsonResponse = self::sendDelete($deleteURL);
         $this->assignResults();
 
         $this->deletedObject = true;
     }
 
-    public function duplicatePulse ($groupId = NULL, $ownerId = NULL)
+    public function duplicatePulse ($groupId = null, $ownerId = null)
     {
         $url        = sprintf("%s/%s/pulses/%s/duplicate.json", self::apiEndpoint("boards"), $this->getBoardId(), $this->getId());
-        $postParams = array();
+        $postParams = [];
 
         if ($ownerId instanceof PulseUser)
         {
@@ -433,7 +465,6 @@ class Pulse extends SubscribableObject
      * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
      * @since  0.1.0
-
      * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
      * @throws InvalidColumnException  The specified column is not a "text" type column
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
@@ -490,7 +521,7 @@ class Pulse extends SubscribableObject
         if (!isset($this->column_values) || !array_key_exists($columnId, $this->column_values))
         {
             $key  = ArrayUtilities::array_search_column($this->raw_column_values, 'cid', $columnId);
-            $data = array();
+            $data = [];
 
             // We can't find the key, this means that we got our information from accessing a Pulse directly instead of
             // getting it through a PulseBoard. This isn't as robust as accessing a PulseBoard but it's more efficient.
@@ -498,9 +529,9 @@ class Pulse extends SubscribableObject
             if ($key === false)
             {
                 $url    = sprintf("%s/%d/columns/%s/value.json", self::apiEndpoint("boards"), $this->getBoardId(), $columnId);
-                $params = array(
+                $params = [
                     "pulse_id" => $this->getId()
-                );
+                ];
 
                 try
                 {
@@ -548,27 +579,36 @@ class Pulse extends SubscribableObject
      * @param  string   $title         The title of the note
      * @param  string   $content       The body of the note
      * @param  bool     $ownersOnly    Set to true if only pulse owners can edit this note.
-     * @param  int|null $userId        The id of the user to be marked as the note's last updater
+     * @param  int|null $user          The id of the user to be marked as the note's last updater
      * @param  bool     $createUpdate  Indicates whether to create an update on the pulse notifying subscribers on the
      *                                 changes (required user_id to be set).
      *
+     * @throws \InvalidArgumentException if $createUpdate is true and $user is null or $user is not a valid user ID or
+     *                                   PulseUser object
+     *
      * @since  0.1.0
+     *
      * @return PulseNote
      */
-    public function addNote ($title, $content, $ownersOnly = false, $userId = NULL, $createUpdate = false)
+    public function addNote ($title, $content, $ownersOnly = false, $user = null, $createUpdate = false)
     {
         $url        = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "notes");
-        $postParams = array(
+        $postParams = [
             "id"            => $this->id,
             "title"         => $title,
             "content"       => $content,
             "owners_only"   => $ownersOnly,
             "create_update" => $createUpdate
-        );
+        ];
 
-        self::setIfNotNullOrEmpty($postParams, "user_id", $userId);
+        if (!is_null($user))
+        {
+            $user = PulseUser::_castToInt($user);
+        }
 
-        if ($createUpdate && is_null($userId))
+        self::setIfNotNullOrEmpty($postParams, 'user_id', $user);
+
+        if ($createUpdate && is_null($user))
         {
             throw new \InvalidArgumentException("The user_id value must be set if an update is to be created");
         }
@@ -582,7 +622,9 @@ class Pulse extends SubscribableObject
      * Return all of the notes belonging to this project
      *
      * @api
+     *
      * @since  0.1.0
+     *
      * @return PulseNote[]
      */
     public function getNotes ()
@@ -621,12 +663,12 @@ class Pulse extends SubscribableObject
      * @param  string        $text
      * @param  null|bool     $announceToAll
      *
-     * @since  0.2.2 A PulseUpdate object is returned containing the information of the newly created Update
+     * @since  0.3.0 A PulseUpdate object is returned containing the information of the newly created Update
      * @since  0.1.0
      *
      * @return PulseUpdate
      */
-    public function createUpdate ($user, $text, $announceToAll = NULL)
+    public function createUpdate ($user, $text, $announceToAll = null)
     {
         return PulseUpdate::createUpdate($user, $this->getId(), $text, $announceToAll);
     }
@@ -655,9 +697,10 @@ class Pulse extends SubscribableObject
      * @param array $params GET parameters passed to with the query to modify the data returned.
      *
      * @since 0.1.0
+     *
      * @return Pulse[]
      */
-    public static function getPulses ($params = array())
+    public static function getPulses ($params = [])
     {
         $url = sprintf("%s.json", self::apiEndpoint());
 

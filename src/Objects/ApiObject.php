@@ -102,8 +102,8 @@ abstract class ApiObject implements \JsonSerializable
      * @param bool      $lazyLoad  When set to true, an initial API call will not be made. An API call will be made when
      *                             the information is requested
      *
-     * @throw \InvalidArgumentException The specified object cannot be created directly from an API call but instead
-     *                                  requires an associative array of information gathered from other API calls.
+     * @throws \InvalidArgumentException The specified object cannot be created directly from an API call but instead
+     *                                   requires an associative array of information gathered from other API calls.
      *
      * @since 0.1.0
      */
@@ -138,7 +138,7 @@ abstract class ApiObject implements \JsonSerializable
         {
             if ($lazyLoad)
             {
-                $this->id = $idOrArray;
+                $this->id           = $idOrArray;
                 $this->jsonResponse = [];
             }
             else
@@ -151,12 +151,12 @@ abstract class ApiObject implements \JsonSerializable
     /**
      * {@inheritdoc}
      */
-    public function jsonSerialize()
+    public function jsonSerialize ()
     {
         return $this->jsonResponse;
     }
 
-    protected function lazyLoad()
+    protected function lazyLoad ()
     {
         if (empty($this->jsonResponse))
         {
@@ -175,8 +175,8 @@ abstract class ApiObject implements \JsonSerializable
      * @api
      * @deprecated 0.3.0 Feed this object to json_encode() to get the JSON representation of this object instead or call
      *                   `jsonSerialize()`
-     * @since  0.1.0
-     * @todo   Remove at 0.4.0 or next breaking release
+     * @since      0.1.0
+     * @todo       Remove at 0.4.0 or next breaking release
      * @return array
      */
     final public function getJson ()
@@ -237,7 +237,7 @@ abstract class ApiObject implements \JsonSerializable
      */
     final protected static function setIfNotNullOrEmpty (&$array, $name, $value)
     {
-        if (!is_null($value) || !empty($value))
+        if (!is_null($value) && !empty($value))
         {
             $array[$name] = $value;
         }
@@ -266,9 +266,9 @@ abstract class ApiObject implements \JsonSerializable
      * @param array $array  An associative array containing data to be merged with the key being the name of the
      *                      instance variable.
      *
-     * @since 0.1.0
+     * @throws \InvalidArgumentException If either parameters are not arrays
      *
-     * @throw \InvalidArgumentException If either parameters are not arrays
+     * @since 0.1.0
      */
     final protected static function lazyInject (&$target, $array)
     {
@@ -332,7 +332,10 @@ abstract class ApiObject implements \JsonSerializable
      */
     final protected static function lazyCastNeededOnArray ($objectType, $array)
     {
-        if (is_array($array) && count($array) == 0) { return false; }
+        if (is_array($array) && count($array) == 0)
+        {
+            return false;
+        }
 
         $firstItem = $array[0];
 
@@ -369,7 +372,7 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return array
      */
-    final protected static function fetchAndCastToObjectArray ($url, $className, $params = array())
+    final protected static function fetchAndCastToObjectArray ($url, $className, $params = [])
     {
         $objects = self::sendGet($url, $params);
 
@@ -389,7 +392,7 @@ abstract class ApiObject implements \JsonSerializable
     final protected static function castArrayToObjectArray ($className, $objects)
     {
         $class = self::OBJ_NAMESPACE . $className;
-        $array = array();
+        $array = [];
 
         foreach ($objects as $post)
         {
@@ -415,7 +418,7 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return mixed          An associative array of the JSON response from DaPulse
      */
-    final protected static function sendGet ($url, $params = array())
+    final protected static function sendGet ($url, $params = [])
     {
         $params["api_key"] = self::$apiKey;
 
@@ -435,7 +438,7 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return mixed
      */
-    final protected static function sendPost ($url, $postParams, $getParams = array())
+    final protected static function sendPost ($url, $postParams, $getParams = [])
     {
         return self::sendRequest("POST", $url, $postParams, $getParams);
     }
@@ -451,7 +454,7 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return mixed
      */
-    final protected static function sendPut ($url, $postParams, $getParams = array())
+    final protected static function sendPut ($url, $postParams, $getParams = [])
     {
         return self::sendRequest("PUT", $url, $postParams, $getParams);
     }
@@ -466,9 +469,9 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return mixed
      */
-    final protected static function sendDelete ($url, $getParams = array())
+    final protected static function sendDelete ($url, $getParams = [])
     {
-        return self::sendRequest("DELETE", $url, NULL, $getParams);
+        return self::sendRequest("DELETE", $url, null, $getParams);
     }
 
     /**
@@ -478,6 +481,8 @@ abstract class ApiObject implements \JsonSerializable
      * @param  string $url
      * @param  array  $postParams
      * @param  array  $getParams
+     *
+     * @throws \InvalidArgumentException if $type not 'POST', 'PUT', or 'DELETE'
      *
      * @since  0.1.0
      *
@@ -519,7 +524,7 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return string The base URL to call
      */
-    final protected static function apiEndpoint ($apiPrefix = NULL)
+    final protected static function apiEndpoint ($apiPrefix = null)
     {
         $apiSection = isset($apiPrefix) ? $apiPrefix : static::API_PREFIX;
 

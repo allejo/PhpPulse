@@ -25,12 +25,15 @@
           <option name="ALIGN_ASSIGNMENTS" value="true" />
           <option name="PHPDOC_BLANK_LINES_AROUND_PARAMETERS" value="true" />
           <option name="PHPDOC_WRAP_LONG_LINES" value="true" />
-          <option name="UPPER_CASE_NULL_CONST" value="true" />
+          <option name="PHPDOC_THROWS_IGNORE_RUNTIME_EXCEPTIONS" value="false" />
+          <option name="PHPDOC_THROWS_IGNORE_LOGIC_EXCEPTIONS" value="false" />
           <option name="LOWER_CASE_BOOLEAN_CONST" value="true" />
+          <option name="LOWER_CASE_NULL_CONST" value="true" />
+          <option name="VARIABLE_NAMING_STYLE" value="CAMEL_CASE" />
           <option name="BLANK_LINE_BEFORE_RETURN_STATEMENT" value="true" />
           <option name="ALIGN_CLASS_CONSTANTS" value="true" />
           <option name="SPACE_BETWEEN_TERNARY_QUEST_AND_COLON" value="true" />
-          <option name="PHPDOC_USE_FQCN" value="true" />
+          <option name="FORCE_SHORT_DECLARATION_ARRAY_STYLE" value="true" />
         </PHPCodeStyleSettings>
         <XML>
           <option name="XML_LEGACY_SETTINGS_IMPORTED" value="true" />
@@ -57,6 +60,14 @@
           <option name="DOWHILE_BRACE_FORCE" value="3" />
           <option name="WHILE_BRACE_FORCE" value="3" />
           <option name="FOR_BRACE_FORCE" value="3" />
+          <arrangement>
+            <groups>
+              <group>
+                <type>GETTERS_AND_SETTERS</type>
+                <order>KEEP</order>
+              </group>
+            </groups>
+          </arrangement>
         </codeStyleSettings>
         <codeStyleSettings language="SCSS">
           <indentOptions>

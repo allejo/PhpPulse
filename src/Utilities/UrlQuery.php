@@ -85,10 +85,10 @@ class UrlQuery
             throw new \InvalidArgumentException("Both the username and password must be non-empty strings.");
         }
 
-        curl_setopt_array($this->cURL, array(
+        curl_setopt_array($this->cURL, [
             CURLOPT_HTTPAUTH => CURLAUTH_BASIC,
             CURLOPT_USERPWD  => $username . ":" . $password
-        ));
+        ]);
     }
 
     /**
@@ -107,10 +107,10 @@ class UrlQuery
             throw new \InvalidArgumentException("The headers parameter must be a non-empty array");
         }
 
-        curl_setopt_array($this->cURL, array(
+        curl_setopt_array($this->cURL, [
             CURLOPT_HEADER     => true,
             CURLOPT_HTTPHEADER => $headers
-        ));
+        ]);
     }
 
     /**
@@ -141,10 +141,10 @@ class UrlQuery
     {
         $this->setPostFields($postArray, $flags);
 
-        curl_setopt_array($this->cURL, array(
+        curl_setopt_array($this->cURL, [
             CURLOPT_POST          => true,
             CURLOPT_CUSTOMREQUEST => "POST"
-        ));
+        ]);
 
         return $this->handleQuery();
     }
@@ -235,10 +235,10 @@ class UrlQuery
      */
     private function configureCurl ()
     {
-        curl_setopt_array($this->cURL, array(
+        curl_setopt_array($this->cURL, [
             CURLOPT_URL            => $this->url,
             CURLOPT_RETURNTRANSFER => true
-        ));
+        ]);
     }
 
     /**
@@ -291,7 +291,7 @@ class UrlQuery
      */
     private static function formatParameters ($params)
     {
-        $parameters = array();
+        $parameters = [];
 
         foreach ($params as $key => $value)
         {
@@ -352,7 +352,7 @@ class UrlQuery
      */
     private static function formatArray ($prefix, $array)
     {
-        $parameters = array();
+        $parameters = [];
 
         foreach ($array as $key => $value)
         {

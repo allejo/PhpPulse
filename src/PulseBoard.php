@@ -251,7 +251,7 @@ class PulseBoard extends SubscribableObject
      * @return $this This instance will be updated to have updated information to reflect the new column that was
      *               created
      */
-    public function createColumn ($title, $type, $labels = array())
+    public function createColumn ($title, $type, $labels = [])
     {
         if ($type !== PulseColumn::Status && !empty($labels))
         {
@@ -264,10 +264,10 @@ class PulseBoard extends SubscribableObject
         }
 
         $url        = sprintf("%s/%d/columns.json", self::apiEndpoint(), $this->getId());
-        $postParams = array(
+        $postParams = [
             "title" => $title,
             "type"  => $type
-        );
+        ];
 
         self::setIfNotNullOrEmpty($postParams, "labels", $labels);
 
@@ -324,7 +324,7 @@ class PulseBoard extends SubscribableObject
     public function createGroup ($title)
     {
         $url        = sprintf("%s/%s/groups.json", self::apiEndpoint(), $this->getId());
-        $postParams = array("title" => $title);
+        $postParams = ["title" => $title];
 
         // The API doesn't return the board ID, so since we have access to it here: set it manually
         $groupResult             = self::sendPost($url, $postParams);
@@ -347,7 +347,7 @@ class PulseBoard extends SubscribableObject
      */
     public function deleteGroup ($groupId)
     {
-        $url = sprintf("%s/%d/groups/%s.json", self::apiEndpoint(), $this->getId(), $groupId);
+        $url    = sprintf("%s/%d/groups/%s.json", self::apiEndpoint(), $this->getId(), $groupId);
         $result = self::sendDelete($url);
 
         self::lazyInject($result, [
@@ -363,13 +363,19 @@ class PulseBoard extends SubscribableObject
     // =================================================================================================================
 
     /**
+     * Get all of the Pulses belonging to this board
+     *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return Pulse[]
      */
     public function getPulses ()
     {
         $url    = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
         $data   = self::sendGet($url);
-        $pulses = array();
+        $pulses = [];
 
         foreach ($data as $entry)
         {
@@ -402,16 +408,16 @@ class PulseBoard extends SubscribableObject
      *
      * @return Pulse
      */
-    public function createPulse ($name, $user, $groupId = NULL, $updateText = NULL, $announceToAll = NULL)
+    public function createPulse ($name, $user, $groupId = null, $updateText = null, $announceToAll = null)
     {
         $user       = PulseUser::_castToInt($user);
         $url        = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
-        $postParams = array(
+        $postParams = [
             "user_id" => $user,
-            "pulse"   => array(
+            "pulse"   => [
                 "name" => $name
-            )
-        );
+            ]
+        ];
 
         self::setIfNotNullOrEmpty($postParams, "group_id", $groupId);
         self::setIfNotNullOrEmpty($postParams['update'], 'text', $updateText);
@@ -438,6 +444,8 @@ class PulseBoard extends SubscribableObject
     /**
      * Archive this board
      *
+     * @api
+     *
      * @since 0.1.0
      *
      * @throws InvalidObjectException if the object has already been deleted
@@ -455,6 +463,8 @@ class PulseBoard extends SubscribableObject
     /**
      * Create a new board
      *
+     * @api
+     *
      * @param  string        $name        The name of the board
      * @param  int|PulseUser $user        The owner of the board
      * @param  string|null   $description A description of the board
@@ -466,14 +476,14 @@ class PulseBoard extends SubscribableObject
      *
      * @return PulseBoard
      */
-    public static function createBoard ($name, $user, $description = NULL)
+    public static function createBoard ($name, $user, $description = null)
     {
         $user       = PulseUser::_castToInt($user);
         $url        = sprintf("%s.json", self::apiEndpoint());
-        $postParams = array(
+        $postParams = [
             "user_id" => $user,
             "name"    => $name
-        );
+        ];
 
         self::setIfNotNullOrEmpty($postParams, "description", $description);
 
@@ -493,13 +503,15 @@ class PulseBoard extends SubscribableObject
      *      ['order_by_latest'] bool - Order by newest boards
      * ```
      *
+     * @api
+     *
      * @param  array $params Parameters to filter the boards (see above)
      *
      * @since  0.1.0
      *
      * @return PulseBoard[]
      */
-    public static function getBoards ($params = array())
+    public static function getBoards ($params = [])
     {
         $url = sprintf("%s.json", self::apiEndpoint());
 

@@ -49,10 +49,10 @@ class PulseColumnTextValue extends PulseColumnValue
         }
 
         $url        = sprintf("%s/%d/columns/%s/text.json", self::apiEndpoint(), $this->board_id, $this->column_id);
-        $postParams = array(
+        $postParams = [
             "pulse_id" => $this->pulse_id,
             "text"     => (string)$text
-        );
+        ];
 
         $result = self::sendPut($url, $postParams);
         $this->setValue($result);

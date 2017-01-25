@@ -12,6 +12,7 @@ use allejo\DaPulse\Objects\ApiObject;
 /**
  * The PulseUser class contains all of the functions related to accessing information about a user
  *
+ * @api
  * @package allejo\DaPulse
  * @since   0.1.0
  */
@@ -142,6 +143,10 @@ class PulseUser extends ApiObject
     /**
      * The resource's URL.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getUrl ()
@@ -154,6 +159,10 @@ class PulseUser extends ApiObject
     /**
      * The user's unique identifier.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return int
      */
     public function getId ()
@@ -163,6 +172,10 @@ class PulseUser extends ApiObject
 
     /**
      * The user's name.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string
      */
@@ -176,6 +189,10 @@ class PulseUser extends ApiObject
     /**
      * The user's email.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getEmail ()
@@ -187,6 +204,10 @@ class PulseUser extends ApiObject
 
     /**
      * The user's photo_url.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string
      */
@@ -200,6 +221,10 @@ class PulseUser extends ApiObject
     /**
      * The user's title.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getTitle ()
@@ -211,6 +236,10 @@ class PulseUser extends ApiObject
 
     /**
      * The user's position.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string
      */
@@ -224,6 +253,10 @@ class PulseUser extends ApiObject
     /**
      * The user's phone.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getPhone ()
@@ -235,6 +268,10 @@ class PulseUser extends ApiObject
 
     /**
      * The user's location.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string
      */
@@ -248,6 +285,10 @@ class PulseUser extends ApiObject
     /**
      * The user's status.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return string
      */
     public function getStatus ()
@@ -259,6 +300,10 @@ class PulseUser extends ApiObject
 
     /**
      * The user's birthday.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string
      */
@@ -272,17 +317,23 @@ class PulseUser extends ApiObject
     /**
      * True if the user is guest, false otherwise
      *
+     * @api
+     * @todo Remove this function at 0.4.0 or next breaking release
+     * @deprecated 0.3.0 Use PulseUser::isGuest() instead
+     * @since  0.1.0
      * @return bool
      */
     public function getIsGuest ()
     {
-        $this->lazyLoad();
-
-        return $this->is_guest;
+        return $this->isGuest();
     }
 
     /**
      * The user's skills.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return string[]
      */
@@ -295,6 +346,10 @@ class PulseUser extends ApiObject
 
     /**
      * Creation time.
+     *
+     * @api
+     *
+     * @since  0.1.0
      *
      * @return \DateTime
      */
@@ -309,6 +364,10 @@ class PulseUser extends ApiObject
     /**
      * Last update time.
      *
+     * @api
+     *
+     * @since  0.1.0
+     *
      * @return \DateTime
      */
     public function getUpdatedAt ()
@@ -320,7 +379,25 @@ class PulseUser extends ApiObject
     }
 
     /**
+     * True if the user is guest, false otherwise
+     *
+     * @api
+     *
+     * @since  0.3.0
+     *
+     * @return bool
+     */
+    public function isGuest ()
+    {
+        $this->lazyLoad();
+
+        return $this->is_guest;
+    }
+
+    /**
      * Get the user's newsfeed
+     *
+     * @api
      *
      * @param  array $params GET parameters that need to be passed in the URL
      *
@@ -328,7 +405,7 @@ class PulseUser extends ApiObject
      *
      * @return PulseUpdate[] An array of PulseUpdates that make up the user's newsfeed
      */
-    public function getNewsFeed ($params = array())
+    public function getNewsFeed ($params = [])
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "newsfeed");
 
@@ -338,13 +415,15 @@ class PulseUser extends ApiObject
     /**
      * Get the user's posts
      *
+     * @api
+     *
      * @param  array $params GET parameters that need to be passed in the URL
      *
      * @since  0.1.0
      *
      * @return PulseUpdate[] An array of PulseUpdates for each of the posts
      */
-    public function getPosts ($params = array())
+    public function getPosts ($params = [])
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "posts");
 
@@ -354,13 +433,15 @@ class PulseUser extends ApiObject
     /**
      * Get the user's unread posts
      *
+     * @api
+     *
      * @param  array $params GET parameters that need to be passed in the URL
      *
      * @since  0.1.0
      *
      * @return PulseUpdate[] An array of PulseUpdates for each of the posts
      */
-    public function getUnreadFeed ($params = array())
+    public function getUnreadFeed ($params = [])
     {
         $url = sprintf($this->urlSyntax, parent::apiEndpoint(), $this->id, "unread_feed");
 
@@ -370,13 +451,15 @@ class PulseUser extends ApiObject
     /**
      * Get all of the users
      *
+     * @api
+     *
      * @param  array $params GET parameters that need to be passed in the URL
      *
      * @since  0.1.0
      *
      * @return PulseUser[] An array of PulseUsers for each of the users
      */
-    public static function getUsers ($params = array())
+    public static function getUsers ($params = [])
     {
         $url = sprintf("%s.json", parent::apiEndpoint());
 

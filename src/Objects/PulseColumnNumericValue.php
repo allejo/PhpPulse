@@ -50,10 +50,10 @@ class PulseColumnNumericValue extends PulseColumnValue
         }
 
         $url        = sprintf("%s/%d/columns/%s/numeric.json", self::apiEndpoint(), $this->board_id, $this->column_id);
-        $postParams = array(
+        $postParams = [
             "pulse_id" => $this->pulse_id,
             "value"    => $number
-        );
+        ];
 
         $result = self::sendPut($url, $postParams);
         $this->setValue($result);
