@@ -1133,3 +1133,286 @@
             Content-Length: '177'
             Connection: keep-alive
         body: '[{"title":"Group Title","id":"topics","color":"#037f4c","pos":65536},{"pos":200000,"title":"My new group","color":"#fdab3d","id":"my_new_group","archived":true,"deleted":false}]'
+-
+    request:
+        method: POST
+        url: 'https://api.dapulse.com/v1/boards/3844236/pulses.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'user_id=303448&pulse%5Bname%5D=Turn%20off%20the%20lights'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:12:54 GMT'
+            ETag: '"c20ff7f5ecd4dc452d65dcf0e162eeb5"'
+            Server: 'UDI 0.13.36'
+            Status: '201 Created'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: e988b8dadbc0d7c697920543087c0ba3
+            X-Runtime: '0.095607'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '688'
+            Connection: keep-alive
+        body: '{"pulse":{"url":"https://phppulse.dapulse.com/projects/27783794","id":27783794,"name":"Turn off the lights","updates_count":0,"board_id":3844236,"created_at":"2017-01-25T16:12:54Z","updated_at":"2017-01-25T16:12:54Z"},"board_meta":{"position":0.0,"group_id":"topics"},"column_values":[{"cid":"name","title":"Name","name":"Turn off the lights"},{"cid":"person","title":"Person","value":null},{"cid":"status","title":"Status","value":null},{"cid":"text","title":"Text","value":null},{"cid":"due_date","title":"Due date","value":null},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":null},{"cid":"timeline","title":"Timeline","value":null}]}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/pulses/27783794/subscribers.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:12:56 GMT'
+            ETag: '"9cb8c7bf194c611af1587d0cc75404f2"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Next-Page: ''
+            X-Offset: '0'
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Rack-Cache: miss
+            X-Request-Id: 81345adc328c407481133d71dd60c65e
+            X-Runtime: '0.032032'
+            X-Total: '1'
+            X-Total-Pages: '1'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '471'
+            Connection: keep-alive
+        body: '[{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-24T16:18:45Z"}]'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/27168881.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:21:39 GMT'
+            ETag: '"d47b6491d08b0dfa9bbecb5b32e82b6d"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: 19cc1af0452057241330d90480dc1ac6
+            X-Runtime: '0.026986'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '853'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.dapulse.com/boards/27168881","id":27168881,"name":"Dynamic Board","description":null,"columns":[{"id":"name","title":"Name","type":"name"},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"},{"title":"Person","type":"person","id":"person"},{"title":"Status","type":"color","labels":{"0":"Working on it","1":"Done"},"id":"status"},{"title":"Text","type":"text","id":"text"},{"title":"Numbers","type":"numeric","id":"numbers"},{"title":"Due date","type":"date","id":"due_date"},{"title":"Timeline","type":"timerange","id":"timeline"},{"title":"Overall Status","type":"color","labels":{"8":"Warning","6":"Success"},"id":"overall_status"}],"groups":[{"title":"Group Title","id":"topics","color":"#037f4c","board_id":27168881}],"created_at":"2017-01-21T04:21:36Z","updated_at":"2017-01-24T16:23:07Z"}'
+-
+    request:
+        method: POST
+        url: 'https://api.dapulse.com/v1/boards/27168881/pulses.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'user_id=303448&pulse%5Bname%5D=Turn%20off%20the%20lights'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:21:41 GMT'
+            ETag: '"0adb2a9050ad85c34716f89acc76e957"'
+            Server: 'UDI 0.13.36'
+            Status: '201 Created'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 6cd64c06717dbd1f5d02cf003da8efe3
+            X-Runtime: '0.096743'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '756'
+            Connection: keep-alive
+        body: '{"pulse":{"url":"https://phppulse.dapulse.com/projects/27788642","id":27788642,"name":"Turn off the lights","updates_count":0,"board_id":27168881,"created_at":"2017-01-25T16:21:40Z","updated_at":"2017-01-25T16:21:40Z"},"board_meta":{"position":32768.0,"group_id":"topics"},"column_values":[{"cid":"name","title":"Name","name":"Turn off the lights"},{"cid":"last_post","title":"Last Update","value":null},{"cid":"person","title":"Person","value":null},{"cid":"status","title":"Status","value":null},{"cid":"text","title":"Text","value":null},{"cid":"numbers","title":"Numbers","value":null},{"cid":"due_date","title":"Due date","value":null},{"cid":"timeline","title":"Timeline","value":null},{"cid":"overall_status","title":"Overall Status","value":null}]}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/pulses/27788642/subscribers.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:21:42 GMT'
+            ETag: '"9cb8c7bf194c611af1587d0cc75404f2"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Next-Page: ''
+            X-Offset: '0'
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Rack-Cache: miss
+            X-Request-Id: c2d5fb0eb7ce939fb17006a28d9ff4b4
+            X-Runtime: '0.035185'
+            X-Total: '1'
+            X-Total-Pages: '1'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '471'
+            Connection: keep-alive
+        body: '[{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-24T16:18:45Z"}]'
+-
+    request:
+        method: POST
+        url: 'https://api.dapulse.com/v1/boards.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'user_id=303448&name=A%20New%20Bored&description=A%20purposeful%20typo'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:35:09 GMT'
+            ETag: '"1fd0f622e8b62092634c4a6ddb240f78"'
+            Server: 'UDI 0.13.36'
+            Status: '201 Created'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 65dc61b0de0f947eaff3b0837da76584
+            X-Runtime: '0.114768'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '422'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.dapulse.com/boards/27790765","id":27790765,"name":"A New Bored","description":"A purposeful typo","columns":[{"id":"name","title":"Name","type":"name"},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"}],"groups":[{"title":"Group Title","id":"topics","color":"#037f4c","board_id":27790765}],"created_at":"2017-01-25T16:35:09Z","updated_at":"2017-01-25T16:35:09Z"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards/27790765/subscribers.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:35:11 GMT'
+            ETag: '"9cb8c7bf194c611af1587d0cc75404f2"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Next-Page: ''
+            X-Offset: '0'
+            X-Page: '1'
+            X-Per-Page: '20'
+            X-Prev-Page: ''
+            X-Rack-Cache: miss
+            X-Request-Id: 4b18164f00943e518fc04572aa104198
+            X-Runtime: '0.026344'
+            X-Total: '1'
+            X-Total-Pages: '1'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '471'
+            Connection: keep-alive
+        body: '[{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-01-24T16:18:45Z"}]'
+-
+    request:
+        method: DELETE
+        url: 'https://api.dapulse.com/v1/boards/27790765.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:41:04 GMT'
+            ETag: '"c54c568dd8fdd9758057087828e59a96"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: e9f9d80f5be00c55d634e041414043e9
+            X-Runtime: '0.049265'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '422'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.dapulse.com/boards/27790765","id":27790765,"name":"A New Bored","description":"A purposeful typo","columns":[{"id":"name","title":"Name","type":"name"},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"}],"groups":[{"title":"Group Title","id":"topics","color":"#037f4c","board_id":27790765}],"created_at":"2017-01-25T16:35:09Z","updated_at":"2017-01-25T16:41:04Z"}'
+-
+    request:
+        method: GET
+        url: 'https://api.dapulse.com/v1/boards.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Wed, 25 Jan 2017 16:46:05 GMT'
+            ETag: '"b799079aee37080889399947d51a0440"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Next-Page: ''
+            X-Offset: '0'
+            X-Page: '1'
+            X-Per-Page: '25'
+            X-Prev-Page: ''
+            X-Rack-Cache: miss
+            X-Request-Id: 93d8675510483d593c78598cae445f08
+            X-Runtime: '0.056037'
+            X-Total: '4'
+            X-Total-Pages: '1'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '4837'
+            Connection: keep-alive
+        body: '[{"url":"https://phppulse.dapulse.com/boards/3822730","id":3822730,"name":"High-Level Board","description":"Know where your projects'' execution stands with one glance.\n1. List your projects.\n2. Customize the columns if needed ; you can add or remove columns,  change the names of the columns, or edit the statuses of each tile.\n3. Invite team members to join.\n4. Enjoy seeing where everything''s at with one glance.\n\nBest practice: This is called an Execution Board. You should use it to list only things you are actually going to do , not things you want to do. This will dramatically improve the way you manage your projects.","columns":[{"id":"name","title":"Name","type":"name"},{"title":"Owner","type":"person","id":"person"},{"title":"Specs","type":"color","id":"status","labels":{"0":"Working on it","1":"Done","2":"Blocked","4":"Delayed"}},{"title":"Development","type":"color","id":"status2","labels":{"0":"In Progress","1":"Completed","2":"Halted"}},{"title":"Testing","type":"color","id":"status3","labels":{"0":"Working on it","1":"OK!","2":"REJECTED"}},{"title":"Launch","type":"color","id":"status4","labels":["","It''s OUT!!!","","","","","",""]},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"},{"title":"Due date","type":"date","id":"due_date"}],"groups":[{"title":"This Month (August)","id":"infocus","color":"#037f4c","board_id":3822730},{"title":"Next Month (September)","id":"next","color":"#a64cc3","board_id":3822730}],"created_at":"2015-10-27T16:28:24Z","updated_at":"2015-12-29T15:26:55Z"},{"url":"https://phppulse.dapulse.com/boards/3822740","id":3822740,"name":"Team Tasks","description":"Manage all your team''s tasks in one place -- this Board.\n1. List everyone''s tasks in this Board.\n2. Assign a team member to each task.\n3. Add ONLY tasks you are going to do -- not tasks you want to do. The latter have a tendency of just piling up.\n4. Click each task (row) to go inside to the task''s feed; inside the feed you can have a conversation and share files and images.\n5. At the end of each week drag the This Week group of tasks down, and rename is Last Week.\n\nBest practice: Celebrate the completion of all the week''s tasks with your team.","columns":[{"id":"name","title":"Name","type":"name"},{"title":"Owner","type":"person","id":"person"},{"title":"Status","type":"color","labels":{"0":"Working on it","1":"Done"},"id":"status4"},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"},{"title":"Big Project","type":"text","id":"text"}],"groups":[{"title":"This Week (OCT 27 - OCT 31)","id":"topics","color":"#7ba528","board_id":3822740},{"title":"Next Week (NOV 3 - NOV 7)","color":"#a64cc3","id":"doing","board_id":3822740},{"title":"Last Week (OCT 20 - OCT 24)","color":"#fdab3d","id":"done","board_id":3822740}],"created_at":"2015-10-27T16:28:26Z","updated_at":"2015-12-29T15:26:55Z"},{"url":"https://phppulse.dapulse.com/boards/3844236","id":3844236,"name":"API Mocks","description":"A DaPulse board used for unit testing and providing mocks for the PhpPulse library we use and maintain","columns":[{"id":"name","title":"Name","type":"name"},{"title":"Person","type":"person","id":"person"},{"title":"Status","type":"color","labels":{"0":"Working on it","1":"Done","2":"Need Client Input","3":"Met with Client","5":"Just Assigned","6":"Ordered"},"id":"status","labels_positions":{"0":0,"1":1,"2":2,"3":3,"4":4,"5":10,"6":7,"7":6,"8":5,"9":8,"10":9}},{"title":"Text","type":"text","id":"text"},{"title":"Due date","type":"date","id":"due_date"},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"},{"title":"Numbers","type":"numeric","id":"numbers"},{"title":"Timeline","type":"timerange","id":"timeline"}],"groups":[{"title":"Group One","id":"topics","color":"#037f4c","board_id":3844236},{"title":"Group Two","color":"#e2445c","id":"group_two","board_id":3844236}],"created_at":"2015-10-28T15:23:31Z","updated_at":"2017-01-25T16:18:10Z"},{"url":"https://phppulse.dapulse.com/boards/27168881","id":27168881,"name":"Dynamic Board","description":null,"columns":[{"id":"name","title":"Name","type":"name"},{"id":"last_post","title":"Last Update","type":"lastpost","empty_text":"no updates"},{"title":"Person","type":"person","id":"person"},{"title":"Status","type":"color","labels":{"0":"Working on it","1":"Done"},"id":"status"},{"title":"Text","type":"text","id":"text"},{"title":"Numbers","type":"numeric","id":"numbers"},{"title":"Due date","type":"date","id":"due_date"},{"title":"Timeline","type":"timerange","id":"timeline"},{"title":"Overall Status","type":"color","labels":{"8":"Warning","6":"Success"},"id":"overall_status"}],"groups":[{"title":"Group Title","id":"topics","color":"#037f4c","board_id":27168881}],"created_at":"2017-01-21T04:21:36Z","updated_at":"2017-01-25T16:21:40Z"}]'

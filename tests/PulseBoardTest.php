@@ -4,6 +4,7 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Exceptions\ArgumentMismatchException;
 use allejo\DaPulse\Exceptions\InvalidArraySizeException;
+use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseBoard;
@@ -191,5 +192,45 @@ class PulseBoardTest extends PulseUnitTest
                 break;
             }
         }
+    }
+
+    public function testBoardCreatePulse()
+    {
+        $title = 'Turn off the lights';
+        $board = new PulseBoard(27168881);
+        $pulse = $board->createPulse($title, self::MainUser);
+
+        $this->assertEquals(self::MainUser, $pulse->getSubscribers()[0]->getId());
+        $this->assertEquals($title, $pulse->getName());
+        $this->assertEquals($board->getId(), $pulse->getBoardId());
+        $this->assertEquals('topics', $pulse->getGroupId());
+    }
+
+    public function testBoardCreation()
+    {
+        $name = 'A New Bored';
+        $desc = 'A purposeful typo';
+        $newBoard = PulseBoard::createBoard($name, self::MainUser, $desc);
+
+        $this->assertEquals(self::MainUser, $newBoard->getSubscribers()[0]->getId());
+        $this->assertEquals($name, $newBoard->getName());
+        $this->assertEquals($desc, $newBoard->getDescription());
+    }
+
+    public function testBoardDeletionMarksObjectAsDeleted()
+    {
+        $this->setExpectedException(InvalidObjectException::class);
+
+        $board = new PulseBoard(27790765, true);
+        $board->archiveBoard();
+        $board->archiveBoard();
+    }
+
+    public function testBoardGetAll()
+    {
+        $boards = PulseBoard::getBoards();
+
+        $this->assertCount(4, $boards);
+        $this->assertInstanceOf(PulseBoard::class, $boards[0]);
     }
 }
