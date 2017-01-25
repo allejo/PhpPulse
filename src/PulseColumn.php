@@ -33,6 +33,13 @@ class PulseColumn extends ApiObject
     protected $labels;
     protected $board_id;
 
+    public function __construct ($idOrArray)
+    {
+        $this->arrayConstructionOnly = true;
+
+        parent::__construct($idOrArray);
+    }
+
     public function getId ()
     {
         return $this->id;
