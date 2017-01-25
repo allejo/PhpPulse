@@ -343,7 +343,7 @@ class PulseBoard extends SubscribableObject
      * @since 0.3.0 An array of PulseGroup objects representing the current groups in this board and their states
      * @since 0.1.0
      *
-     * @return PulseGroup[]
+     * @return PulseGroup[] An array containing the remaining groups available on the board
      */
     public function deleteGroup ($groupId)
     {

@@ -4,24 +4,33 @@
 
 - Fix fatal error when `PulseUpdate::getReplies()` was called when it had no replies
 - `Pulse::createUpdate()` now returns the PulseUpdate object that was created
-- Added stricter type checking for `updateValue()` functions for PulseColumns; these functions may now throw an InvalidArgumentException
-- All `getValue()` functions for PulseColumns will now return NULL if there is no value set; except `PulseColumnStatusValue`, which will return `PulseColumnStatusValue::Grey`
+- Added stricter type checking for several functions requiring a user ID or PulseUser; these functions may now throw an InvalidArgumentException
+- All `getValue()` functions for PulseColumns will now return NULL if there is no value set
+    - Except `PulseColumnStatusValue`, which will return `PulseColumnStatusValue::Grey`
 - Added `PulseColumnStatusValue::Gray` as an alias for `PulseColumnStatusValue::Grey`
 - Return type for `PulseUpdate::getAssets()` has been corrected in the documentation; it should return an array
 - `PulseUpdate::getUpdates()` now correctly returns an array of PulseUpdate objects
-- `PulseUpdate::getUpdates()` now checks it's parameters and attempts to automatically convert them to a format DaPulse will accept
+- `PulseUpdate::getUpdates()` now checks its parameters and attempts to automatically convert them to a format DaPulse will accept
 - `PulseUpdate::likeUpdate()` and `PulseUpdate::unlikeUpdate()` now returns boolean values on whether it was successful or not; it also throws an InvalidArgumentException when the given parameter is not a valid user
+- The `PulseColumn` constructor has been fixed to disallow manual creation, it should only be created internally
+- Fix `PulseGroup::isArchived()` and `PulseGroup::isDeleted()` to always return a boolean value; it would return null on occassion
+- `PulseBoard::getGroups` will now automatically ignore archived groups and will correctly know about the parent PulseBoard it belongs to
 - All constructors now support lazy loading as a parameter to the constructor. When an object is lazily created, an API call will be only be made when the information is needed.
+    - Pulse
+    - PulseBoard
+    - PulseUpdate
+    - PulseUser
 
 #### Deprecations
 
-- The following have been deprecated:
-    - `PulseUpdate::getHasAssets()` has been deprecated and been replaced with `PulseUpdate::hasAssets()` (<small>yay, grammar</small>)
-    - `PulseUpdate::getWatches()` is no longer available in the DaPulse API; unless the API changes this will be removed in the next breaking release
+- The following have been deprecated
+    - `PulseUpdate::getHasAssets()` has been deprecated and been replaced with `PulseUpdate::hasAssets()`
+    - `PulseUpdate::getWatchers()` is no longer available in the DaPulse API; unless the API changes this will be removed in the next breaking release
+    - `PulseUser::getIsGuest()` has been deprecated and been replaced with `PulseUser::isGuest()`
 
 - Following deprecated functions have been removed:
     - `PulseUpdate::getUser()` replaced by `PulseUpdate::getAuthor()`
-    - `PulseUser::getMembership()` has been removed
+    - `PulseUser::getMembership()` has been removed due to being an inconsistent part of the DaPulse API. If you would like to access this information, get the JSON representation of the object and access it from there
 
 ### 0.2.1
 
