@@ -122,14 +122,6 @@ class PulseUser extends ApiObject
     protected $updated_at;
 
     /**
-     * The membership type of this user with respect to a specific Pulse or PulseBoard. This value will not be set if
-     * a PulseUser object is created standalone and not by another object which supports subscribers or membership.
-     *
-     * @var mixed
-     */
-    protected $membership;
-
-    /**
      * The URL pattern used for all calls
      *
      * @var string
