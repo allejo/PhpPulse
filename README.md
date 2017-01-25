@@ -1,9 +1,10 @@
 # PhpPulse
 
 [![Stable Release](https://img.shields.io/packagist/v/allejo/php-pulse.svg)](https://packagist.org/packages/allejo/php-pulse)
-[![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=develop)](https://travis-ci.org/allejo/PhpPulse)
-[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/quality-score.png?b=develop)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=develop)
-[![Code Coverage](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/coverage.png?b=develop)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=develop)
+[![Dev Release](https://img.shields.io/packagist/vpre/allejo/php-pulse.svg)](https://packagist.org/packages/allejo/php-pulse)
+[![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=master)](https://travis-ci.org/allejo/PhpPulse)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
 
 A PHP wrapper for working with the [DaPulse API](https://developers.dapulse.com/).
 
@@ -13,7 +14,6 @@ PHP 5.5+
 
 - This library may work with with PHP 5.4, however it's no longer supported
 - If you need PHP 5.3 or 5.4 support, your best bet is using the 0.2.x branch, however it's no longer supported
-
 
 ## Usage
 
