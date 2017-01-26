@@ -74,6 +74,16 @@ class PulseColumnStatusValue extends PulseColumnValue
     const Black = 10;
 
     /**
+     * The lowest status value that exists
+     */
+    const MIN_VALUE = self::Orange;
+
+    /**
+     * The largest status value that exists
+     */
+    const MAX_VALUE = self::Black;
+
+    /**
      * Get the numerical representation of the color that a status column is set to.
      *
      * @api

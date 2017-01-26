@@ -15,6 +15,7 @@
 - The `PulseColumn` constructor has been fixed to disallow manual creation, it should only be created internally
 - Fix `PulseGroup::isArchived()` and `PulseGroup::isDeleted()` to always return a boolean value; it would return null on occassion
 - `PulseBoard::getGroups` will now automatically ignore archived groups and will correctly know about the parent PulseBoard it belongs to
+- `PulseColumn::getLabels()` now throws an InvalidColumnException and will always return an array of 11 labels; any label not set will be set to an empty string
 - All constructors now support lazy loading as a parameter to the constructor. When an object is lazily created, an API call will be only be made when the information is needed.
     - Pulse
     - PulseBoard

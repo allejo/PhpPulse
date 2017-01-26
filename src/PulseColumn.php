@@ -7,7 +7,9 @@
 
 namespace allejo\DaPulse;
 
+use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Objects\ApiObject;
+use allejo\DaPulse\Objects\PulseColumnStatusValue as StatusColumn;
 
 /**
  * Class PulseColumn
@@ -33,9 +35,12 @@ class PulseColumn extends ApiObject
     protected $labels;
     protected $board_id;
 
+    private $labelsSanityCheck;
+
     public function __construct ($idOrArray)
     {
         $this->arrayConstructionOnly = true;
+        $this->labelsSanityCheck = false;
 
         parent::__construct($idOrArray);
     }
@@ -80,9 +85,25 @@ class PulseColumn extends ApiObject
         return $this->empty_text;
     }
 
+    /**
+     * Get the labels for a Status column type
+     *
+     * @throws InvalidColumnException if the column is not a Status column
+     *
+     * @since  0.3.0 An InvalidColumnException is thrown when the given column is not a status column
+     * @since  0.1.0
+     *
+     * @return string[]
+     */
     public function getLabels ()
     {
+        if ($this->getType() != PulseColumn::Status)
+        {
+            throw new InvalidColumnException('This column type does not contain labels');
+        }
+
         $this->lazyLoad();
+        $this->sanitizeLabels();
 
         return $this->labels;
     }
@@ -129,5 +150,23 @@ class PulseColumn extends ApiObject
     private function getColumnsUrl ()
     {
         return sprintf("%s/%d/columns/%s.json", parent::apiEndpoint(), $this->getBoardId(), $this->getId());
+    }
+
+    /**
+     * DaPulse will only set labels if it has content
+     */
+    private function sanitizeLabels ()
+    {
+        if ($this->labelsSanityCheck)
+        {
+            return;
+        }
+
+        for ($i = StatusColumn::MIN_VALUE; $i <= StatusColumn::MAX_VALUE; $i++)
+        {
+            !isset($this->labels[$i]) && $this->labels[$i] = '';
+        }
+
+        $this->labelsSanityCheck = true;
     }
 }

@@ -4,6 +4,7 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Exceptions\ArgumentMismatchException;
 use allejo\DaPulse\Exceptions\InvalidArraySizeException;
+use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Pulse;
@@ -105,6 +106,22 @@ class PulseBoardTest extends PulseUnitTest
         $this->assertIsArray($columns);
         $this->assertCount(8, $columns); // 6 custom columns + "name" + "last update"
         $this->assertInstanceOf(PulseColumn::class, $columns[0]);
+    }
+
+    public function testGetBoardStatusColumnLabels()
+    {
+        $columns = $this->board->getColumns();
+        $labels = $columns[2]->getLabels();
+
+        $this->assertCount(11, $labels);
+    }
+
+    public function testGetBoardTextColumnLabelsThrowsException()
+    {
+        $this->setExpectedException(InvalidColumnException::class);
+
+        $columns = $this->board->getColumns();
+        $columns[0]->getLabels();
     }
 
     public function testGetBoardGroups()
