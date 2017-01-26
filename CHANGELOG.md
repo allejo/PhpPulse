@@ -27,6 +27,7 @@
     - `PulseUpdate::getHasAssets()` has been deprecated and been replaced with `PulseUpdate::hasAssets()`
     - `PulseUpdate::getWatchers()` is no longer available in the DaPulse API; unless the API changes this will be removed in the next breaking release
     - `PulseUser::getIsGuest()` has been deprecated and been replaced with `PulseUser::isGuest()`
+    - `PulseColumn::getEmptyText()` has been deprecated and will be removed in the next breaking release. This information is only set on the "Last Update" column; if you need access to this value, get the JSON equivalent of the object and access the 'empty_text' key.
 
 - Following deprecated functions have been removed:
     - `PulseUpdate::getUser()` replaced by `PulseUpdate::getAuthor()`
