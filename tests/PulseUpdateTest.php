@@ -21,6 +21,24 @@ class PulseUpdatesTest extends PulseUnitTest
         $this->updates = $this->pulseWithUpdates->getUpdates();
     }
 
+    public function testCreateUpdate ()
+    {
+        $body = "Violently frying donuts in a deep fryer";
+        $pulse = new Pulse(27345095, true);
+        $update = $pulse->createUpdate(self::MainUser, $body);
+
+        $this->assertInstanceOf(PulseUpdate::class, $update);
+        $this->assertEquals($body, $update->getBody());
+    }
+
+    public function testCreateUpdateWithInvalidUserThrowsException ()
+    {
+        $this->setExpectedException(\InvalidArgumentException::class);
+
+        $pulse = new Pulse(27345095, true);
+        $pulse->createUpdate("My User", "Super toast");
+    }
+
     public function testPulseGetTwoUpdates ()
     {
         $this->assertCount(2, $this->updates);

@@ -481,22 +481,17 @@ class PulseUpdate extends ApiObject
      * @param  string        $text          The content of the update
      * @param  null|bool     $announceToAll Whether or not to announce this update to everyone's wall
      *
+     * @since  0.3.0 An InvalidArgumentException can now be thrown
      * @since  0.1.0
+     *
+     * @throws \InvalidArgumentException if $user is not an integer, is not positive, or is not a PulseUser object
      *
      * @return PulseUpdate
      */
     public static function createUpdate ($user, $pulse, $text, $announceToAll = null)
     {
-        if ($user instanceof PulseUser)
-        {
-            $user = $user->getId();
-        }
-
-        if ($pulse instanceof Pulse)
-        {
-            $pulse = $pulse->getId();
-        }
-
+        $user   = PulseUser::_castToInt($user);
+        $pulse  = ($pulse instanceof Pulse) ? $pulse->getId() : $pulse;
         $url    = sprintf("%s.json", self::apiEndpoint());
         $params = [
             "user"        => $user,
