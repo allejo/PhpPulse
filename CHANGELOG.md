@@ -1,6 +1,6 @@
 # Changelog
 
-### 0.3.0 (In Development)
+### 0.3.0
 
 - Fix fatal error when `PulseUpdate::getReplies()` was called when it had no replies
 - `Pulse::createUpdate()` now returns the PulseUpdate object that was created
