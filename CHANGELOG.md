@@ -1,5 +1,7 @@
 # Changelog
 
+### HEAD
+
 ### 0.3.0
 
 - Fix fatal error when `PulseUpdate::getReplies()` was called when it had no replies
