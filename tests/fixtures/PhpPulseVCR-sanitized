@@ -1445,3 +1445,118 @@
             Content-Length: '816'
             Connection: keep-alive
         body: '{"user_id":303448,"user":{"url":"https://phppulse.dapulse.com/users/303448-vladimir-jimenez","id":303448,"name":"Vladimir Jimenez","email":"email@domain.com","photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","title":"Maintainer","position":null,"phone":"8005554738","location":"Los Angeles, California","status":null,"birthday":"2000-11-15","is_guest":false,"created_at":"2015-10-27T16:27:10Z","updated_at":"2017-02-07T15:59:56Z"},"url":"https://phppulse.dapulse.com/posts/26665534","id":26665534,"body":"Violently frying donuts in a deep fryer","kind":"update","has_assets":false,"assets":[],"body_text":"Violently frying donuts in a deep fryer","replies":[],"created_at":"2017-02-07T16:01:51Z","updated_at":"2017-02-07T16:01:51Z","pulse_id":27345095}'
+-
+    request:
+        method: POST
+        url: 'https://api.dapulse.com/v1/pulses/27345095/notes.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'id=27345095&title=Violently%20Making%20Toast&content=By%20adding%20the%20word%20%27violently%27%20in%20front%20a%20phrase%2C%20it%20makes%20the%20phrase%20more%20amusing&owners_only=true&create_update=false'
+    response:
+        status:
+            http_version: '1.1'
+            code: '201'
+            message: Created
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Tue, 07 Feb 2017 17:59:27 GMT'
+            ETag: '"2dd4145516f9c08434eba3f58a025fe5"'
+            Server: 'UDI 0.13.36'
+            Status: '201 Created'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 0e8dcebc9fceb135dc2383ef9fb3f7d9
+            X-Runtime: '0.073033'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '278'
+            Connection: keep-alive
+        body: '{"type":"rich_text","id":1436885,"title":"Violently Making Toast","project_id":27345095,"permissions":"owners","content":"By adding the word ''violently'' in front a phrase, it makes the phrase more amusing","created_at":"2017-02-07T17:59:27Z","updated_at":"2017-02-07T17:59:27Z"}'
+-
+    request:
+        method: PUT
+        url: 'https://api.dapulse.com/v1/pulses/27345095/notes/1436885.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'id=27345095&note_id=1436885&title=My%20new%20title'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Tue, 07 Feb 2017 18:21:33 GMT'
+            ETag: '"6ece80b816a0579b90f9a789667a90a9"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 85c49da05bc5c8e3c7465635f18e485c
+            X-Runtime: '0.075977'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '268'
+            Connection: keep-alive
+        body: '{"type":"rich_text","id":1436885,"title":"My new title","project_id":27345095,"permissions":"owners","content":"By adding the word ''violently'' in front a phrase, it makes the phrase more amusing","created_at":"2017-02-07T17:59:27Z","updated_at":"2017-02-07T18:21:32Z"}'
+-
+    request:
+        method: PUT
+        url: 'https://api.dapulse.com/v1/pulses/27345095/notes/1436885.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+        body: 'id=27345095&note_id=1436885&content=The%20world%20that%20the%20children%20made%2C%20here%21'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Tue, 07 Feb 2017 18:21:34 GMT'
+            ETag: '"7f46fbe3ca90ccbd1b5572f73aba93f6"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 882b7de45654890018b407d80e2f7c34
+            X-Runtime: '0.089709'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '225'
+            Connection: keep-alive
+        body: '{"type":"rich_text","id":1436885,"title":"My new title","project_id":27345095,"permissions":"owners","content":"The world that the children made, here!","created_at":"2017-02-07T17:59:27Z","updated_at":"2017-02-07T18:21:34Z"}'
+-
+    request:
+        method: DELETE
+        url: 'https://api.dapulse.com/v1/pulses/27345095/notes/1436885.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.dapulse.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.dapulse.com *.dapulse.dev *.realize.io https://realize.io https://dapulse.com'
+            Content-Type: application/json
+            Date: 'Tue, 07 Feb 2017 18:21:36 GMT'
+            ETag: '"d751713988987e9331980363e24189ce"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 4cff6a515d9d11aa59a16c2fb882730b
+            X-Runtime: '0.095425'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '2'
+            Connection: keep-alive
+        body: '[]'
