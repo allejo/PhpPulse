@@ -7,6 +7,8 @@
 
 namespace allejo\DaPulse\Objects;
 
+use allejo\DaPulse\Exceptions\ColumnNotFoundException;
+use allejo\DaPulse\Exceptions\HttpException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\PulseColumn;
 
@@ -81,6 +83,8 @@ abstract class PulseColumnValue extends ApiObject
      */
     public function getValue ()
     {
+        $this->lazyLoad();
+
         if ($this->isNullValue())
         {
             return static::DEFAULT_VALUE;
@@ -145,6 +149,30 @@ abstract class PulseColumnValue extends ApiObject
     protected function isNullValue ()
     {
         return (is_null($this->jsonResponse["value"]) && !isset($this->column_value));
+    }
+
+    protected function lazyLoad ()
+    {
+        if (!array_key_exists('value', $this->jsonResponse))
+        {
+            $url    = sprintf("%s/%d/columns/%s/value.json", self::apiEndpoint("boards"), $this->board_id, $this->column_id);
+            $params = [
+                "pulse_id" => $this->pulse_id
+            ];
+
+            try
+            {
+                $results = self::sendGet($url, $params);
+            }
+            catch (HttpException $e)
+            {
+                throw new ColumnNotFoundException("The '$this->column_id' column could not be found");
+            }
+
+            // Store our value inside of jsonResponse so all of the respective objects can treat the data the same
+            // as when accessed through a PulseBoard
+            $this->jsonResponse['value'] = $results['value'];
+        }
     }
 
     /**

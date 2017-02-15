@@ -202,4 +202,13 @@ class PulseColumnSettersTest extends PulseUnitTest
 
         $this->pulse->getPersonColumn('person')->updateValue($value);
     }
+
+    public function testSettingNonExistentColumn()
+    {
+        $this->markTestIncomplete('I need to get the response from DaPulse to create the mock');
+
+        $this->setExpectedException('allejo\DaPulse\Exceptions\ColumnNotFoundException');
+
+        $this->pulse->getTextColumn("non-existent")->updateValue('Hello world');
+    }
 }
