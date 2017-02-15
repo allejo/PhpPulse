@@ -7,6 +7,7 @@
 
 namespace allejo\DaPulse\Objects;
 
+use allejo\DaPulse\Exceptions\ColumnNotFoundException;
 use allejo\DaPulse\PulseUser;
 
 /**
@@ -22,7 +23,10 @@ class PulseColumnPersonValue extends PulseColumnValue
      *
      * @api
      *
+     * @since  0.4.0 ColumnNotFoundException is now thrown
      * @since  0.1.0
+     *
+     * @throws ColumnNotFoundException The specified column ID does not exist for the parent Pulse
      *
      * @return PulseUser|null Null is returned when no person is listed in this person column
      */

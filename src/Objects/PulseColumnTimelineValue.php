@@ -7,6 +7,8 @@
 
 namespace allejo\DaPulse\Objects;
 
+use allejo\DaPulse\Exceptions\ColumnNotFoundException;
+
 /**
  * Class PulseColumnTextValue
  *
@@ -20,7 +22,10 @@ class PulseColumnTimelineValue extends PulseColumnValue
      *
      * @api
      *
+     * @since  0.4.0 ColumnNotFoundException is now thrown
      * @since  0.2.1
+     *
+     * @throws ColumnNotFoundException The specified column ID does not exist for the parent Pulse
      *
      * @return \DateTime[]|null The timeline's begin and end dates
      *
