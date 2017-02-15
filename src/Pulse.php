@@ -373,9 +373,9 @@ class Pulse extends SubscribableObject
      *
      * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
+     * @since  0.4.0  ColumnNotFoundException will no longer thrown, instead it'll be thrown when getValue() is called
      * @since  0.1.0
      *
-     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
      * @throws InvalidColumnException  The specified column is not a "color" type column
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
@@ -396,9 +396,9 @@ class Pulse extends SubscribableObject
      *
      * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
+     * @since  0.4.0  ColumnNotFoundException will no longer thrown, instead it'll be thrown when getValue() is called
      * @since  0.1.0
      *
-     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
      * @throws InvalidColumnException  The specified column is not a "date" type column
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
@@ -419,9 +419,9 @@ class Pulse extends SubscribableObject
      *
      * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
+     * @since  0.4.0  ColumnNotFoundException will no longer thrown, instead it'll be thrown when getValue() is called
      * @since  0.2.0
      *
-     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
      * @throws InvalidColumnException  The specified column is not a "numeric" type column
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
@@ -442,9 +442,9 @@ class Pulse extends SubscribableObject
      *
      * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
+     * @since  0.4.0  ColumnNotFoundException will no longer thrown, instead it'll be thrown when getValue() is called
      * @since  0.1.0
      *
-     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
      * @throws InvalidColumnException  The specified column is not a "person" type column
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
@@ -487,8 +487,9 @@ class Pulse extends SubscribableObject
      *
      * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
+     * @since  0.4.0  ColumnNotFoundException will no longer thrown, instead it'll be thrown when getValue() is called
      * @since  0.1.0
-     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     *
      * @throws InvalidColumnException  The specified column is not a "text" type column
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
@@ -564,27 +565,7 @@ class Pulse extends SubscribableObject
             // We can't find the key, this means that we got our information from accessing a Pulse directly instead of
             // getting it through a PulseBoard. This isn't as robust as accessing a PulseBoard but it's more efficient.
             // We make a separate API call to get the value of a column.
-            if ($key === false)
-            {
-                $url    = sprintf("%s/%d/columns/%s/value.json", self::apiEndpoint("boards"), $this->getBoardId(), $columnId);
-                $params = [
-                    "pulse_id" => $this->getId()
-                ];
-
-                try
-                {
-                    $results = self::sendGet($url, $params);
-                }
-                catch (HttpException $e)
-                {
-                    throw new ColumnNotFoundException("The '$columnId' column could not be found");
-                }
-
-                // Store our value inside of jsonResponse so all of the respective objects can treat the data the same
-                // as when accessed through a PulseBoard
-                $data['jsonResponse']['value'] = $results['value'];
-            }
-            else
+            if ($key !== false)
             {
                 $data = $this->raw_column_values[$key];
                 $type = $this->column_structure[$key]->getType();

@@ -148,7 +148,7 @@ class PulseColumnGettersTest extends PulseUnitTest
     {
         $this->setExpectedException('allejo\DaPulse\Exceptions\ColumnNotFoundException');
 
-        $this->pulses[1]->getDateColumn("non-existent");
+        $this->pulses[1]->getDateColumn("non-existent")->getValue();
     }
 
     public function testGetWrongColumnType()

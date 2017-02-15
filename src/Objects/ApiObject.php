@@ -160,7 +160,7 @@ abstract class ApiObject implements \JsonSerializable
     {
         if (empty($this->jsonResponse))
         {
-            $this->jsonResponse = $this::sendGet($this->urlEndPoint);
+            $this->jsonResponse = $this->sendGet($this->urlEndPoint);
             $this->assignResults();
         }
     }
