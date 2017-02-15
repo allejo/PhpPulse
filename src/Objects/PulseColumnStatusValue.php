@@ -7,6 +7,8 @@
 
 namespace allejo\DaPulse\Objects;
 
+use allejo\DaPulse\Exceptions\ColumnNotFoundException;
+
 /**
  * Class PulseColumnColorValue
  *
@@ -88,7 +90,10 @@ class PulseColumnStatusValue extends PulseColumnValue
      *
      * @api
      *
+     * @since  0.4.0 ColumnNotFoundException is now thrown
      * @since  0.1.0
+     *
+     * @throws ColumnNotFoundException The specified column ID does not exist for the parent Pulse
      *
      * @return int The color value of a column
      */
