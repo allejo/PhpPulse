@@ -22,7 +22,7 @@
   "autoload-dev": {
     "classmap": [
       "docs/",
-      "tests/Utilities/"
+      "tests/utilities/"
     ]
   },
   "authors": [
