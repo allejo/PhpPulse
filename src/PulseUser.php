@@ -18,9 +18,6 @@ use allejo\DaPulse\Objects\ApiObject;
  */
 class PulseUser extends ApiObject
 {
-    /**
-     * {@inheritdoc}
-     */
     const API_PREFIX = "users";
 
     /**

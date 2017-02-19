@@ -389,7 +389,7 @@ class Pulse extends SubscribableObject
     /**
      * Access a date type column value belonging to this pulse in order to read it or modify.
      *
-     * This function should only be used to access data type values; an exception will be thrown otherwise.
+     * This function should only be used to access date type values; an exception will be thrown otherwise.
      *
      * @api
      *
@@ -412,7 +412,7 @@ class Pulse extends SubscribableObject
     /**
      * Access a numeric type column value belonging to this pulse in order to read it or modify.
      *
-     * This function should only be used to access data type values; an exception will be thrown otherwise.
+     * This function should only be used to access number type values; an exception will be thrown otherwise.
      *
      * @api
      *
@@ -481,7 +481,7 @@ class Pulse extends SubscribableObject
     /**
      * Access a timeline type column value belonging to this pulse in order to read it or modify.
      *
-     * This function should only be used to access data type values; an exception will be thrown otherwise.
+     * This function should only be used to access timeline type values; an exception will be thrown otherwise.
      *
      * @api
      *
