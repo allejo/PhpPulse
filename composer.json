@@ -23,6 +23,9 @@
     "classmap": [
       "docs/",
       "tests/utilities/"
+    ],
+    "exclude-from-classmap": [
+      "docs/api/"
     ]
   },
   "authors": [
