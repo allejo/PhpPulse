@@ -10,13 +10,19 @@
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8.31",
-    "apigen/apigen": "dev-master",
-    "php-vcr/php-vcr": "^1.3"
+    "php-vcr/php-vcr": "^1.3",
+    "phpdocumentor/reflection-docblock": "^2.0.4",
+    "sami/sami": "^4.0"
   },
   "autoload": {
     "classmap": [
-      "tests/",
       "src/"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
+      "docs/",
+      "tests/Utilities/"
     ]
   },
   "authors": [
@@ -39,7 +45,7 @@
     ],
     "docs": [
       "composer install",
-      "vendor/bin/apigen generate"
+      "vendor/bin/sami.php update docs/sami-config.php"
     ],
     "test": [
       "./vendor/bin/phpunit"
