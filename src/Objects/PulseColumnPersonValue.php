@@ -60,9 +60,6 @@ class PulseColumnPersonValue extends PulseColumnValue
         $this->setValue($result);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     protected function isNullValue ()
     {
         // Thank you very much, DaPulse. Changing the return type of an API endpoint clearly does not break any existing

@@ -149,7 +149,13 @@ abstract class ApiObject implements \JsonSerializable
     }
 
     /**
-     * {@inheritdoc}
+     * Access the JSON response from DaPulse used to create this wrapper object
+     *
+     * If a wrapper getter function isn't available for a certain value, use this function to access the value directly.
+     *
+     * @api
+     * @since 0.2.0
+     * @return mixed
      */
     public function jsonSerialize ()
     {
@@ -163,25 +169,6 @@ abstract class ApiObject implements \JsonSerializable
             $this->jsonResponse = $this->sendGet($this->urlEndPoint);
             $this->assignResults();
         }
-    }
-
-    // ================================================================================================================
-    //   Getter functions
-    // ================================================================================================================
-
-    /**
-     * Access the JSON response from DaPulse directly
-     *
-     * @api
-     * @deprecated 0.3.0 Feed this object to json_encode() to get the JSON representation of this object instead or call
-     *                   `jsonSerialize()`
-     * @since      0.1.0
-     * @todo       Remove at 0.4.0 or next breaking release
-     * @return array
-     */
-    final public function getJson ()
-    {
-        return $this->jsonSerialize();
     }
 
     // ================================================================================================================
