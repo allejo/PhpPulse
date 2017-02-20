@@ -12,7 +12,7 @@ $iterator = Finder::create()
     ->in($dir = __DIR__ . '/../src')
 ;
 
-// generate documentation for all v2.0.* tags, the 2.0 branch, and the master one
+// generate documentation for all 0.* branches and the master branch
 $versions = GitVersionCollection::create($dir)
     ->add('0.3', '0.3 branch')
     ->add('0.2', '0.2 branch')
