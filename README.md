@@ -38,6 +38,12 @@ foreach ($boards as $board)
 }
 ```
 
+### Deprecations & Backward Compatibility
+
+This project is completely stable but hasn't reached 1.0.0 since there are things that still may change. If any functions are deprecated, they will be removed in the next next minor release; for example, if something has been deprecated in the 0.1.x branch then it will be removed starting with the 0.3.0 release onwards. All deprecations and removals are documented via the `@deprecated` tag in the phpDocs, in the change log, and GitHub releases.
+
+This practice is subject to change once this project reaches 1.0.0.
+
 ## Getting Help
 
 To get help, you may either [create an issue](https://github.com/allejo/PhpPulse/issues) or stop by IRC; I'm available on IRC as "allejo" so feel free to ping me. I recommend creating an issue in case others have the same question but for quick help, IRC works just fine.
