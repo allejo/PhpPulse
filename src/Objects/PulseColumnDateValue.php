@@ -62,6 +62,7 @@ class PulseColumnDateValue extends PulseColumnValue
         ];
 
         $result = self::sendPut($url, $postParams);
+        $this->jsonResponse = $result;
         $this->setValue($result);
     }
 
