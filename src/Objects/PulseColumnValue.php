@@ -151,12 +151,12 @@ abstract class PulseColumnValue extends ApiObject
      */
     protected function isNullValue ()
     {
-        return (is_null($this->jsonResponse["value"]) && !isset($this->column_value));
+        return (!isset($this->column_value) && is_null($this->jsonResponse["value"]));
     }
 
     protected function lazyLoad ()
     {
-        if (!array_key_exists('value', $this->jsonResponse))
+        if (!array_key_exists('value', $this->jsonResponse) && is_null($this->column_value))
         {
             $url    = sprintf("%s/%d/columns/%s/value.json", self::apiEndpoint("boards"), $this->board_id, $this->column_id);
             $params = [
