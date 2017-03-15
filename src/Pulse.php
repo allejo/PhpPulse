@@ -8,7 +8,6 @@
 namespace allejo\DaPulse;
 
 use allejo\DaPulse\Exceptions\ColumnNotFoundException;
-use allejo\DaPulse\Exceptions\HttpException;
 use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\PulseColumnDateValue;
@@ -465,8 +464,9 @@ class Pulse extends SubscribableObject
      *
      * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
+     * @since  0.4.0  ColumnNotFoundException will no longer thrown, instead it'll be thrown when getValue() is called
      * @since  0.3.4
-     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
+     *
      * @throws InvalidColumnException  The specified column is not a "text" type column
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
@@ -510,9 +510,9 @@ class Pulse extends SubscribableObject
      *
      * @param  string $columnId The ID of the column to access. This is typically a slugified version of the column name
      *
+     * @since  0.4.0  ColumnNotFoundException will no longer thrown, instead it'll be thrown when getValue() is called
      * @since  0.2.1
      *
-     * @throws ColumnNotFoundException The specified column ID does not exist for this Pulse
      * @throws InvalidColumnException  The specified column is not a "numeric" type column
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
@@ -548,7 +548,6 @@ class Pulse extends SubscribableObject
      *
      * @since  0.3.1
      *
-     * @throws ColumnNotFoundException The specified column could not be found
      * @throws InvalidColumnException  The specified column is not the same type as specified in `$columnType`
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
