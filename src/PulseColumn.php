@@ -37,6 +37,13 @@ class PulseColumn extends ApiObject
 
     private $labelsSanityCheck;
 
+    /**
+     * PulseColumn constructor.
+     *
+     * @internal
+     *
+     * @param array $idOrArray
+     */
     public function __construct ($idOrArray)
     {
         $this->arrayConstructionOnly = true;

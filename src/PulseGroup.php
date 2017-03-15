@@ -21,6 +21,13 @@ class PulseGroup extends ApiObject
     protected $archived;
     protected $deleted;
 
+    /**
+     * PulseGroup constructor.
+     *
+     * @internal
+     *
+     * @param array $array
+     */
     public function __construct ($array)
     {
         $this->arrayConstructionOnly = true;

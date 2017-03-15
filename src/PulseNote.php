@@ -74,6 +74,13 @@ class PulseNote extends ApiObject
      */
     protected $updated_at;
 
+    /**
+     * PulseNote constructor.
+     *
+     * @internal
+     *
+     * @param array $array
+     */
     public function __construct ($array)
     {
         $this->arrayConstructionOnly = true;
