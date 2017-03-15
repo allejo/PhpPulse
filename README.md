@@ -42,7 +42,7 @@ foreach ($boards as $board)
 
 This project is completely stable but hasn't reached 1.0.0 since there are things that still may change. If any functions are deprecated, they will be removed in the next next minor release; for example, if something has been deprecated in the 0.1.x branch then it will be removed starting with the 0.3.0 release onwards. All deprecations and removals are documented via the `@deprecated` tag in the phpDocs, in the change log, and GitHub releases.
 
-This practice is subject to change once this project reaches 1.0.0.
+With the exception of deprecated functionality being removed faster during the 0.x stage, this project will do its best to abide by [Symfony's Backward Compatibility promise](http://symfony.com/doc/current/contributing/code/bc.html). This practice is subject to change once this project reaches 1.0.0.
 
 ## Getting Help
 
