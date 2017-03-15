@@ -8,7 +8,6 @@
 namespace allejo\DaPulse;
 
 use allejo\DaPulse\Exceptions\ColumnNotFoundException;
-use allejo\DaPulse\Exceptions\HttpException;
 use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\PulseColumnDateValue;
@@ -502,22 +501,30 @@ class Pulse extends SubscribableObject
     }
 
     /**
-     * Build a pulse's column object if it doesn't exist or return the existing column.
+     * Access a column belonging to this pulse in order to read it or modify it
+     *
+     * @api
      *
      * @param  string $columnId   The ID of the column to access. This is typically a slugified version of the column
      *                            title
-     * @param  string $columnType The type of column being accessed: 'text', 'color', 'person', 'numeric', or 'date'
+     * @param  string $columnType The type of column being accessed. **Only** use available constants or PulseColumn::getType()
      *
-     * @since  0.4.0  ColumnNotFoundException will no longer thrown, instead it'll be thrown when getValue() is called
-     * @since  0.1.0
+     * @see    PulseColumn::Date
+     * @see    PulseColumn::Numeric
+     * @see    PulseColumn::Person
+     * @see    PulseColumn::Status
+     * @see    PulseColumn::Text
+     * @see    PulseColumn::Timeline
+     *
+     * @since  0.3.1
      *
      * @throws InvalidColumnException  The specified column is not the same type as specified in `$columnType`
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
      *
-     * @return PulseColumnValue The returned object will be a child of this abstract class.
+     * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnNumericValue|PulseColumnPersonValue|PulseColumnTextValue|PulseColumnTimelineValue The returned object will be a child of this abstract class.
      */
-    private function getColumn ($columnId, $columnType)
+    public function getColumn ($columnId, $columnType)
     {
         if (!isset($this->column_values) || !array_key_exists($columnId, $this->column_values))
         {
