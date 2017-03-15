@@ -208,20 +208,6 @@ class PulseUpdate extends ApiObject
     }
 
     /**
-     * Retrieve whether or not this update has any attachments
-     *
-     * @api
-     * @todo       Remove at 0.4.0 or next major release
-     * @deprecated 0.3.0 Use PulseUpdate::hasAssets(). To be removed in 0.4.0
-     * @since      0.1.0
-     * @return string
-     */
-    public function getHasAssets ()
-    {
-        return $this->hasAssets();
-    }
-
-    /**
      * Get an array of this update's assets
      *
      * Sample array structure of assets
@@ -299,21 +285,6 @@ class PulseUpdate extends ApiObject
         self::lazyCast($this->updated_at, '\DateTime');
 
         return $this->updated_at;
-    }
-
-    /**
-     * Get the users watching this update
-     *
-     * @api
-     * @todo       Remove at 0.4.0 or next major release
-     * @deprecated 0.3.0 This data is no longer provided by the DaPulse API; this function will be removed in the next
-     *                   major release with planned replacement
-     * @since      0.1.0
-     * @return PulseUser[]
-     */
-    public function getWatchers ()
-    {
-        return [];
     }
 
     /**
