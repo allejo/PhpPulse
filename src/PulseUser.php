@@ -304,20 +304,6 @@ class PulseUser extends ApiObject
     }
 
     /**
-     * True if the user is guest, false otherwise
-     *
-     * @api
-     * @todo Remove this function at 0.4.0 or next breaking release
-     * @deprecated 0.3.0 Use PulseUser::isGuest() instead
-     * @since  0.1.0
-     * @return bool
-     */
-    public function getIsGuest ()
-    {
-        return $this->isGuest();
-    }
-
-    /**
      * The user's skills.
      *
      * @api

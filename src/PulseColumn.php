@@ -79,21 +79,6 @@ class PulseColumn extends ApiObject
     }
 
     /**
-     * @api
-     * @todo Remove at 0.4.0 or next breaking release
-     * @deprecated 0.3.0 This information is only set on the "Last Update" column and therefore shall be removed. This
-     *                   value is still available by getting the JSON equivalent of the object if it's needed.
-     * @since  0.1.0
-     * @return string|null
-     */
-    public function getEmptyText ()
-    {
-        $this->lazyLoad();
-
-        return $this->empty_text;
-    }
-
-    /**
      * Get the labels for a Status column type
      *
      * @throws InvalidColumnException if the column is not a Status column
