@@ -8,6 +8,7 @@
 namespace allejo\DaPulse;
 
 use allejo\DaPulse\Exceptions\ColumnNotFoundException;
+use allejo\DaPulse\Exceptions\HttpException;
 use allejo\DaPulse\Exceptions\InvalidColumnException;
 use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Objects\PulseColumnDateValue;
