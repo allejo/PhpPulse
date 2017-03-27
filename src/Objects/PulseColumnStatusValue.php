@@ -153,7 +153,23 @@ class PulseColumnStatusValue extends PulseColumnValue
      */
     public static function getHexColor ($numericalValue)
     {
-        $colorArray = [
+        $colorArray = self::getHexColors();
+
+        return $colorArray[$numericalValue];
+    }
+
+    /**
+     * Get an array of hex values for each of the statuses
+     *
+     * @api
+     *
+     * @since  0.3.1
+     *
+     * @return array
+     */
+    public static function getHexColors ()
+    {
+        return [
             self::Orange  => "fdab3d",
             self::L_Green => "00c875",
             self::Red     => "e2445c",
@@ -166,8 +182,6 @@ class PulseColumnStatusValue extends PulseColumnValue
             self::Black   => "333333",
             self::Grey    => "c4c4c4"
         ];
-
-        return $colorArray[$numericalValue];
     }
 
     protected function setValue ($response)
