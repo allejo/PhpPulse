@@ -112,17 +112,17 @@ class PulseColumnStatusValue extends PulseColumnValue
      *
      * @param int $color The numerical value of the new color value
      *
-     * @see   PulseColumnStatusValue::Orange  PulseColumnStatusValue::Orange
-     * @see   PulseColumnStatusValue::L_Green PulseColumnStatusValue::L_Green
-     * @see   PulseColumnStatusValue::Red     PulseColumnStatusValue::Red
-     * @see   PulseColumnStatusValue::Blue    PulseColumnStatusValue::Blue
-     * @see   PulseColumnStatusValue::Purple  PulseColumnStatusValue::Purple
-     * @see   PulseColumnStatusValue::Grey    PulseColumnStatusValue::Grey
-     * @see   PulseColumnStatusValue::Green   PulseColumnStatusValue::Green
-     * @see   PulseColumnStatusValue::L_Blue  PulseColumnStatusValue::L_Blue
-     * @see   PulseColumnStatusValue::Gold    PulseColumnStatusValue::Gold
-     * @see   PulseColumnStatusValue::Yellow  PulseColumnStatusValue::Yellow
-     * @see   PulseColumnStatusValue::Black   PulseColumnStatusValue::Black
+     * @see   PulseColumnStatusValue::Orange
+     * @see   PulseColumnStatusValue::L_Green
+     * @see   PulseColumnStatusValue::Red
+     * @see   PulseColumnStatusValue::Blue
+     * @see   PulseColumnStatusValue::Purple
+     * @see   PulseColumnStatusValue::Grey
+     * @see   PulseColumnStatusValue::Green
+     * @see   PulseColumnStatusValue::L_Blue
+     * @see   PulseColumnStatusValue::Gold
+     * @see   PulseColumnStatusValue::Yellow
+     * @see   PulseColumnStatusValue::Black
      *
      * @since 0.1.0
      *
