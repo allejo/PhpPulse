@@ -501,7 +501,7 @@ class Pulse extends SubscribableObject
     }
 
     /**
-     * Access a column belonging to this pulse in order to read it or modify it
+     * Access a column belonging to this pulse in order to read it or modify it.
      *
      * @api
      *
@@ -515,6 +515,12 @@ class Pulse extends SubscribableObject
      * @see    PulseColumn::Status
      * @see    PulseColumn::Text
      * @see    PulseColumn::Timeline
+     * @see    PulseColumnDateValue
+     * @see    PulseColumnNumericValue
+     * @see    PulseColumnPersonValue
+     * @see    PulseColumnStatusValue
+     * @see    PulseColumnTextValue
+     * @see    PulseColumnTimelineValue
      *
      * @since  0.3.1
      *
@@ -523,7 +529,7 @@ class Pulse extends SubscribableObject
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
      *
-     * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnNumericValue|PulseColumnPersonValue|PulseColumnTextValue|PulseColumnTimelineValue The returned object will be a child of this abstract class.
+     * @return mixed Returns an instance of an object extending the PulseColumnValue class
      */
     public function getColumn ($columnId, $columnType)
     {
