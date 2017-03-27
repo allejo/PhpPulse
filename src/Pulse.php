@@ -518,6 +518,7 @@ class Pulse extends SubscribableObject
      *
      * @since  0.3.1
      *
+     * @throws ColumnNotFoundException The specified column could not be found
      * @throws InvalidColumnException  The specified column is not the same type as specified in `$columnType`
      * @throws InvalidObjectException  The specified column exists but modification of its value is unsupported either
      *                                 by this library or the DaPulse API.
