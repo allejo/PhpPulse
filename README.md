@@ -6,6 +6,8 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
 
+[![Join the chat at https://gitter.im/allejo/PhpPulse](https://badges.gitter.im/allejo/PhpPulse.svg)](https://gitter.im/allejo/PhpPulse?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+
 A PHP wrapper for working with the [DaPulse API](https://developers.dapulse.com/).
 
 ## Requirements
