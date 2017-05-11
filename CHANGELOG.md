@@ -2,6 +2,17 @@
 
 ### HEAD
 
+### 0.3.1
+
+- `Pulse::getColumn()` has been made public to make dynamic functionality easier. Be sure to use make use of the available constants or exceptions will be thrown:
+    - PulseColumn::Status
+    - PulseColumn::Date
+    - PulseColumn::Numeric
+    - PulseColumn::Person
+    - PulseColumn::Text
+    - PulseColumn::Timeline
+- New `PulseColumnStatusValue::getHexColors()` has been added to return an array of the colors DaPulse uses for status type columns
+
 ### 0.3.0
 
 - Fix fatal error when `PulseUpdate::getReplies()` was called when it had no replies
