@@ -6,7 +6,8 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": ">=5.4.0"
+    "php": ">=5.4.0",
+    "ext-curl": "*"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8.31",
