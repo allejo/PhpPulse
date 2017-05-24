@@ -121,14 +121,14 @@ abstract class ApiObject implements \JsonSerializable
             throw new \InvalidArgumentException("You may not initialize $staticClass with null.");
         }
 
-        if (!is_array($idOrArray))
-        {
-            $this->urlEndPoint = static::API_PREFIX . '/' . $idOrArray . '.json';
-        }
-
         if ($this->arrayConstructionOnly && !is_array($idOrArray))
         {
             throw new \InvalidArgumentException("A $staticClass cannot be fetched from an ID.");
+        }
+
+        if (!is_array($idOrArray))
+        {
+            $this->urlEndPoint = static::API_PREFIX . '/' . $idOrArray . '.json';
         }
 
         $this->initializeValues();
