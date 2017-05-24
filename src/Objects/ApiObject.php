@@ -58,6 +58,7 @@ abstract class ApiObject implements \JsonSerializable
     /**
      * The API key used to make the URL calls
      *
+     * @deprecated 0.4.0 This value will either be removed or become private in the next release
      * @var string
      */
     protected static $apiKey;
@@ -300,10 +301,9 @@ abstract class ApiObject implements \JsonSerializable
      */
     final protected static function lazyCast (&$target, $objectType)
     {
-        if (self::lazyCastNeeded($target, $objectType))
+        if (!($target instanceof $objectType))
         {
-            $object = ($objectType[0] == "\\") ? $objectType : self::OBJ_NAMESPACE . $objectType;
-            $target = new $object($target);
+            $target = new $objectType($target);
         }
     }
 
@@ -324,9 +324,7 @@ abstract class ApiObject implements \JsonSerializable
             return false;
         }
 
-        $firstItem = $array[0];
-
-        return self::lazyCastNeeded($firstItem, $objectType);
+        return ($array[0] instanceof $objectType);
     }
 
     /**
@@ -378,12 +376,11 @@ abstract class ApiObject implements \JsonSerializable
      */
     final protected static function castArrayToObjectArray ($className, $objects)
     {
-        $class = self::OBJ_NAMESPACE . $className;
         $array = [];
 
         foreach ($objects as $post)
         {
-            $array[] = new $class($post);
+            $array[] = new $className($post);
         }
 
         return $array;
