@@ -8,7 +8,7 @@
 namespace allejo\DaPulse\Objects;
 
 use allejo\DaPulse\Exceptions\InvalidObjectException;
-use allejo\DaPulse\Utilities\UrlQuery;
+use allejo\DaPulse\Utilities\HttpClient;
 
 /**
  * The base class for all DaPulse API objects
@@ -95,6 +95,9 @@ abstract class ApiObject implements \JsonSerializable
      */
     protected $id;
 
+    /** @var HttpClient */
+    private static $httpClient;
+
     /**
      * Create an object from an API call
      *
@@ -120,7 +123,7 @@ abstract class ApiObject implements \JsonSerializable
 
         if (!is_array($idOrArray))
         {
-            $this->urlEndPoint = sprintf("%s/%d.json", self::apiEndpoint(), $idOrArray);
+            $this->urlEndPoint = static::API_PREFIX . '/' . $idOrArray . '.json';
         }
 
         if ($this->arrayConstructionOnly && !is_array($idOrArray))
@@ -317,7 +320,7 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return bool True if the array needs to converted into an array of objects
      */
-    final protected static function lazyCastNeededOnArray ($objectType, $array)
+    final protected static function lazyCastNeededOnArray ($objectType, array $array)
     {
         if (is_array($array) && count($array) == 0)
         {
@@ -329,6 +332,8 @@ abstract class ApiObject implements \JsonSerializable
 
     /**
      * Check if an individual item needs to be lazily converted into an object
+     *
+     * @deprecated 0.4.0 To be removed in 0.5.0; use a regular instanceof
      *
      * @param  mixed  $target     The item to check
      * @param  string $objectType The class name of the Objects the items should be
@@ -347,7 +352,7 @@ abstract class ApiObject implements \JsonSerializable
     /**
      * Sends a GET request for a JSON array and casts the response into an array of objects
      *
-     * @param  string $url       The API endpoint to call to get the JSON response from
+     * @param  string $endPoint  The API endpoint to call to get the JSON response from
      * @param  string $className The class name of the Object type to cast to
      * @param  array  $params    An associative array of URL parameters that will be passed to the specific call. For
      *                           example, limiting the number of results or the pagination of results. **Warning** The
@@ -357,9 +362,9 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return array
      */
-    final protected static function fetchAndCastToObjectArray ($url, $className, $params = [])
+    final protected static function fetchAndCastToObjectArray ($endPoint, $className, $params = [])
     {
-        $objects = self::sendGet($url, $params);
+        $objects = self::sendGet($endPoint, $params);
 
         return self::castArrayToObjectArray($className, $objects);
     }
@@ -393,8 +398,8 @@ abstract class ApiObject implements \JsonSerializable
     /**
      * Send a GET request to fetch the data from the specified URL
      *
-     * @param  string $url    The API endpoint to call
-     * @param  array  $params An associative array of URL parameters that will be passed to the specific call. For
+     * @param  string $endPoint        The API endpoint to call
+     * @param  array  $queryParameters An associative array of URL parameters that will be passed to the specific call. For
      *                        example, limiting the number of results or the pagination of results. **Warning** The API
      *                        key does NOT need to be passed here
      *
@@ -402,96 +407,97 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @return mixed          An associative array of the JSON response from DaPulse
      */
-    final protected static function sendGet ($url, $params = [])
+    final protected static function sendGet ($endPoint, array $queryParameters = [])
     {
-        $params["api_key"] = self::$apiKey;
-
-        $urlQuery = new UrlQuery($url, $params);
-
-        return $urlQuery->sendGet();
+        return self::sendRequest('GET', $endPoint, $queryParameters, []);
     }
 
     /**
      * Send a POST request to a specified URL
      *
-     * @param  string $url
-     * @param  array  $postParams
-     * @param  array  $getParams
+     * @param  string $endPoint
+     * @param  array  $formParameters
+     * @param  array  $queryParameters
      *
      * @since  0.1.0
      *
      * @return mixed
      */
-    final protected static function sendPost ($url, $postParams, $getParams = [])
+    final protected static function sendPost ($endPoint, array $formParameters, array $queryParameters = [])
     {
-        return self::sendRequest("POST", $url, $postParams, $getParams);
+        return self::sendRequest('POST', $endPoint, $queryParameters, $formParameters);
     }
 
     /**
      * Send a PUT request to a specified URL
      *
-     * @param  string $url
-     * @param  array  $postParams
-     * @param  array  $getParams
+     * @param  string $endPoint
+     * @param  array  $formParameters
+     * @param  array  $queryParameters
      *
      * @since  0.1.0
      *
      * @return mixed
      */
-    final protected static function sendPut ($url, $postParams, $getParams = [])
+    final protected static function sendPut ($endPoint, array $formParameters, array $queryParameters = [])
     {
-        return self::sendRequest("PUT", $url, $postParams, $getParams);
+        return self::sendRequest('PUT', $endPoint, $queryParameters, $formParameters);
     }
 
     /**
      * Send a DELETE request to a specified URL
      *
-     * @param  string $url
-     * @param  array  $getParams
+     * @param  string $endPoint
+     * @param  array  $queryParameters
      *
      * @since  0.1.0
      *
      * @return mixed
      */
-    final protected static function sendDelete ($url, $getParams = [])
+    final protected static function sendDelete ($endPoint, array $queryParameters = [])
     {
-        return self::sendRequest("DELETE", $url, null, $getParams);
+        return self::sendRequest('DELETE', $endPoint, $queryParameters, []);
     }
 
     /**
      * Send the appropriate URL request
      *
      * @param  string $type
-     * @param  string $url
-     * @param  array  $postParams
-     * @param  array  $getParams
-     *
-     * @throws \InvalidArgumentException if $type not 'POST', 'PUT', or 'DELETE'
+     * @param  string $endPoint
+     * @param  array  $queryParameters
+     * @param  array  $formParameters
      *
      * @since  0.1.0
      *
+     * @throws \InvalidArgumentException
+     *
      * @return mixed
      */
-    private static function sendRequest ($type, $url, $postParams, $getParams)
+    private static function sendRequest ($type, $endPoint, array $queryParameters, array $formParameters)
     {
-        $getParams["api_key"] = self::$apiKey;
-
-        $urlQuery = new UrlQuery($url, $getParams);
-
         switch ($type)
         {
-            case "POST":
-                return $urlQuery->sendPost($postParams);
+            case 'GET':
+                $result = self::$httpClient->get($endPoint, $queryParameters);
+                break;
 
-            case "PUT":
-                return $urlQuery->sendPut($postParams);
+            case 'POST':
+                $result = self::$httpClient->post($endPoint, $queryParameters, $formParameters);
+                break;
 
-            case "DELETE":
-                return $urlQuery->sendDelete();
+            case 'PUT':
+                $result = self::$httpClient->put($endPoint, $queryParameters, $formParameters);
+                break;
+
+            case 'DELETE':
+                $result = self::$httpClient->delete($endPoint, $queryParameters);
+                break;
 
             default:
-                throw new \InvalidArgumentException();
+                throw new \InvalidArgumentException('HTTP type is not supported.');
         }
+
+        return $result;
     }
 
     // ================================================================================================================
@@ -525,5 +531,13 @@ abstract class ApiObject implements \JsonSerializable
     final public static function setApiKey ($apiKey)
     {
         self::$apiKey = $apiKey;
+
+        self::$httpClient = new HttpClient(
+            sprintf('%s://%s/%s/', self::API_PROTOCOL, self::API_ENDPOINT, self::API_VERSION), [
+                'query' => [
+                    'api_key' => $apiKey,
+                ],
+            ]
+        );
     }
 }
