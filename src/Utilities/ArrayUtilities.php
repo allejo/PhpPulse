@@ -12,7 +12,7 @@ namespace allejo\DaPulse\Utilities;
  *
  * The original authors for the respective functions are listed in the documentation.
  *
- * @package allejo\DaPulse\Utilities
+ * @deprecated 0.4.0 This class will become @internal in the next release
  * @since   0.1.0
  */
 class ArrayUtilities

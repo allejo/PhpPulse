@@ -10,7 +10,7 @@ namespace allejo\DaPulse\Utilities;
 /**
  * This class contains static utilities used for validating strings
  *
- * @package allejo\DaPulse\Utilities
+ * @deprecated 0.4.0 This class will become @internal in the next release
  * @since   0.1.0
  */
 class StringUtilities

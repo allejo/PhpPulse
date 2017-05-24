@@ -20,7 +20,7 @@ use allejo\DaPulse\Exceptions\HttpException;
  * by external tools to make custom requests.
  *
  * @api
- * @package allejo\DaPulse\Utilities
+ * @deprecated Make use of the HttpClient class instead
  * @since   0.1.0
  */
 class UrlQuery
