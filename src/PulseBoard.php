@@ -195,7 +195,7 @@ class PulseBoard extends SubscribableObject
         self::lazyInject($this->columns, [
             "board_id" => $this->getId()
         ]);
-        self::lazyCastAll($this->columns, "PulseColumn");
+        self::lazyCastAll($this->columns, PulseColumn::class);
 
         return $this->columns;
     }
@@ -367,14 +367,17 @@ class PulseBoard extends SubscribableObject
      *
      * @api
      *
+     * @see https://developers.dapulse.com/#!/boards/GET_version_boards_board_id_pulses_format
+     *
      * @since  0.1.0
      *
      * @return Pulse[]
      */
     public function getPulses ()
     {
-        $url    = sprintf("%s/%d/pulses.json", self::apiEndpoint(), $this->getId());
-        $data   = self::sendGet($url);
+        // GET /v1/boards/{board_id}/pulses.json
+
+        $data   = self::sendGet("boards/{$this->getId()}/pulses.json");
         $pulses = [];
 
         foreach ($data as $entry)

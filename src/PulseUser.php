@@ -471,6 +471,8 @@ class PulseUser extends ApiObject
      *
      * @since  0.3.0
      *
+     * @throws \InvalidArgumentException if $user is not an integer, is not positive, or is not a PulseUser object
+     *
      * @return int
      */
     public static function _castToInt ($user)

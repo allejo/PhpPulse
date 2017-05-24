@@ -204,7 +204,7 @@ class Pulse extends SubscribableObject
     public function getCreatedAt ()
     {
         $this->lazyLoad();
-        self::lazyCast($this->created_at, '\DateTime');
+        self::lazyCast($this->created_at, \DateTime::class);
 
         return $this->created_at;
     }
@@ -221,7 +221,7 @@ class Pulse extends SubscribableObject
     public function getUpdatedAt ()
     {
         $this->lazyLoad();
-        self::lazyCast($this->updated_at, '\DateTime');
+        self::lazyCast($this->updated_at, \DateTime::class);
 
         return $this->updated_at;
     }
@@ -270,79 +270,108 @@ class Pulse extends SubscribableObject
     // ================================================================================================================
 
     /**
-     * Edit the name of the pulse
+     * Edit the name of the pulse.
      *
      * @api
      *
      * @param string $title
      *
      * @since 0.1.0
+     *
+     * @see https://developers.dapulse.com/#!/pulses/PUT_version_pulses_id_format
      */
     public function editName ($title)
     {
-        $editUrl    = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
-        $postParams = [
-            'name' => $title
-        ];
+        // PUT /v1/pulses/{id}.json
 
-        $this->jsonResponse = self::sendPut($editUrl, $postParams);
+        $this->jsonResponse = self::sendPut("pulses/{$this->getId()}.json", [
+            'name' => $title
+        ]);
         $this->assignResults();
     }
 
     /**
-     * Archive the current pulse
+     * Archive the current pulse.
      *
      * This is the equivalent of a soft delete and can be restored from the DaPulse website.
      *
      * @api
      *
      * @since 0.1.0
+     *
+     * @see https://developers.dapulse.com/#!/pulses/DELETE_version_pulses_id_format
      */
     public function archivePulse ()
     {
-        $archiveURL = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
-        $getParams  = [
-            'archive' => true
-        ];
+        // DELETE /v1/pulses/{id}.json
 
-        $this->jsonResponse = self::sendDelete($archiveURL, $getParams);
+        // The developer's docs submits 'archive' as a string, so we shouldn't let Guzzle convert it to 0 or 1
+        $this->jsonResponse = self::sendDelete("pulses/{$this->getId()}.json", [
+            'archive' => 'true'
+        ]);
+
         $this->assignResults();
     }
 
     /**
-     * Delete the current Pulse
+     * Delete the current Pulse.
      *
      * @api
      *
      * @since 0.1.0
      *
+     * @see https://developers.dapulse.com/#!/pulses/DELETE_version_pulses_id_format
+     *
      * @throws InvalidObjectException
      */
     public function deletePulse ()
     {
+        // DELETE /v1/pulses/{id}.json
+
         $this->checkInvalid();
 
-        $deleteURL          = sprintf("%s/%d.json", self::apiEndpoint(), $this->getId());
-        $this->jsonResponse = self::sendDelete($deleteURL);
-        $this->assignResults();
+        // The developer's docs submits 'archive' as a string, so we shouldn't let Guzzle convert it to 0 or 1
+        $this->jsonResponse = self::sendDelete("pulses/{$this->getId()}.json", [
+            'archive' => 'false'
+        ]);
 
+        $this->assignResults();
         $this->deletedObject = true;
     }
 
+    /**
+     * Duplicate a Pulse.
+     *
+     * @param string        $groupId
+     * @param int|PulseUser $ownerId
+     *
+     * @see https://developers.dapulse.com/#!/boards/POST_version_boards_board_id_pulses_pulse_id_duplicate_format
+     *
+     * @since 0.4.0 An InvalidArgumentException can now be thrown
+     * @since 0.1.0
+     *
+     * @throws \InvalidArgumentException if $ownerId is not an integer, is not positive, or is not a PulseUser object
+     *
+     * @return Pulse
+     */
     public function duplicatePulse ($groupId = null, $ownerId = null)
     {
-        $url        = sprintf("%s/%s/pulses/%s/duplicate.json", self::apiEndpoint("boards"), $this->getBoardId(), $this->getId());
+        // POST /v1/boards/{board_id}/pulses/{pulse_id}/duplicate.json
+
         $postParams = [];
 
-        if ($ownerId instanceof PulseUser)
+        if ($ownerId !== null)
         {
-            $ownerId = $ownerId->getId();
+            $ownerId = PulseUser::_castToInt($ownerId);
         }
 
         self::setIfNotNullOrEmpty($postParams, "group_id", $groupId);
         self::setIfNotNullOrEmpty($postParams, "owner_id", $ownerId);
 
-        $result = self::sendPost($url, $postParams);
+        $result = self::sendPost(
+            "boards/{$this->getBoardId()}/pulses/{$this->getId()}/duplicate.json",
+            $postParams
+        );
         $this->pulseInjection($result);
 
         return (new Pulse($result['pulse']));
@@ -580,13 +609,16 @@ class Pulse extends SubscribableObject
      * @throws \InvalidArgumentException if $createUpdate is true and $user is null or $user is not a valid user ID or
      *                                   PulseUser object
      *
+     * @see https://developers.dapulse.com/#!/pulses/POST_version_pulses_id_notes_format
+     *
      * @since  0.1.0
      *
      * @return PulseNote
      */
     public function addNote ($title, $content, $ownersOnly = false, $user = null, $createUpdate = false)
     {
-        $url        = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "notes");
+        // POST /v1/pulses/{id}/notes.json
+
         $postParams = [
             "id"            => $this->id,
             "title"         => $title,
@@ -595,7 +627,7 @@ class Pulse extends SubscribableObject
             "create_update" => $createUpdate
         ];
 
-        if (!is_null($user))
+        if ($user !== null)
         {
             $user = PulseUser::_castToInt($user);
         }
@@ -607,7 +639,10 @@ class Pulse extends SubscribableObject
             throw new \InvalidArgumentException("The user_id value must be set if an update is to be created");
         }
 
-        $noteResult = self::sendPost($url, $postParams);
+        $noteResult = self::sendPost(
+            "pulses/{$this->getId()}/notes.json",
+            $postParams
+        );
 
         return (new PulseNote($noteResult));
     }
@@ -617,15 +652,20 @@ class Pulse extends SubscribableObject
      *
      * @api
      *
+     * @see https://developers.dapulse.com/#!/pulses/GET_version_pulses_id_notes_format
+     *
      * @since  0.1.0
      *
      * @return PulseNote[]
      */
     public function getNotes ()
     {
-        $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "notes");
+        // GET /v1/pulses/{id}/notes.json
 
-        return self::fetchAndCastToObjectArray($url, "PulseNote");
+        return self::fetchAndCastToObjectArray(
+            "pulses/{$this->getId()}/notes.json",
+            PulseNote::class
+        );
     }
 
     // ================================================================================================================
@@ -633,19 +673,37 @@ class Pulse extends SubscribableObject
     // ================================================================================================================
 
     /**
-     * Get all of the updates that belong to this Pulse in reverse chronological order
+     * Get all of the updates that belong to this Pulse in reverse chronological order.
+     *
+     * Accepted query parameters:
+     *
+     * ```
+     * array(
+     *   'page'  (int) => The updates page to fetch
+     *   'limit' (int) => How many updates to fetch each page
+     * )
+     * ```
      *
      * @api
      *
+     * @param array $queryParameters Parameters used to filter the results
+     *
+     * @since 0.4.0 Query parameters can now be passed
      * @since 0.1.0
      *
+     * @see https://developers.dapulse.com/#!/pulses/GET_version_pulses_id_updates_format
+
      * @return PulseUpdate[]
      */
-    public function getUpdates ()
+    public function getUpdates (array $queryParameters = [])
     {
-        $url = sprintf($this->urlSyntax, self::apiEndpoint(), $this->id, "updates");
+        // GET /v1/pulses/{id}/updates.json
 
-        return self::fetchAndCastToObjectArray($url, "PulseUpdate");
+        return self::fetchAndCastToObjectArray(
+            "pulses/{$this->getId()}/updates.json",
+            PulseUpdate::class,
+            $queryParameters
+        );
     }
 
     /**
@@ -659,6 +717,10 @@ class Pulse extends SubscribableObject
      *
      * @since  0.3.0 A PulseUpdate object is returned containing the information of the newly created Update
      * @since  0.1.0
+     *
+     * @see    PulseUpdate::createUpdate()
+     *
+     * @throws \InvalidArgumentException if $user is not an integer, is not positive, or is not a PulseUser object
      *
      * @return PulseUpdate
      */
@@ -674,30 +736,37 @@ class Pulse extends SubscribableObject
     /**
      * Get all of the pulses that belong to the organization across all boards.
      *
-     * To modify the amount of data returned with pagination, use the following values in the array to configure your
-     * pagination or offsets.
+     * Accepted query parameters:
      *
-     * ```php
-     * $params = array(
-     *     "page"     => 1,          // (int) Page offset to fetch
-     *     "per_page" => 10,         // (int) Number of results per page
-     *     "offset"   => 5,          // (int) Instead of starting at result 0, start counting from result 5
-     *     "order_by_latest" => true // (bool) Order the pulses with the most recent first
-     * );
+     * ```
+     * array(
+     *   'page'            (int) Page offset to fetch
+     *   'per_page'        (int) Number of results per page
+     *   'offset'          (int) Instead of starting at result 0, start counting from result 5
+     *   'order_by_latest' (bool) Order the pulses with the most recent first
+     *   'since'           (string) Get updates from a certain date (YYYY-mm-dd) or unix timestamp.
+     *   'until'           (string) Get updates until a certain date (YYYY-mm-dd) or unix timestamp.
+     * )
      * ```
      *
      * @api
      *
-     * @param array $params GET parameters passed to with the query to modify the data returned.
+     * @param  array $queryParameters GET parameters passed to the query to filter the returned data
      *
-     * @since 0.1.0
+     * @since  0.1.0
+     *
+     * @see    https://developers.dapulse.com/#!/pulses/GET_version_pulses_format
      *
      * @return Pulse[]
      */
-    public static function getPulses ($params = [])
+    public static function getPulses (array $queryParameters = [])
     {
-        $url = sprintf("%s.json", self::apiEndpoint());
+        // GET /v1/pulses.json
 
-        return self::fetchAndCastToObjectArray($url, "Pulse", $params);
+        return self::fetchAndCastToObjectArray(
+            "pulses.json",
+            Pulse::class,
+            $queryParameters
+        );
     }
 }
