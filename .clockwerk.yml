@@ -1,6 +1,0 @@
-deployments:
-  - name: docs
-    localized: true
-    deploy: docs/api/build/phppulse
-    commands:
-      - composer docs

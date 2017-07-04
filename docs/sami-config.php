@@ -1,5 +1,7 @@
 <?php
 
+require_once __DIR__ . '/ApiFilter.php';
+
 use allejo\Sami\ApiFilter;
 use Sami\RemoteRepository\GitHubRemoteRepository;
 use Sami\Sami;
@@ -22,8 +24,8 @@ $versions = GitVersionCollection::create($dir)
 $sami = new Sami($iterator, array(
     'versions'             => $versions,
     'title'                => 'PhpPulse API',
-    'build_dir'            => __DIR__ . '/api/build/phppulse/%version%',
-    'cache_dir'            => __DIR__ . '/api/cache/phppulse/%version%',
+    'build_dir'            => __DIR__ . '/api/build/PhpPulse/%version%',
+    'cache_dir'            => __DIR__ . '/api/cache/PhpPulse/%version%',
     'remote_repository'    => new GitHubRemoteRepository('allejo/PhpPulse', dirname($dir)),
     'default_opened_level' => 2,
 ));
