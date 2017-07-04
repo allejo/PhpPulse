@@ -6,26 +6,20 @@
   "type": "library",
   "license": "MIT",
   "require": {
-    "php": ">=5.4.0"
+    "php": ">=5.5.0"
   },
   "require-dev": {
     "phpunit/phpunit": "^4.8.31",
-    "php-vcr/php-vcr": "^1.3",
-    "twig/twig": "~1.20",
-    "sami/sami": "^3.3.0"
+    "php-vcr/php-vcr": "^1.3"
   },
   "autoload": {
-    "classmap": [
-      "src/"
-    ]
+    "psr-4": {
+      "allejo\\PhpPulse\\": "src/"
+    }
   },
   "autoload-dev": {
     "classmap": [
-      "docs/",
       "tests/utilities/"
-    ],
-    "exclude-from-classmap": [
-      "docs/api/"
     ]
   },
   "authors": [
@@ -45,10 +39,6 @@
     "build": [
       "composer install --no-dev",
       "phpab -p -o phppulse-$1.phar --bzip2 src/"
-    ],
-    "docs": [
-      "composer install",
-      "vendor/bin/sami.php update docs/sami-config.php"
     ],
     "test": [
         "export TRAVIS=true && export apiToken=YourApiKeyHere && phpunit"
