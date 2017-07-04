@@ -14,13 +14,13 @@
   },
   "autoload": {
     "psr-4": {
-      "allejo\\PhpPulse\\": "src/"
+      "allejo\\DaPulse\\": "src/"
     }
   },
   "autoload-dev": {
-    "classmap": [
-      "tests/utilities/"
-    ]
+    "psr-4": {
+      "allejo\\DaPulse\\Tests\\": "tests/"
+    }
   },
   "authors": [
     {

@@ -3,10 +3,11 @@
 namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\PulseBoard;
+use allejo\DaPulse\Tests\Utilities\AuthenticatedClient;
 use PHPUnit_Framework_TestCase;
 use VCR\VCR;
 
-abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
+abstract class PulseUnitTestCase extends PHPUnit_Framework_TestCase
 {
     const MainUser = 303448;
     const SecondUser = 361981;

@@ -6,7 +6,7 @@ use allejo\DaPulse\Exceptions\InvalidObjectException;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseNote;
 
-class PulseNoteTest extends PulseUnitTest
+class PulseNoteTestCase extends PulseUnitTestCase
 {
     static $title = "Violently Making Toast";
     static $content = "By adding the word 'violently' in front a phrase, it makes the phrase more amusing";

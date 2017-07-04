@@ -5,7 +5,7 @@ namespace allejo\DaPulse\Tests;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseUpdate;
 
-class PulseUpdatesTest extends PulseUnitTest
+class PulseUpdatesTestCase extends PulseUnitTestCase
 {
     /** @var Pulse */
     private $pulseWithUpdates;
