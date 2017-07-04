@@ -5,7 +5,7 @@ namespace allejo\DaPulse\Tests;
 use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseUser;
 
-class PulseSubscriberTest extends PulseUnitTest
+class PulseSubscriberTestCase extends PulseUnitTestCase
 {
     public function testSubscriberGetPulseBoard ()
     {

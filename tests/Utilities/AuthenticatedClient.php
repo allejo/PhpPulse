@@ -1,6 +1,6 @@
 <?php
 
-namespace allejo\DaPulse\Tests;
+namespace allejo\DaPulse\Tests\Utilities;
 
 class AuthenticatedClient
 {
