@@ -26,7 +26,7 @@ class PulseGettersTestCase extends PulseUnitTestCase
 
     public function testGetUrl ()
     {
-        $expectedUrl = sprintf("https://phppulse.dapulse.com/projects/%d", $this->pulse->getId());
+        $expectedUrl = sprintf("https://phppulse.monday.com/projects/%d", $this->pulse->getId());
 
         $this->assertIsString($this->pulse->getUrl());
         $this->assertEquals($expectedUrl, $this->pulse->getUrl());

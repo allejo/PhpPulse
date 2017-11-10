@@ -37,7 +37,7 @@ class PulseBoardTestCase extends PulseUnitTestCase
 
     public function testGetBoardUrl()
     {
-        $expectedURL = "https://phppulse.dapulse.com/boards/" . $this->id;
+        $expectedURL = "https://phppulse.monday.com/boards/" . $this->id;
         $this->assertEquals($expectedURL, $this->board->getUrl());
     }
 
