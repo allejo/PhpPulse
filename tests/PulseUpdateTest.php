@@ -54,7 +54,7 @@ class PulseUpdatesTest extends PulseUnitTest
     public function testUpdateGetUrl()
     {
         $this->assertEquals(
-            'https://phppulse.dapulse.com/posts/23611892',
+            'https://phppulse.monday.com/posts/23611892',
             $this->updates[0]->getUrl()
         );
     }
