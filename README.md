@@ -6,7 +6,7 @@
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
 
-A PHP wrapper for working with the [DaPulse API](https://developers.dapulse.com/).
+A PHP wrapper for working with the [monday.com API](https://developers.monday.com/).
 
 ## Requirements
 
@@ -23,7 +23,7 @@ PHP 5.5+
 <?php
 
 // Set our API key to access the API
-PulseBoard::setApiKey("DaPulse API Key");
+PulseBoard::setApiKey("monday.com API Key");
 
 // Get all of our boards
 $boards = PulseBoard::getBoards();

@@ -1,8 +1,8 @@
 {
   "name": "allejo/php-pulse",
-  "keywords": ["dapulse", "api"],
+  "keywords": ["dapulse", "api", "monday.com"],
   "homepage": "http://docs.allejo.io/PhpPulse/",
-  "description": "A wrapper for working with the DaPulse API",
+  "description": "A wrapper for working with the monday.com (formerly known as DaPulse) API",
   "type": "library",
   "license": "MIT",
   "require": {

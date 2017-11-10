@@ -39,7 +39,7 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @internal
      */
-    const API_ENDPOINT = "api.dapulse.com";
+    const API_ENDPOINT = "api.monday.com";
 
     /**
      * The API version used for URL calls
