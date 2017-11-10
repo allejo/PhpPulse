@@ -2,6 +2,10 @@
 
 ### HEAD
 
+### 0.3.2
+
+- Hostname for API calls have been updated for [monday.com domain change](https://dapulse.com/monday-project-management-renaming/)
+
 ### 0.3.1
 
 - `Pulse::getColumn()` has been made public to make dynamic functionality easier. Be sure to use make use of the available constants or exceptions will be thrown:
