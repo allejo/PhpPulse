@@ -17,10 +17,28 @@ PHP 5.5+
 
 ## Usage
 
-**Accessing Boards**
+### Installation
+
+The recommended method of using this project is through [Composer](https://getcomposer.org/). However, PHAR archives are available in the [Releases page](https://github.com/allejo/PhpPulse/releases) as well.
+
+```bash
+composer require allejo/php-pulse
+```
+
+Be sure to `require` your autoloader or the PHAR archive directly when using this library.
 
 ```php
-<?php
+require 'vendor/autoload.php';
+
+// or
+
+require 'phppulse.phar';
+```
+
+### Accessing Boards
+
+```php
+use allejo\DaPulse\PulseBoard;
 
 // Set our API key to access the API
 PulseBoard::setApiKey("monday.com API Key");
@@ -30,8 +48,8 @@ $boards = PulseBoard::getBoards();
 
 foreach ($boards as $board)
 {
-    echo "Board Name: $board->getName()";
-    echo "Board Description: $board->getDescription()";
+    echo "Board Name: {$board->getName()}";
+    echo "Board Description: {$board->getDescription()}";
 
     // Create a Pulse with the owner of user id 1
     $pulse = $board->createPulse("Sample Pulse Title", 1);
