@@ -14,15 +14,6 @@ abstract class PulseUnitTest extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $authClient = new AuthenticatedClient("phpunit-auth.json");
-
-        if (!$authClient->isAuthenticationSetup())
-        {
-            $this->markTestSkipped();
-        }
-
-        PulseBoard::setApiKey($authClient->getApiToken());
-
         $cassette = (getenv('TRAVIS') == 'true') ? 'PhpPulseVCR-sanitized' : 'PhpPulseVCR';
 
         VCR::turnOn();

@@ -113,7 +113,8 @@ class PulseBoardTest extends PulseUnitTest
         $columns = $this->board->getColumns();
         $labels = $columns[2]->getLabels();
 
-        $this->assertCount(11, $labels);
+        // The max value is 0 based, so add one for the total count
+        $this->assertCount(PulseColumnStatusValue::MAX_VALUE + 1, $labels);
     }
 
     public function testGetBoardTextColumnLabelsThrowsException()

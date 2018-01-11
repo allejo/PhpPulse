@@ -19,7 +19,7 @@ class PulseColumnSettersTest extends PulseUnitTest
     {
         return array(
             array(-1),
-            array(11),
+            array(PulseColumnStatusValue::MAX_VALUE + 1),
             array(9.8),
             array('hello world')
         );

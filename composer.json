@@ -42,7 +42,10 @@
       "vendor/bin/apigen generate"
     ],
     "test": [
-      "./vendor/bin/phpunit"
+        "export TRAVIS=true && export apiToken=YourApiKeyHere && phpunit"
+    ],
+      "test-live": [
+          "phpunit"
     ]
   },
   "extra": {
