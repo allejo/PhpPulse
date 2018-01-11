@@ -2,9 +2,13 @@
 
 [![Stable Release](https://img.shields.io/packagist/v/allejo/php-pulse.svg)](https://packagist.org/packages/allejo/php-pulse)
 [![Dev Release](https://img.shields.io/packagist/vpre/allejo/php-pulse.svg)](https://packagist.org/packages/allejo/php-pulse)
-[![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=master)](https://travis-ci.org/allejo/PhpPulse)
 [![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
 [![Code Coverage](https://scrutinizer-ci.com/g/allejo/PhpPulse/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/allejo/PhpPulse/?branch=master)
+
+| Branch | Status |
+| :----: | ------ |
+| 0.3 | [![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=0.3)](https://travis-ci.org/allejo/PhpPulse) |
+| 0.4 | [![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=master)](https://travis-ci.org/allejo/PhpPulse) |
 
 A PHP wrapper for working with the [monday.com API](https://developers.monday.com/).
 
