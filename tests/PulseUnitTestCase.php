@@ -2,8 +2,6 @@
 
 namespace allejo\DaPulse\Tests;
 
-use allejo\DaPulse\PulseBoard;
-use allejo\DaPulse\Tests\Utilities\AuthenticatedClient;
 use PHPUnit_Framework_TestCase;
 use VCR\VCR;
 

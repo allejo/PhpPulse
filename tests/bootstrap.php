@@ -7,7 +7,7 @@
 require __DIR__ . '/../vendor/autoload.php';
 
 use allejo\DaPulse\PulseBoard;
-use allejo\DaPulse\Tests\AuthenticatedClient;
+use allejo\DaPulse\Tests\Utilities\AuthenticatedClient;
 use VCR\VCR;
 
 VCR::configure()
