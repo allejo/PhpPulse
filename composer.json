@@ -41,7 +41,10 @@
       "phpab -p -o phppulse-$1.phar --bzip2 src/"
     ],
     "test": [
-      "./vendor/bin/phpunit"
+      "export TRAVIS=true && export apiToken=YourApiKeyHere && phpunit"
+    ],
+    "test-live": [
+      "phpunit"
     ]
   },
   "extra": {

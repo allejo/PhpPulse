@@ -2,8 +2,6 @@
 
 namespace allejo\DaPulse\Tests;
 
-use allejo\DaPulse\PulseBoard;
-use allejo\DaPulse\Tests\Utilities\AuthenticatedClient;
 use PHPUnit_Framework_TestCase;
 use VCR\VCR;
 
@@ -15,15 +13,6 @@ abstract class PulseUnitTestCase extends PHPUnit_Framework_TestCase
 
     public function setUp()
     {
-        $authClient = new AuthenticatedClient("phpunit-auth.json");
-
-        if (!$authClient->isAuthenticationSetup())
-        {
-            $this->markTestSkipped();
-        }
-
-        PulseBoard::setApiKey($authClient->getApiToken());
-
         $cassette = (getenv('TRAVIS') == 'true') ? 'PhpPulseVCR-sanitized' : 'PhpPulseVCR';
 
         VCR::turnOn();
