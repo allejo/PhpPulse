@@ -18,60 +18,106 @@ class PulseColumnStatusValue extends PulseColumnValue
     const DEFAULT_VALUE = self::Grey; // The default color for DaPulse columns
 
     /**
-     * The index of the orange status
+     * The numerical value of the orange status
      */
     const Orange = 0;
 
     /**
-     * The index of the light green status
+     * The numerical value of the light green status
      */
     const L_Green = 1;
 
     /**
-     * The index of the red status
+     * The numerical value of the red status
      */
     const Red = 2;
 
     /**
-     * The index of the blue status
+     * The numerical value of the blue status
      */
     const Blue = 3;
 
     /**
-     * The index of the purple status
+     * The numerical value of the purple status
      */
     const Purple = 4;
 
     /**
-     * The index of the grey status
+     * The numerical value of the grey status
      */
     const Grey = 5;
     const Gray = self::Grey; // just an alias
 
     /**
-     * The index of the green status
+     * The numerical value of the green status
      */
     const Green = 6;
 
     /**
-     * The index of the light blue status
+     * The numerical value of the light blue status
      */
     const L_Blue = 7;
 
     /**
-     * The index of the gold status
+     * The numerical value of the gold status
      */
     const Gold = 8;
 
     /**
-     * The index of the yellow status
+     * The numerical value of the yellow status
      */
     const Yellow = 9;
 
     /**
-     * The index of the black status
+     * The numerical value of the black status
      */
     const Black = 10;
+
+    /**
+     * The numerical value of the dark red status
+     */
+    const D_Red = 11;
+
+    /**
+     * The numerical value of the hot pink status
+     */
+    const Hot_Pink = 12;
+
+    /**
+     * The numerical value of the pink status
+     */
+    const Pink = 13;
+
+    /**
+     * The numerical value of the dark purple status
+     */
+    const D_Purple = 14;
+
+    /**
+     * The numerical value of the lime status
+     */
+    const Lime = 15;
+
+    /**
+     * The numerical value of the cyan status
+     */
+    const Cyan = 16;
+
+    /**
+     * The numerical value of the dark grey status
+     */
+    const D_Grey = 17;
+    const D_Gray = self::D_Grey; // another alias
+
+    /**
+     * The numerical value of the brown status
+     */
+    const Brown = 18;
+
+    /**
+     * The numerical value of the dark orange status
+     */
+    const D_Orange = 19;
 
     /**
      * The lowest status value that exists
@@ -81,7 +127,7 @@ class PulseColumnStatusValue extends PulseColumnValue
     /**
      * The largest status value that exists
      */
-    const MAX_VALUE = self::Black;
+    const MAX_VALUE = self::D_Orange;
 
     /**
      * Get the numerical representation of the color that a status column is set to.
@@ -101,7 +147,7 @@ class PulseColumnStatusValue extends PulseColumnValue
      * Update the status of a status column
      *
      * It is highly recommended that you use the constants available in the **PulseColumnColorValue** class to match the
-     * colors; keep in mind this value cannot be higher than 11.
+     * colors; keep in mind this value cannot be higher than 19.
      *
      * @api
      *
@@ -118,14 +164,23 @@ class PulseColumnStatusValue extends PulseColumnValue
      * @see   PulseColumnStatusValue::Gold
      * @see   PulseColumnStatusValue::Yellow
      * @see   PulseColumnStatusValue::Black
+     * @see   PulseColumnStatusValue::D_Red
+     * @see   PulseColumnStatusValue::Hot_Pink
+     * @see   PulseColumnStatusValue::Pink
+     * @see   PulseColumnStatusValue::D_Purple
+     * @see   PulseColumnStatusValue::Lime
+     * @see   PulseColumnStatusValue::Cyan
+     * @see   PulseColumnStatusValue::D_Grey
+     * @see   PulseColumnStatusValue::Brown
+     * @see   PulseColumnStatusValue::D_Orange
      *
      * @since 0.1.0
      *
-     * @throws \InvalidArgumentException if the $color is not an int or is not between 0-10
+     * @throws \InvalidArgumentException if the $color is not an int or is not between 0-19
      */
     public function updateValue ($color)
     {
-        if ($color < 0 || $color > 10 || !is_int($color))
+        if ($color < self::MIN_VALUE || $color > self::MAX_VALUE || !is_int($color))
         {
             throw new \InvalidArgumentException("DaPulse only has color indexes from 0-10");
         }
@@ -170,17 +225,26 @@ class PulseColumnStatusValue extends PulseColumnValue
     public static function getHexColors ()
     {
         return [
-            self::Orange  => "fdab3d",
-            self::L_Green => "00c875",
-            self::Red     => "e2445c",
-            self::Blue    => "0086c0",
-            self::L_Blue  => "579bfc",
-            self::Purple  => "a25ddc",
-            self::Green   => "037f4c",
-            self::Gold    => "CAB641",
-            self::Yellow  => "FFCB00",
-            self::Black   => "333333",
-            self::Grey    => "c4c4c4"
+            self::Orange   => 'fdab3d',
+            self::L_Green  => '00c875',
+            self::Red      => 'e2445c',
+            self::Blue     => '0086c0',
+            self::L_Blue   => '579bfc',
+            self::Purple   => 'a25ddc',
+            self::Green    => '037f4c',
+            self::Gold     => 'CAB641',
+            self::Yellow   => 'FFCB00',
+            self::Black    => '333333',
+            self::Grey     => 'c4c4c4',
+            self::D_Red    => 'bb3354',
+            self::Hot_Pink => 'ff158a',
+            self::Pink     => 'ff5ac4',
+            self::D_Purple => '784bd1',
+            self::Lime     => '9cd326',
+            self::Cyan     => '66ccff',
+            self::D_Grey   => '808080',
+            self::Brown    => '7f5347',
+            self::D_Orange => 'ff642e',
         ];
     }
 
