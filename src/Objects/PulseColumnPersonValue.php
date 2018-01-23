@@ -74,6 +74,12 @@ class PulseColumnPersonValue extends PulseColumnValue
 
     protected function setValue ($response)
     {
+        if (!isset($response['value']['id']))
+        {
+            $this->column_value = null;
+            return;
+        }
+
         $this->column_value = new PulseUser($response["value"]["id"]);
     }
 }
