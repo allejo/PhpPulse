@@ -12,7 +12,7 @@ use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseColumn;
 use allejo\DaPulse\PulseGroup;
 
-class PulseBoardTestCase extends PulseUnitTestCase
+class PulseBoardTest extends PulseUnitTestCase
 {
     private $id;
 
@@ -113,7 +113,7 @@ class PulseBoardTestCase extends PulseUnitTestCase
         $columns = $this->board->getColumns();
         $labels = $columns[2]->getLabels();
 
-        $this->assertCount(11, $labels);
+        $this->assertCount(PulseColumnStatusValue::MAX_VALUE + 1, $labels);
     }
 
     public function testGetBoardTextColumnLabelsThrowsException()

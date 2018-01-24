@@ -80,6 +80,8 @@ abstract class PulseColumnValue extends ApiObject
     /**
      * This function must be overloaded by child classes solely calling this function to allow each implementation to
      * have its own phpDocs.
+     *
+     * @throws ColumnNotFoundException
      */
     public function getValue ()
     {

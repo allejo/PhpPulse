@@ -6,7 +6,7 @@ use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseUser;
 
-class PulseColumnSettersTestCase extends PulseUnitTestCase
+class PulseColumnSettersTest extends PulseUnitTestCase
 {
     private $userId;
 
@@ -19,7 +19,7 @@ class PulseColumnSettersTestCase extends PulseUnitTestCase
     {
         return array(
             array(-1),
-            array(11),
+            array(PulseColumnStatusValue::MAX_VALUE + 1),
             array(9.8),
             array('hello world')
         );
