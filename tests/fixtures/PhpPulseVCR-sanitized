@@ -30,6 +30,34 @@
 -
     request:
         method: GET
+        url: 'https://api.monday.com/v1/boards/3844236/pulses.json?per_page=25&page=1&api_key=YourApiKeyHere'
+        headers:
+            Host: api.monday.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.monday.com *.dapulse.dev *.realize.io https://realize.io https://monday.com'
+            Content-Type: application/json
+            Date: 'Fri, 20 Jan 2017 23:42:56 GMT'
+            ETag: '"4941040a5e49fd7305578b9d21dfb931"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: f4b65dac76f2d3985068318dd38c4eba
+            X-Runtime: '0.024698'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '3251'
+            Connection: keep-alive
+        body: '[{"pulse":{"url":"https://phppulse.monday.com/projects/27157096","id":27157096,"name":"Mock Pulse One","updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:14:34Z","updated_at":"2017-01-20T23:18:22Z"},"board_meta":{"position":131072.0,"group_id":"topics"},"column_values":[{"cid":"name","title":"Name","name":"Mock Pulse One"},{"cid":"person","title":"Person","value":{"name":"Vladimir Jimenez","id":303448,"photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/303448/thumb_small/303448-dapulse_blue.png?1445963306","is_guest":false}},{"cid":"status","title":"Status","value":{"index":0,"update_id":null}},{"cid":"text","title":"Text","value":"Silver Pet Rock"},{"cid":"due_date","title":"Due date","value":"2017-01-03"},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":"100.5"},{"cid":"timeline","title":"Timeline","value":{"from":"2017-01-09","to":"2017-01-15"}}]},{"pulse":{"url":"https://phppulse.monday.com/projects/27157134","id":27157134,"name":"Mock Pulse Two","updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:16:18Z","updated_at":"2017-01-20T23:16:49Z"},"board_meta":{"position":196608.0,"group_id":"topics"},"column_values":[{"cid":"name","title":"Name","name":"Mock Pulse Two"},{"cid":"person","title":"Person","value":null},{"cid":"status","title":"Status","value":{"index":2,"update_id":null}},{"cid":"text","title":"Text","value":"Oblivious Platypus"},{"cid":"due_date","title":"Due date","value":"2016-10-31"},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":"50"},{"cid":"timeline","title":"Timeline","value":null}]},{"pulse":{"url":"https://phppulse.monday.com/projects/27157219","id":27157219,"name":"Mockery Onion","updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:18:17Z","updated_at":"2017-01-20T23:18:48Z"},"board_meta":{"position":131072.0,"group_id":"group_two"},"column_values":[{"cid":"name","title":"Name","name":"Mockery Onion"},{"cid":"person","title":"Person","value":{"name":"PhpPulse Roomba","id":361981,"photo_url":"https://s3.amazonaws.com/res.wixpulse.com/photos/361981/thumb_small/361981-dapulse_other_blue.png?1452304450","is_guest":false}},{"cid":"status","title":"Status","value":{"index":1,"update_id":null}},{"cid":"text","title":"Text","value":"Aspiring Platinum Duck"},{"cid":"due_date","title":"Due date","value":null},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":null},{"cid":"timeline","title":"Timeline","value":null}]},{"pulse":{"url":"https://phppulse.monday.com/projects/27158019","id":27158019,"name":"Jar of Jam","updates_count":0,"board_id":3844236,"created_at":"2017-01-20T23:37:04Z","updated_at":"2017-01-20T23:37:04Z"},"board_meta":{"position":196608.0,"group_id":"group_two"},"column_values":[{"cid":"name","title":"Name","name":"Jar of Jam"},{"cid":"person","title":"Person","value":null},{"cid":"status","title":"Status","value":null},{"cid":"text","title":"Text","value":null},{"cid":"due_date","title":"Due date","value":null},{"cid":"last_post","title":"Last Update","value":null},{"cid":"numbers","title":"Numbers","value":null},{"cid":"timeline","title":"Timeline","value":null}]}]'
+-
+    request:
+        method: GET
         url: 'https://api.monday.com/v1/boards/3844236/pulses.json?api_key=YourApiKeyHere'
         headers:
             Host: api.monday.com
