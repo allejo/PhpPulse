@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.3.3
+
+- Add pagination options in `PulseBoard::getPulses()` method ([#17](https://github.com/allejo/PhpPulse/pull/17))
+
 ### 0.3.2
 
 - Hostname for API calls have been updated for [monday.com domain change](https://dapulse.com/monday-project-management-renaming/)
