@@ -32,7 +32,7 @@ class PulseColumnGettersTest extends PulseUnitTest
         $this->userId = self::MainUser; // Main User Account
 
         $this->board = new PulseBoard($this->id);
-        $this->pulses = $this->board->getPulses();
+        $this->pulses = $this->board->getPulses(1000, 1);
     }
 
     public function testGetNameColumnValues()
