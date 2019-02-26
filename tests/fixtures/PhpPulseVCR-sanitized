@@ -1588,3 +1588,31 @@
             Content-Length: '2'
             Connection: keep-alive
         body: '[]'
+-
+    request:
+        method: GET
+        url: 'https://api.monday.com/v1/tags/1081234.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.monday.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.monday.com *.dapulse.dev *.realize.io https://realize.io https://monday.com'
+            Content-Type: application/json
+            Date: 'Mon, 25 Feb 2018 18:21:36 GMT'
+            ETag: '"d751713988987e9331980363e24189ce"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 4cff6a515d9d11aa59a16c2fb882730b
+            X-Runtime: '0.095425'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '2'
+            Connection: keep-alive
+        body: '{"url":"https://phppulse.monday.com/tags/1081234","id":1081234,"name":"barTag2","color":"black","created_at":"2019-01-22T23:21:54Z","updated_at":"2019-01-20T23:21:54Z"}'
