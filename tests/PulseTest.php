@@ -3,6 +3,7 @@
 namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\Pulse;
+use allejo\DaPulse\PulseTag;
 
 class PulseGettersTest extends PulseUnitTest
 {
@@ -117,5 +118,19 @@ class PulseGettersTest extends PulseUnitTest
 
         $this->assertEquals(1081234, $tag->getId());
         $this->assertEquals('black', $tag->getColor());
+    }
+
+    public function testTagColumnSetValue ()
+    {
+        $column = $this->pulse->getTagColumn('has_tags');
+
+        $existingTag = new PulseTag(1081234);
+        $newTag = 'tagFoo1';
+
+        $column->updateValue([$newTag, $existingTag]);
+
+        $tags = $column->getValue();
+
+        $this->assertCount(2, $tags);
     }
 }

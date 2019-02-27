@@ -1643,4 +1643,33 @@
             X-XSS-Protection: '1; mode=block'
             Content-Length: '55'
             Connection: keep-alive
-        body: '{"column_id":"tags","pulse_id":1661234,"value":{"tag_ids":[1081234]}}'
+        body: '{"column_id":"tags","pulse_id":27157096,"value":{"tag_ids":[1081234]}}'
+-
+    request:
+        method: PUT
+        url: 'https://api.monday.com/v1/boards/3844236/columns/has_tags/tags.json?api_key=YourApiKeyHere'
+        headers:
+            Host: api.monday.com
+        body: 'pulse_id=27157096&tags=tagFoo1%2CbarTag2'
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.monday.com *.dapulse.dev *.realize.io https://realize.io https://monday.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:07 GMT'
+            ETag: '"ff10b626aeb18f5f172462c7a68f03a4"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: 'invalidate, pass'
+            X-Request-Id: 35c05390eb6dc612771470d177d55cca
+            X-Runtime: '0.043873'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '84'
+            Connection: keep-alive
+        body: '{"column_id":"tags","pulse_id":27157096,"value":{"tag_ids":[1081234,1085678],"added_tag":[{"id":1085678,"name":"tagFoo1","color":"black","tag_links_count":0,"board_id":27168881,"board_name":"Dynamic Board","board_kind":"private"},{"id":1081234,"name":"barTag2","color":"black","tag_links_count":0,"board_id":27168881,"board_name":"Dynamic Board","board_kind":"private"}]}}'
