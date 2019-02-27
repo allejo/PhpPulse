@@ -1616,3 +1616,31 @@
             Content-Length: '2'
             Connection: keep-alive
         body: '{"url":"https://phppulse.monday.com/tags/1081234","id":1081234,"name":"barTag2","color":"black","created_at":"2019-01-22T23:21:54Z","updated_at":"2019-01-20T23:21:54Z"}'
+-
+    request:
+        method: GET
+        url: 'https://api.monday.com/v1/boards/3844236/columns/has_tags/value.json?pulse_id=27157096&api_key=YourApiKeyHere'
+        headers:
+            Host: api.monday.com
+    response:
+        status:
+            http_version: '1.1'
+            code: '200'
+            message: OK
+        headers:
+            Cache-Control: 'max-age=0, private, must-revalidate'
+            Content-Security-Policy: 'frame-ancestors *.monday.com *.dapulse.dev *.realize.io https://realize.io https://monday.com'
+            Content-Type: application/json
+            Date: 'Sat, 21 Jan 2017 04:30:03 GMT'
+            ETag: '"c162f2d25ac389347b422d15da5601d2"'
+            Server: 'UDI 0.13.36'
+            Status: '200 OK'
+            Strict-Transport-Security: max-age=31536000
+            X-Rack-Cache: miss
+            X-Request-Id: dc568de55a6c470cdb819fa94f2f0365
+            X-Runtime: '0.027021'
+            X-UA-Compatible: 'IE=Edge,chrome=1'
+            X-XSS-Protection: '1; mode=block'
+            Content-Length: '55'
+            Connection: keep-alive
+        body: '{"column_id":"tags","pulse_id":1661234,"value":{"tag_ids":[1081234]}}'

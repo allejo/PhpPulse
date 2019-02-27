@@ -108,7 +108,7 @@ abstract class PulseColumnValue extends ApiObject
      *
      * @throws InvalidObjectException
      *
-     * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnNumericValue|PulseColumnPersonValue|PulseColumnTextValue|PulseColumnTimelineValue
+     * @return PulseColumnStatusValue|PulseColumnDateValue|PulseColumnNumericValue|PulseColumnPersonValue|PulseColumnTagValue|PulseColumnTextValue|PulseColumnTimelineValue
      */
     public static function _createColumnType ($type, $data)
     {
@@ -132,6 +132,9 @@ abstract class PulseColumnValue extends ApiObject
 
             case PulseColumn::Timeline:
                 return (new PulseColumnTimelineValue($data));
+
+            case PulseColumn::Tag:
+                return (new PulseColumnTagValue($data));
         }
 
         throw new InvalidObjectException("'$type' is an unsupported column type to modify.");

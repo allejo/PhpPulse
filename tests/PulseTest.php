@@ -100,4 +100,22 @@ class PulseGettersTest extends PulseUnitTest
 
         $this->assertGreaterThan($orig, $pulse->getUpdatedAt());
     }
+
+    public function testGetTagColumn ()
+    {
+        $tagColumn = $this->pulse->getTagColumn('has_tags');
+
+        $tags = $tagColumn->getValue();
+
+        $this->assertPulseObjectType('PulseTag', $tags[0]);
+    }
+
+    public function testGetTagColumnValue ()
+    {
+        $tags = $this->pulse->getTagColumn('has_tags')->getValue();
+        $tag = $tags[0];
+
+        $this->assertEquals(1081234, $tag->getId());
+        $this->assertEquals('black', $tag->getColor());
+    }
 }
