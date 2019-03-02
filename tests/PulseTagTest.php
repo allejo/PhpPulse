@@ -4,7 +4,7 @@ namespace allejo\DaPulse\Tests;
 
 use allejo\DaPulse\PulseTag;
 
-class PulseTagTest extends PulseUnitTest
+class PulseTagTest extends PulseUnitTestCase
 {
     /** @var int */
     private $id;

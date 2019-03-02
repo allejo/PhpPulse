@@ -6,7 +6,7 @@ use allejo\DaPulse\Objects\PulseColumnStatusValue;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseUser;
 
-class PulseColumnSettersTestCase extends PulseUnitTestCase
+class PulseColumnSettersTest extends PulseUnitTestCase
 {
     private $userId;
 

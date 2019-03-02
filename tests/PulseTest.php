@@ -5,7 +5,7 @@ namespace allejo\DaPulse\Tests;
 use allejo\DaPulse\Pulse;
 use allejo\DaPulse\PulseTag;
 
-class PulseGettersTestCase extends PulseUnitTestCase
+class PulseTest extends PulseUnitTestCase
 {
     /**
      * @var int

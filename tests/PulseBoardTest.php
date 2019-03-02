@@ -12,7 +12,7 @@ use allejo\DaPulse\PulseBoard;
 use allejo\DaPulse\PulseColumn;
 use allejo\DaPulse\PulseGroup;
 
-class PulseBoardTestCase extends PulseUnitTestCase
+class PulseBoardTest extends PulseUnitTestCase
 {
     private $id;
 
