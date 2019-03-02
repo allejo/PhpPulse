@@ -290,16 +290,17 @@ abstract class ApiObject implements \JsonSerializable
     /**
      * Convert the specified array into an array of object types if needed
      *
-     * @param  string $objectType The class name of the Objects the items should be
      * @param  array  $array      The array to check
+     * @param  string $objectType The class name of the Objects the items should be
+     * @param  bool   $lazyLoad   Should the casted objects be created lazily
      *
      * @since  0.2.0
      */
-    final protected static function lazyCastAll (&$array, $objectType)
+    final protected static function lazyCastAll (&$array, $objectType, $lazyLoad = false)
     {
         if (self::lazyCastNeededOnArray($objectType, $array))
         {
-            $array = self::castArrayToObjectArray($objectType, $array);
+            $array = self::castArrayToObjectArray($objectType, $array, $lazyLoad);
         }
     }
 
@@ -384,19 +385,20 @@ abstract class ApiObject implements \JsonSerializable
      *
      * @param  string $className The class name of the Object type
      * @param  array  $objects   An associative array to be converted into an object
+     * @param  bool   $lazyLoad  Should the casted objects be created lazily
      *
      * @since  0.2.0
      *
      * @return array An array of the specified objects
      */
-    final protected static function castArrayToObjectArray ($className, $objects)
+    final protected static function castArrayToObjectArray ($className, $objects, $lazyLoad = false)
     {
         $class = self::OBJ_NAMESPACE . $className;
         $array = [];
 
         foreach ($objects as $post)
         {
-            $array[] = new $class($post);
+            $array[] = new $class($post, $lazyLoad);
         }
 
         return $array;

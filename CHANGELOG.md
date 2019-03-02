@@ -1,5 +1,9 @@
 # Changelog
 
+### 0.3.4
+
+- Add support for tagging Pulses ([#18](https://github.com/allejo/PhpPulse/pull/18))
+
 ### 0.3.3
 
 - Add pagination options in `PulseBoard::getPulses()` method ([#17](https://github.com/allejo/PhpPulse/pull/17))

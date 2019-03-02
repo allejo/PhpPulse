@@ -26,6 +26,7 @@ class PulseColumn extends ApiObject
     const Numeric  = "numeric";
     const Person   = "person";
     const Status   = "status";
+    const Tag      = "tag";
     const Text     = "text";
     const Timeline = "timerange";
 
