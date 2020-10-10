@@ -1,3 +1,9 @@
+> This library is officially end-of-life. It does not and will not support the new GraphQL API.
+>
+> https://github.com/allejo/PhpPulse/issues/20
+
+---
+
 # PhpPulse
 
 [![Stable Release](https://img.shields.io/packagist/v/allejo/php-pulse.svg)](https://packagist.org/packages/allejo/php-pulse)
@@ -10,7 +16,7 @@
 | 0.3 | [![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=0.3)](https://travis-ci.org/allejo/PhpPulse) |
 | 0.4 | [![Build Status](https://travis-ci.org/allejo/PhpPulse.svg?branch=master)](https://travis-ci.org/allejo/PhpPulse) |
 
-A PHP wrapper for working with the [monday.com API](https://developers.monday.com/).
+A PHP wrapper for working with version 1 of the [monday.com API](https://developers.monday.com/).
 
 ## Requirements
 
